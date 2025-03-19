@@ -2,7 +2,8 @@ import React from 'react'
 import { Navbar } from '../../component/dashboard/Navbar'
 import { BsChatRightText } from "react-icons/bs";
 import { SlUserFollow } from "react-icons/sl";
-  import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty } from "react-icons/io";
+
 
 
 import { useState } from 'react'
@@ -56,12 +57,12 @@ function Details() {
             {/* like button */}
            <IoIosHeartEmpty  className="relative top-22 left-[90%]  text-3xl text-gray-800 bg-white rounded-full p-1" />
            <img src={img} alt="" className='h-[50vh] w-[30vw] border-gray-500 border-2 p-2 shadow-lg shadow-black rounded-[10px] mt-10'/>
-            <button className='text-white font-semibold bg-sky-700 w-[100%] h-10 shadow-md  shadow-gray-600  rounded-[10px] mt-5'>Add Bids</button>
+            <button className='text-white font-semibold bg-gray-700 w-[100%] h-10 shadow-sm  shadow-gray-600  rounded-[10px] mt-5'>Add Bids</button>
           </div>
            
          </div>
           
-         <div className='shadow-gray-400  bg-gradient-to-r from-sky-100 via-gray-100 to-white shadow-md  rounded-[5px] h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 '> 
+         <div className='shadow-gray-400  bg-white shadow-md border-2 border-gray-100  rounded-[5px] h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 '> 
           <div className='text-center'>            
             <img src={products?.owner.image} alt=""className='h-14 w-14 rounded-full ml-7 mt-2' />
             {/* <button className='flex justify-left items-center gap-2 shadow-md shadow-gray-200 hover:bg-sky-600  text-xl font-semibold bg-sky-400 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 ml-2'><BsChatRightText  /><p>Chat</p></button> */}
@@ -75,27 +76,27 @@ function Details() {
            
          </div>
          <div className=' h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 '>
-         <button className='flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-sky-400 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 '><BsChatRightText  /><p>Chat</p></button>
-         <button className='flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-blue-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1'><SlUserFollow /><p>follow</p></button>
+         <button className='flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 '><BsChatRightText  /><p>Chat</p></button>
+         <button className='flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1'><SlUserFollow /><p>follow</p></button>
 
          </div>
        </div>
       {/* side2 */}
-      <div className='bg-white text-black m-5 mr-10'>
-         <div className='border-gray-400 border-2 p-2 rounded-[5px] h-auto w-auto mt-5 bg-gray-50'>
-          <div className=' shadow-gray-400 shadow-sm p-2 rounded-[5px] bg-white'>
+      <div className='bg-white text-black m-5 mr-10 font-sans'>
+         <div className='border-gray-100 border-2 p-2 rounded-[5px] h-auto w-auto mt-5 bg-white font-mono'>
+          <div className=' shadow-gray-300 shadow-sm p-2 rounded-[5px] '>
             <h1 className='text-3xl font-semibold'>{products?.name}</h1>
             <p className='text-2xl text-gray-500'>{products?.price}</p>
           </div>
-          <div className='shadow-gray-400 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
+          <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
             <p className='text-xl font-semibold'>{products?.category}</p>
             <p className='text-xl text-gray-500'>{products?.other}</p>
           </div>
-          <div className='shadow-gray-400 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5'>
+          <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5'>
             <p className='text-xl font-semibold'>Location</p>
             <p className='text-xl text-gray-500'>{products?.location}</p>
           </div>
-          <div className='shadow-gray-400 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
+          <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
             <p className='text-xl font-semibold'>Description</p>
             <p className='text-xl text-gray-500'>{products?.description}</p>
           </div>
