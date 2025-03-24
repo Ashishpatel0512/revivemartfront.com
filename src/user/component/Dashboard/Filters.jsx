@@ -8,9 +8,9 @@ import { FaTshirt } from "react-icons/fa";
 import { MdSportsCricket } from "react-icons/md";
 import { IoFilter } from "react-icons/io5";
 import { GoTriangleDown } from "react-icons/go";
-
 import { useState } from 'react';
-export const Filters = () => {
+
+export const Filters = ({query,setquery}) => {
   
   const [showFilters, setShowFilters] = useState(false);
 
@@ -31,56 +31,54 @@ export const Filters = () => {
     
     <div className={filtercss}>
        <div className="flex justify-around items-center gap-20 mt-5 mb-5">
-       <div className='text-center'> 
+       <div className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Electronics"}})}}> 
         <button className={filterbtncss}>
-          <FaMobileScreen className='text-5xl  '  />
+          <FaMobileScreen className='text-5xl'/>
         </button>
         <p className='text-center font-mono text-sky-900'>Electronics</p>
         </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Vehicals"}})}}>
         <button className={filterbtncss} >
-          <FaCar className='text-5xl' />
+          <FaCar className='text-5xl's/>
         </button>
         <p className='text-center font-mono text-sky-900'>Vehicals</p>
         </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Furniture"}})}}>
         <button className={filterbtncss}>
           <GiSofa className='text-5xl' />
         </button>
         <p className='text-center font-mono text-sky-900'>Furnichar</p>
        </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Books"}})}}>
         <button className={filterbtncss}>
           <IoBookSharp className='text-5xl' />
         </button>
         <p className='text-center font-mono text-sky-900'>Books</p>
 
         </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Propertice"}})}}>
         <button className={filterbtncss}>
           <FaHome className='text-5xl' />
         </button>
         <p className='text-center font-mono text-sky-900'>Propertice</p>
 
         </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Fashion"}})}}>
         <button className={filterbtncss}>
           <FaTshirt className='text-5xl' />
         </button>
         <p className='text-center font-mono text-sky-900'>Fashion</p>
 
         </div>
-        <div  className='text-center'>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Sports"}})}}>
         <button className={filterbtncss}>
           <MdSportsCricket className='text-5xl' />
         </button>
         <p className='text-center font-mono text-sky-900'>Sports</p>
-
         </div>
-        
-       </div>
+     </div>
        
-       <div>
+        <div>
          <button className='flex items-center gap-3 p-3 rounded-[5px] bg-sky-900 text-white shadow-gray-300 shadow-md hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center'>
             <IoFilter className='text-xl text-sky-900 text-white'/>
             <p>Filters</p>

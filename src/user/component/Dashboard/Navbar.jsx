@@ -3,7 +3,7 @@ import { IoIosSearch } from "react-icons/io";
 import { IoLocation } from "react-icons/io5";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
-
+import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
 export const Navbar = ({products,setShowproduct}) => {
@@ -35,12 +35,12 @@ export const Navbar = ({products,setShowproduct}) => {
          </form>
 
         <div className="flex justify-around items-center gap-10">
-            <FaRegHeart className='text-2xl' />
+        <Link to={"/wishlist"} ><FaRegHeart className='text-2xl' /></Link>
             <div className="flex items-center">
               <IoLocation className='text-2xl text-skay-300'/>
               <p className='text-skay-300 ml-2'>Location</p>
             </div>
-            <button className='mr-8 p-1 pl-5 pr-5 rounded-md bg-sky-900	text-white '>Login</button>
+          <Link to={"/login"} ><button className='mr-8 p-1 pl-5 pr-5 rounded-md bg-sky-900	text-white '>Login</button></Link>
         </div>
 
 

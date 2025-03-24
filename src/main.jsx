@@ -6,18 +6,38 @@ import { Home } from "./user/pages/dashboardpage/Home";
 import { Profile } from "./user/pages/dashboardpage/Profile";
 import Details from "./user/pages/dashboardpage/Details";
 import { Notfound } from "./user/pages/dashboardpage/Notfound";
-
+import { AuthProvider } from "./user/context/usercontext";
+import PrivateRoute from "./user/pages/authpage/Protect";
+import Login from "./user/pages/authpage/login";
+import { Wishlist } from "./user/pages/dashboardpage/Wishlist";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/profile", element: <Profile /> },
-  { path: "/details", element: <Details /> },
+  { path: "/profile", element:(
+     <PrivateRoute>
+        <Profile />
+    </PrivateRoute>
+)  },
+  { path: "/login", element: <Login /> },
+
+  { path: "/details/:productid", element: (
+    <PrivateRoute>
+       <Details />
+   </PrivateRoute>
+)  },
+{ path: "/wishlist", element: (
+  <PrivateRoute>
+     <Wishlist />
+ </PrivateRoute>
+)  },
   { path: "*", element: <Notfound/> },
 ]);
 
 const App = () => (
-  <StrictMode>
+  // <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
-  </StrictMode>
+    </AuthProvider>
+  // </StrictMode>
 );
 
 createRoot(document.getElementById("root")).render(<App />);

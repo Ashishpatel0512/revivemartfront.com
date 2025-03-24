@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useAuth } from "../../context/usercontext";
 function Dpedit({uploadform,setuploadform}) {
-  
+  const { login }=useAuth();
+
   const [dp, setdp] = useState("");
   const backindex=` ${uploadform?"z-4 w-[100%] h-[100%] fixed top-[0px] left-[0px] bg-black opacity-85":""}`
   const disply="border-2 w-[90%] m-[10px] border-black inline-block rounded-[5px]";
@@ -32,6 +34,7 @@ console.log(localStorage.getItem("token"))
     const result = await response.json();
     if (response.ok) {
       console.log('File uploaded successfully:', result);
+      login(result.User)
       alert("File uploaded successfully");
       setuploadform(false)
     } else {

@@ -1,34 +1,42 @@
 import { useState } from "react";
 function Profileform({form,setform}) {
-  const [postTitle, setPostTitle] = useState("");
-  const [postDescription, setPostDescription] = useState("");
-  const [postCode, setPostCode] = useState("");
-  const [postThumbnail, setPostThumbnail] = useState("");
+  const [name, setname] = useState("");
+  const [description, setdescription] = useState("");
+  const [price, setprice] = useState("");
+  const [age, setage] = useState("");
+  const [location, setlocation] = useState("");
+  const [catagory, setcatagory] = useState("");
+  const [other, setother] = useState("");
   const [postimage, setPostImage] = useState("");
   const backindex=` ${form?"z-4 w-[100%] h-[100%] fixed top-[0px] left-[0px] bg-black opacity-85":""}`
-  const disply="border-2 w-[90%] m-[10px] border-black inline-block rounded-[5px]";
-  const formdisplay=`text-black bg-white inline-block fixed top-[20%] left-[45%] rounded-[5px] pt-7 ${form?"":"hidden z-100"} `
-const Changeposttitle=(e)=>{
-  setPostTitle(e.target.value)
-  console.log(postTitle)
+  const disply="border-2 w-[90%] h-10 m-[10px] pl-3 border-black inline-block rounded-[5px]";
+  const formdisplay=`text-black bg-white inline-block h-[80vh] overflow-y-auto fixed top-[3%] left-[35%] rounded-[5px] pt-7 ${form?"":"hidden z-100"} `
+const setproductname=(e)=>{
+  setname(e.target.value)
 }
-const Changepostdescription=(e)=>{
-  setPostDescription(e.target.value)
-  console.log(postDescription)
+const setproductdescription=(e)=>{
+  setdescription(e.target.value)
 }
-const Changepostcode=(e)=>{
-  setPostCode(e.target.files[0])
+const setproductprice=(e)=>{
+  setprice(e.target.value)
 }
-const Changepostcover=(e)=>{
-  setPostThumbnail(e.target.files[0])
+const setproductage=(e)=>{
+  setage(e.target.value)
+}
+const setproductlocation=(e)=>{
+  setlocation(e.target.value)
+}
+const setproductcatagory=(e)=>{
+  setcatagory(e.target.value)
+}
+const setproductother=(e)=>{
+  setother(e.target.value)
 }
 const Changepostimage=(e)=>{
   e.target.files.length>4?alert("you can upload only 5 images"):
   setPostImage(e.target.files)
 }
-console.log(postimage)
-console.log(postThumbnail)
-console.log(postCode)
+
 console.log(localStorage.getItem("token"))
   
   
@@ -36,15 +44,20 @@ console.log(localStorage.getItem("token"))
   const handleFileUpload = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-   formData.append('postTitle', postTitle);
-    formData.append('postDescription', postDescription);
-    formData.append('postcode', postCode);
-    formData.append('postcover', postThumbnail);
+   formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price',price);
+    formData.append('age', age);
+    formData.append('location', location);
+    formData.append('catagory', catagory);
+    formData.append('other', other);
+
     for (let i = 0; i < postimage.length; i++) {
-      formData.append('postimage', postimage[i]);
+      formData.append('image', postimage[i]);
     }
    console.log("form",formData.getAll('postimage'))
-    const response = await fetch('http://localhost:3000/newpost', {
+   console.log("hello")
+    const response = await fetch('http://localhost:3000/newproduct', {
       method: 'POST',
       headers:{
         "Authorization":localStorage.getItem("token")
@@ -70,13 +83,26 @@ console.log(localStorage.getItem("token"))
     </div>
     <div className={formdisplay}>
       <form onSubmit={handleFileUpload}>
-                    
-                    <input type="text" name="posttitle" className={disply} placeholder="enter project title" onChange={Changeposttitle} value={postTitle}/><br /><br />
-                    <input type="text" name="postdescription" className={disply} placeholder="enter project description" value={postDescription} onChange={Changepostdescription}/><br /><br />
-                    <input type="file" name="postcode" className={disply} accept=".zip" onChange={Changepostcode}/><br /><br />
-                    <input type="file" name="postcover" className={disply} onChange={Changepostcover} /><br /><br />
-                   <input type="file" name="postimage" className={disply} multiple onChange={Changepostimage}  /><br /><br />
-                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"/>
+                     <input type="text" name="productname" className={disply} placeholder="enter product name" onChange={setproductname} value={name}/><br /><br />
+                    <input type="text" name="productdescription" className={disply} placeholder="enter product description" value={description} onChange={setproductdescription}/><br /><br />
+                    <input type="number" name="price" className={disply} value={price} onChange={setproductprice} placeholder="enter price"/><br /><br />
+                    <input type="number" name="age" className={disply} value={age} onChange={setproductage} placeholder="enter how many year old" /><br /><br />
+                    <input type="text" name="location" className={disply} placeholder="enter location" value={location} onChange={setproductlocation}/><br /><br />
+                    <select name="catagory" id="catagory" className={disply} value={catagory} onChange={setproductcatagory}>
+                     <option value="Furniture">Furniture</option>
+                     <option value="Electronics">Electronics</option>
+                     <option value="Vehicle">Vehicle</option>
+                     <option value="Other">Other</option>
+                     </select><br />
+                     <select name="other" id="catagory" className={disply} value={other} onChange={setproductother}>
+                     <option value="Warranty">Warranty</option>
+                     <option value="Guarantee">Guarantee</option>
+                     <option value="Warranty-Guarantee">Warranty-Guarantee</option>
+                     <option value="Not Availble">None</option>
+        
+                     </select>
+                    <input type="file" name="image" className={disply} multiple onChange={Changepostimage}  /><br /><br />
+                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[40%] hover:bg-emerald-400"/>
 
         </form>
         </div>

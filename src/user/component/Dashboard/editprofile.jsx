@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useAuth } from "../../context/usercontext";
 function EditProfile({updateform,setupdateform}) {
-  
+  const {login}=useAuth()
   const [name, setname] = useState("");
   const [emailid, setemailid] = useState("");
 
@@ -39,6 +40,7 @@ console.log(localStorage.getItem("token"))
     const result = await response.json();
     if (result.success) {
       console.log('update successfully:', result);
+      login(result.User)
       alert(result.SuccessMsg);
       setupdateform(false)
     } else {

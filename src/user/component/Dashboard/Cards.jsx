@@ -408,11 +408,15 @@ const products = [
   ]
   import { useState } from "react";
   import { IoIosHeartEmpty } from "react-icons/io";
+import { wishlist } from "../../services/services";
+import { Link } from "react-router-dom";
 
 
   export  function Cards({showproduct}) {
     const [count, setCount] = useState(4)
-
+     
+   
+   
 
     return (
       <div className="bg-gradient-to-t from-gray-100 via-gray-50 to-white mt-[10vh]">
@@ -420,23 +424,23 @@ const products = [
           <h2 className="mb-10 text-xl font-bold ml-5">Explore Products</h2>
          
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
-            {showproduct.slice(0,count).map((product) => (
+            {showproduct?.slice(0,count).map((product) => (
               
-                <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
+             <Link to={`/details/${product._id}`}> 
+               <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
                 {/* like */}
-                <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" />
+                <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" onClick={()=>{wishlist(product._id)}}/>
 
                 <a key={product.id} href={product.href} className="group">
                 <img
-                  alt={product.imageAlt}
-                  src={product.imageSrc}
-                  className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+                  src={product?.image[0]?.url}
+                  className="aspect-square w-full rounded-lg bg-gray-200 object-cover"
                 />
                 <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+                <p className="mt-1 text-lg font-medium text-gray-900">{product.price}&#x20b9;</p>
               </a>
               </div>
-               
+              </Link>
             ))}
             <button className=" bg-black text-white text-center p-0" onClick={()=>{setCount(count+4)}}>More..</button>
           </div>
