@@ -86,8 +86,8 @@
 
 
 
-//THIS IS A SECOND FUNCNILITY 
-//THIS IS SEARCH LOCATION 
+// THIS IS A SECOND FUNCNILITY 
+// THIS IS SEARCH LOCATION 
 
 
 
@@ -166,7 +166,7 @@
 
 
 
-///THIS IS THIRD MAP
+// /THIS IS THIRD MAP
 // USE MY NEARASET PRODUCTS SEARCH IN 100 KM
 
 // import React, { useState, useEffect } from "react";
@@ -277,3 +277,346 @@
 // };
 
 // export default CarSalesMap;
+
+// forth
+
+
+// import React, { useState, useEffect } from "react";
+// import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
+// import { OpenStreetMapProvider } from "leaflet-geosearch";
+
+// const MapSearch = () => {
+//   const [location, setLocation] = useState({ lat: 22.5726, lng: 88.3639 }); // Default: Kolkata
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [suggestions, setSuggestions] = useState([]);
+//   const [errorMessage, setErrorMessage] = useState("");
+
+//   const provider = new OpenStreetMapProvider();
+
+//   // Fetch location suggestions
+//   const handleSearchChange = async (e) => {
+//     const query = e.target.value;
+//     setSearchTerm(query);
+    
+//     if (query.length > 2) {
+//       try {
+//         const results = await provider.search({ query });
+//         console.log(results)
+//         setSuggestions(results);
+//       } catch (error) {
+//         setSuggestions([]);
+//       }
+//     } else {
+//       setSuggestions([]);
+//     }
+//   };
+
+//   // Select a location from suggestions
+//   const selectLocation = (lat, lng, name) => {
+//     setLocation({ lat, lng });
+//     setSearchTerm(name);
+//     setSuggestions([]);
+//   };
+
+//   // Custom hook to update map center
+//   function UpdateMapView({ center }) {
+//     const map = useMap();
+//     useEffect(() => {
+//       map.setView(center, 10);
+//     }, [center]);
+//     return null;
+//   }
+
+//   return (
+//     <div style={{ textAlign: "center", padding: "20px" }}>
+//       <h2>Search Any Location Online</h2>
+
+//       <input
+//         type="text"
+//         value={searchTerm}
+//         onChange={handleSearchChange}
+//         placeholder="Enter location name"
+//         style={{ padding: "8px", width: "250px", marginRight: "10px" }}
+//       />
+      
+//       <div style={{ position: "relative", width: "250px", marginBottom: "100px" }}>
+//         {suggestions.length > 0 && (
+//           <ul style={{
+//             listStyle: "none",
+//             padding: "5px",
+//             margin: 0,
+//             background: "#fff",
+//             position: "absolute",
+//             width: "100%",
+//             border: "1px solid #ccc",
+//             zIndex: 10,
+//           }}>
+//             {suggestions.map((place, index) => (
+//               <li
+//                 key={index}
+//                 onClick={() => selectLocation(place.y, place.x, place.label)}
+//                 style={{ padding: "8px", cursor: "pointer", borderBottom: "1px solid #ddd" }}
+//               >
+//                 {place.label}
+//               </li>
+//             ))}
+//           </ul>
+//         )}
+//       </div>
+      
+//       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+//       <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p>
+
+//       <MapContainer center={[location.lat, location.lng]} zoom={10} style={{ height: "400px", width: "50%", left:"500px" }}>
+//         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+//         <Marker position={[location.lat, location.lng]} />
+//         <UpdateMapView center={[location.lat, location.lng]} />
+//       </MapContainer>
+//     </div>
+//   );
+// };
+
+// export default MapSearch;
+//fifth
+
+// import React, { useState, useEffect } from "react";
+// import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
+// import { OpenStreetMapProvider } from "leaflet-geosearch";
+
+// const MapSearch = () => {
+//   const [location, setLocation] = useState({ lat: 22.5726, lng: 88.3639 }); // Default: Kolkata
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [suggestions, setSuggestions] = useState([]);
+//   const [errorMessage, setErrorMessage] = useState("");
+//   const [selectedCountry, setSelectedCountry] = useState("India");
+
+//   const provider = new OpenStreetMapProvider();
+
+//   const countries = ["India", "USA", "UK", "Canada", "Australia"];
+
+//   // Fetch location suggestions within the selected country
+//   const handleSearchChange = async (e) => {
+//     const query = e.target.value;
+//     setSearchTerm(query);
+    
+//     if (query.length > 2) {
+//       try {
+//         const results = await provider.search({ query });
+//         const filteredResults = results.filter(place => place.label.includes(selectedCountry));
+        
+//         if (filteredResults.length > 0) {
+//           setSuggestions(filteredResults);
+//           setErrorMessage("");
+//         } else {
+//           setSuggestions([]);
+//           setErrorMessage("Location not found in selected country.");
+//         }
+//       } catch (error) {
+//         setSuggestions([]);
+//         setErrorMessage("Error fetching location. Check your internet connection.");
+//       }
+//     } else {
+//       setSuggestions([]);
+//     }
+//   };
+
+//   // Select a location from suggestions
+//   const selectLocation = (lat, lng, name) => {
+//     setLocation({ lat, lng });
+//     setSearchTerm(name);
+//     setSuggestions([]);
+//   };
+
+//   // Custom hook to update map center
+//   function UpdateMapView({ center }) {
+//     const map = useMap();
+//     useEffect(() => {
+//       map.setView(center, 10);
+//     }, [center]);
+//     return null;
+//   }
+
+//   return (
+//     <div style={{ textAlign: "center", padding: "20px" }}>
+//       <h2>Search Any Location Online</h2>
+
+//       <select 
+//         value={selectedCountry} 
+//         onChange={(e) => setSelectedCountry(e.target.value)}
+//         style={{ padding: "8px", marginBottom: "10px" }}
+//       >
+//         {countries.map((country, index) => (
+//           <option key={index} value={country}>{country}</option>
+//         ))}
+//       </select>
+
+//       <input
+//         type="text"
+//         value={searchTerm}
+//         onChange={handleSearchChange}
+//         placeholder="Enter location name"
+//         style={{ padding: "8px", width: "250px", marginRight: "10px" }}
+//       />
+      
+//       <div style={{ position: "relative", width: "250px", margin: "auto" }}>
+//         {suggestions.length > 0 && (
+//           <ul style={{
+//             listStyle: "none",
+//             padding: "5px",
+//             margin: 0,
+//             background: "#fff",
+//             position: "absolute",
+//             width: "100%",
+//             border: "1px solid #ccc",
+//             zIndex: 10,
+//           }}>
+//             {suggestions.map((place, index) => (
+//               <li
+//                 key={index}
+//                 onClick={() => selectLocation(place.y, place.x, place.label)}
+//                 style={{ padding: "8px", cursor: "pointer", borderBottom: "1px solid #ddd" }}
+//               >
+//                 {place.label}
+//               </li>
+//             ))}
+//           </ul>
+//         )}
+//       </div>
+      
+//       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+//       <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p>
+
+//       <MapContainer center={[location.lat, location.lng]} zoom={10} style={{ height: "400px", width: "30%" }}>
+//         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+//         <Marker position={[location.lat, location.lng]} />
+//         <UpdateMapView center={[location.lat, location.lng]} />
+//       </MapContainer>
+//     </div>
+//   );
+// };
+
+// export default MapSearch;
+
+// sixth
+
+import React, { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { OpenStreetMapProvider } from "leaflet-geosearch";
+
+const MapSearch = () => {
+  const [location, setLocation] = useState({ lat: 22.5726, lng: 88.3639 }); // Default: Kolkata
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("India");
+
+  const provider = new OpenStreetMapProvider();
+
+  const countries = ["India", "USA", "UK", "Canada", "Australia"];
+
+  // Fetch location suggestions within the selected country
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchTerm.length > 2) {
+        try {
+          const results = await provider.search({ query: searchTerm });
+          const filteredResults = results.filter(place => place.label.includes(selectedCountry));
+          
+          if (filteredResults.length > 0) {
+            setSuggestions(filteredResults);
+            setErrorMessage("");
+          } else {
+            setSuggestions([]);
+            setErrorMessage("Location not found in selected country.");
+          }
+        } catch (error) {
+          setSuggestions([]);
+          setErrorMessage("Error fetching location. Check your internet connection.");
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    fetchSuggestions();
+  }, [searchTerm, selectedCountry]);
+
+  // Select a location from suggestions
+  const selectLocation = (lat, lng, name) => {
+    setLocation({ lat, lng });
+    setSearchTerm(name);
+    setSuggestions([]);
+  };
+
+  // Custom hook to update map center
+  function UpdateMapView({ center }) {
+    const map = useMap();
+    useEffect(() => {
+      map.setView(center, 10);
+    }, [center]);
+    return null;
+  }
+
+  return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2>Search Any Location Online</h2>
+
+      <select 
+        value={selectedCountry} 
+        onChange={(e) => setSelectedCountry(e.target.value)}
+        style={{ padding: "8px", marginBottom: "10px" }}
+      >
+        {countries.map((country, index) => (
+          <option key={index} value={country}>{country}</option>
+        ))}
+      </select>
+
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Enter location name"
+        style={{ padding: "8px", width: "250px", marginRight: "10px" }}
+      />
+      
+      <div style={{ position: "relative", width: "250px", margin: "auto" }}>
+        {suggestions.length > 0 && (
+          <ul style={{
+            listStyle: "none",
+            padding: "5px",
+            margin: 0,
+            background: "#fff",
+            position: "absolute",
+            width: "100%",
+            border: "1px solid #ccc",
+            zIndex: 10,
+          }}>
+            {suggestions.map((place, index) => (
+              <li
+                key={index}
+                onClick={() => selectLocation(place.y, place.x, place.label)}
+                style={{ padding: "8px", cursor: "pointer", borderBottom: "1px solid #ddd" }}
+              >
+                {place.label}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p>
+
+      <MapContainer center={[location.lat, location.lng]} zoom={10} style={{ height: "400px", width: "30%" }}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <Marker position={[location.lat, location.lng]} />
+        <UpdateMapView center={[location.lat, location.lng]} />
+      </MapContainer>
+    </div>
+  );
+};
+
+export default MapSearch;

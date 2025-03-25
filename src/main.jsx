@@ -10,6 +10,7 @@ import { AuthProvider } from "./user/context/usercontext";
 import PrivateRoute from "./user/pages/authpage/Protect";
 import Login from "./user/pages/authpage/login";
 import { Wishlist } from "./user/pages/dashboardpage/Wishlist";
+import { Chat } from "./user/pages/dashboardpage/Chat";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/profile", element:(
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
 { path: "/wishlist", element: (
   <PrivateRoute>
      <Wishlist />
+ </PrivateRoute>
+)  },
+{ path: "/chat", element: (
+  <PrivateRoute>
+     <Chat />
  </PrivateRoute>
 )  },
   { path: "*", element: <Notfound/> },
