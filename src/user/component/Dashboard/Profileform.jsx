@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import MapSearch from "./Map";
+
 function Profileform({form,setform}) {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
   const [age, setage] = useState("");
-  const [location, setlocation] = useState("");
+  const [location, setlocation] = useState({latitude: 23.8191985, longitude: 72.544133});
   const [catagory, setcatagory] = useState("");
   const [other, setother] = useState("");
   const [postimage, setPostImage] = useState("");
@@ -39,7 +42,7 @@ const Changepostimage=(e)=>{
 
 console.log(localStorage.getItem("token"))
   
-  
+  console.log("location",location)
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
@@ -47,8 +50,9 @@ console.log(localStorage.getItem("token"))
    formData.append('name', name);
     formData.append('description', description);
     formData.append('price',price);
-    formData.append('age', age);
-    formData.append('location', location);
+    formData.append('age', age); 
+    formData.append('latitude', location.latitude);
+    formData.append('longitude', location.longitude);
     formData.append('catagory', catagory);
     formData.append('other', other);
 
@@ -87,11 +91,15 @@ console.log(localStorage.getItem("token"))
                     <input type="text" name="productdescription" className={disply} placeholder="enter product description" value={description} onChange={setproductdescription}/><br /><br />
                     <input type="number" name="price" className={disply} value={price} onChange={setproductprice} placeholder="enter price"/><br /><br />
                     <input type="number" name="age" className={disply} value={age} onChange={setproductage} placeholder="enter how many year old" /><br /><br />
-                    <input type="text" name="location" className={disply} placeholder="enter location" value={location} onChange={setproductlocation}/><br /><br />
+                    {/* <input type="text" name="location" className={disply} placeholder="enter location" value={location} onChange={setproductlocation}/><br /><br /> */}
                     <select name="catagory" id="catagory" className={disply} value={catagory} onChange={setproductcatagory}>
                      <option value="Furniture">Furniture</option>
                      <option value="Electronics">Electronics</option>
-                     <option value="Vehicle">Vehicle</option>
+                     <option value="Vehicles">Vehicles</option>
+                     <option value="Books">Books</option>
+                     <option value="Properties">Properties</option>
+                     <option value="Sports">Sports</option>
+                     <option value="Fashion">Fashion</option>
                      <option value="Other">Other</option>
                      </select><br />
                      <select name="other" id="catagory" className={disply} value={other} onChange={setproductother}>
@@ -102,6 +110,18 @@ console.log(localStorage.getItem("token"))
         
                      </select>
                     <input type="file" name="image" className={disply} multiple onChange={Changepostimage}  /><br /><br />
+
+                 {/* location */}
+
+                    <p className="text-xl text-semibold text-center border-b-2 border-black">Confirm your location</p>
+                    <p onClick={(e) => {navigator.geolocation.getCurrentPosition((pos) => setlocation({latitude:pos.coords.latitude,longitude: pos.coords.longitude}) )}} 
+                    className="text-center text-blue-700 flex  items-center	justify-center font-semibold border-2 border-gray-300 mt-5 mb-5"><FaLocationCrosshairs className="mr-3" /><p>use current loction</p>
+                    </p>
+                    
+                    <MapSearch location={location} setlocation={setlocation}/>
+
+                 {/* ^loction */}
+
                     <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[40%] hover:bg-emerald-400"/>
 
         </form>

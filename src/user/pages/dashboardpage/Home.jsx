@@ -413,6 +413,7 @@ import { useEffect, useState } from 'react';
 import { fetchproducts } from "../../services/services";
 import { Filters } from "../../component/Dashboard/Filters";
 import { useAuth } from "../../context/usercontext";
+import CarSalesMap from "../../component/Dashboard/Loctionfilter";
 
 export const Home = () => {
   const {user,login}=useAuth();
@@ -451,6 +452,8 @@ export const Home = () => {
         <Navbar products={products} setShowproduct={setShowproduct}/>
         <Filters query={query} setquery={setquery}/>
        <Cards showproduct={showproduct}/>
+       {/* map */}
+       <CarSalesMap showproduct={showproduct} setshowproduct={setShowproduct} />
     </div>
     </>
    

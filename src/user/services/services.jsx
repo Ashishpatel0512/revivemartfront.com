@@ -17,7 +17,7 @@ export const fetchproducts = async (query) => {
   try {
     console.log(token)
     console.log("q is api...",query)
-    const response = await apiClient.get(`/showproducts?name=${query.name}&catagory=${query.catagory}&minprice=${query.minprice}&maxprice=${query.maxname}&minage=${query.minage}&maxage=${query.maxage}`);
+    const response = await apiClient.get(`/showproducts?name=${query.name}&catagory=${query.catagory}&minprice=${query.minprice}&maxprice=${query.maxprice}&minage=${query.minage}&maxage=${query.maxage}`);
     console.log("dataaaaa",response.data)
     return response.data;
     

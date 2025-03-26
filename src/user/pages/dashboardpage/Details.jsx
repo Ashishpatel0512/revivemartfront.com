@@ -1,3 +1,11 @@
+//map
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+//
+
+
+
 import React from 'react'
 import { Navbar } from '../../component/dashboard/Navbar'
 import { BsChatRightText } from "react-icons/bs";
@@ -44,6 +52,7 @@ function Details() {
   const { productid } = useParams();
   console.log("product id in details page", productid);
   const [products, setProducts] = useState();
+  const [location,setlocation]=useState();
   const [img, setImg] = useState();
   const [bidamount, setbidamount] = useState()
   const [message, setmessage] = useState();
@@ -57,6 +66,7 @@ function Details() {
     fetchproductinfo(productid).then((data) => {
       console.log("data...", data.productinfo)
       setProducts(data.productinfo)
+      setlocation([data.productinfo.location.latitude,data.productinfo.location.longitude])
       setImg(data?.productinfo?.image[0]?.url)
         (data.productinfo.User[0].follwers?.includes(user._id) ? setisfollow(true) : setisfollow(false));
     });
@@ -118,6 +128,15 @@ function Details() {
             <button className='flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1' onClick={follow} ><SlUserFollow />{isfollow ? <p>unfollow</p> : <p>follow</p>}</button>
 
           </div>
+          {/* map */}
+          { location?
+          <div className="w-[40vw] h-[50vh] border-2 border-black ml-10">
+           <MapContainer center={location} zoom={10} style={{ height: "100%", width: "100%" }}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+         <Marker position={location} />
+      </MapContainer>
+         </div> :"" }
+         {/* map& */}
         </div>
         {/* side2 */}
         <div className='bg-white text-black m-5 mr-10 font-sans'>
@@ -130,9 +149,15 @@ function Details() {
               <p className='text-xl font-semibold'>{products?.catagory}</p>
               <p className='text-xl text-gray-500'>{products?.other}</p>
             </div>
+            <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
+              <p className='text-xl font-semibold'>Year</p>
+              <p className='text-xl text-gray-500'>{products?.age}/yearold</p>
+            </div>
             <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5'>
               <p className='text-xl font-semibold'>Location</p>
-              <p className='text-xl text-gray-500'>{products?.location}</p>
+              <p className='text-xl text-gray-500'>{products?.location.latitude}</p>
+              <p className='text-xl text-gray-500'>{products?.location.longitude}</p>
+
             </div>
             <div className='shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5' >
               <p className='text-xl font-semibold'>Description</p>

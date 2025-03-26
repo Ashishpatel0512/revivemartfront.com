@@ -8,6 +8,10 @@ import { FaTshirt } from "react-icons/fa";
 import { MdSportsCricket } from "react-icons/md";
 import { IoFilter } from "react-icons/io5";
 import { GoTriangleDown } from "react-icons/go";
+import { TbFiltersFilled } from "react-icons/tb";
+
+import { MdFormatColorText } from "react-icons/md";
+
 import { useState } from 'react';
 
 export const Filters = ({query,setquery}) => {
@@ -31,17 +35,23 @@ export const Filters = ({query,setquery}) => {
     
     <div className={filtercss}>
        <div className="flex justify-around items-center gap-20 mt-5 mb-5">
+       <div className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:undefined}})}}> 
+        <button className={filterbtncss}>
+          < TbFiltersFilled className='text-5xl'/>
+        </button>
+        <p className='text-center font-mono text-sky-900'>All</p>
+        </div>
        <div className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Electronics"}})}}> 
         <button className={filterbtncss}>
           <FaMobileScreen className='text-5xl'/>
         </button>
         <p className='text-center font-mono text-sky-900'>Electronics</p>
         </div>
-        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Vehicals"}})}}>
-        <button className={filterbtncss} >
-          <FaCar className='text-5xl's/>
+        <div className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Vehicles"}})}}> 
+        <button className={filterbtncss}>
+          <FaCar  className='text-5xl'/>
         </button>
-        <p className='text-center font-mono text-sky-900'>Vehicals</p>
+        <p className='text-center font-mono text-sky-900'>Vehicles</p>
         </div>
         <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Furniture"}})}}>
         <button className={filterbtncss}>
@@ -56,11 +66,11 @@ export const Filters = ({query,setquery}) => {
         <p className='text-center font-mono text-sky-900'>Books</p>
 
         </div>
-        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Propertice"}})}}>
+        <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Properties"}})}}>
         <button className={filterbtncss}>
           <FaHome className='text-5xl' />
         </button>
-        <p className='text-center font-mono text-sky-900'>Propertice</p>
+        <p className='text-center font-mono text-sky-900'>Properties</p>
 
         </div>
         <div  className='text-center' onClick={()=>{setquery((data)=>{ return {...data,catagory:"Fashion"}})}}>
