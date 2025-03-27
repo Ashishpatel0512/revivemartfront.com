@@ -124,7 +124,7 @@ function Details() {
 
           </div>
           <div className=' h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 '>
-         <Link onClick={()=>{setReceiver(products?.User[0]?._id)}} to={"/chat"}  > <button className='flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 '><BsChatRightText /><p>Chat</p></button></Link>  
+         <Link onClick={()=>{setReceiver(products?.User[0])}} to={"/chat"}  > <button className='flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 '><BsChatRightText /><p>Chat</p></button></Link>  
             <button className='flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1' onClick={follow} ><SlUserFollow />{isfollow ? <p>unfollow</p> : <p>follow</p>}</button>
 
           </div>

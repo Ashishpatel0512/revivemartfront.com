@@ -441,7 +441,7 @@ const MapSearch = ({location, setlocation}) => {
   return (
     <div>
 
-      <h2 className="mb-1 text-center text-xl font-semibold">set location</h2>
+      {/* <h2 className="mb-1 text-center text-xl font-semibold">set location</h2> */}
       <div className="flex justify-center items-center mb-5 border-2 border-gray-700">
       <select 
         value={selectedCountry} 
@@ -461,7 +461,7 @@ const MapSearch = ({location, setlocation}) => {
         className="border-2 border-gray-300 p-1 w-[80%] "
       />
       </div>
-      <div className="w-[100%] mb-auto text-center">
+      <div className="w-[100%] mb-auto text-center h-[40vh] overflow-auto">
         {suggestions.length > 0 && (
           <ul style={{
             listStyle: "none",

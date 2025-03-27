@@ -74,7 +74,7 @@ const CarSalesMap = ({showproduct,setshowproduct}) => {
     
     <div>
       {/* Search Bar & Track Button */}
-      <div className="grid grid-cols-1 w-[20vw] border-2 border-black fixed top-[15%] right-[10%] bg-sky-100">
+      <div className="grid grid-cols-1 w-[20vw] border-2 border-black fixed top-[12%] right-[10%] bg-sky-100 hidden">
         {/* <input
           type="text"
           placeholder="Search location..."

@@ -4,13 +4,15 @@ import { IoLocation } from "react-icons/io5";
 import { MdKeyboardVoice } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/usercontext';
 
 import { useState } from 'react';
 export const Navbar = ({products,setShowproduct}) => {
   console.log("products",products);
   const [text, setText] =useState('');
-
-
+  const {user}=useAuth();
+  console.log(user,"user in navbar")
+  // speech to text
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   recognition.lang = "en-US";
   recognition.continuous = false;
@@ -35,12 +37,15 @@ export const Navbar = ({products,setShowproduct}) => {
          </form>
 
         <div className="flex justify-around items-center gap-10">
-        <Link to={"/wishlist"} ><FaRegHeart className='text-2xl' /></Link>
+            <Link to={"/wishlist"} ><FaRegHeart className='text-2xl' /></Link>
             <div className="flex items-center">
               <IoLocation className='text-2xl text-skay-300'/>
               <p className='text-skay-300 ml-2'>Location</p>
             </div>
-          <Link to={"/login"} ><button className='mr-8 p-1 pl-5 pr-5 rounded-md bg-sky-900	text-white '>Login</button></Link>
+            {user?
+            <Link to={"/profile"} ><img src={user?.image?.url} alt="" className='h-10 w-10 rounded-full'/></Link>:
+            <Link to={"/login"} ><button className='mr-8 p-1 pl-5 pr-5 rounded-md bg-sky-900	text-white '>Login</button></Link>
+            }
         </div>
 
 
