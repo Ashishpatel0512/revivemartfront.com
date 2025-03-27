@@ -12,7 +12,7 @@ const carSaleLocations = [
   { id: 1, name: "Car Shop A", lat: 23.0225, lng: 72.5714 }, // Ahmedabad
   { id: 2, name: "Car Shop B", lat: 22.3039, lng: 70.8022 }, // Rajkot
   { id: 3, name: "Car Shop C", lat: 21.1702, lng: 72.8311 }, // Surat
-  { id: 4, name: "Car Shop D", lat: 19.0760, lng: 72.8777 }, // Mumbai
+  { id: 4, name: "Car Shop D", lat: 19.076, lng: 72.8777 }, // Mumbai
 ];
 
 const UpdateMapView = ({ center }) => {
@@ -35,18 +35,21 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
   return R * c; // Distance in km
 };
 
-const CarSalesMap = ({showproduct,setshowproduct}) => {
+const CarSalesMap = ({ showproduct, setshowproduct, locationtrue }) => {
   const [location, setlocation] = useState();
   const [searchLocation, setSearchLocation] = useState("");
   const [filteredLocations, setFilteredLocations] = useState([]);
-  const [showmap,setshowmap]=useState(true)
- const mapcss=`fixed top-20 left-0 flex ${showmap?"":'hidden'}`
+  const [showmap, setshowmap] = useState(true);
+  const mapcss = `fixed top-20 left-0 flex ${showmap ? "" : "hidden"}`;
+  const searchboxcss = `grid grid-cols-1 w-[20vw]  fixed top-[8%] right-[10%] bg-gray-50 shadow-2xl shadow-black z-20 ${
+    locationtrue ? "" : "hidden"
+  }`;
   // 📌 Get User's Location
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setlocation({  latitude,  longitude });
+        setlocation({ latitude, longitude });
       },
       (error) => console.error("Error getting location:", error),
       { enableHighAccuracy: true }
@@ -55,14 +58,19 @@ const CarSalesMap = ({showproduct,setshowproduct}) => {
 
   useEffect(() => {
     if (location) {
-      const nearbyLocations = showproduct.filter((shop) =>
-        getDistance(location.latitude, location.longitude, shop?.location.latitude, shop.location.longitude) <= 100
+      const nearbyLocations = showproduct.filter(
+        (shop) =>
+          getDistance(
+            location.latitude,
+            location.longitude,
+            shop?.location.latitude,
+            shop.location.longitude
+          ) <= 100
       );
       setFilteredLocations(nearbyLocations);
-      setshowproduct(nearbyLocations)
-      setshowmap(true)
+      setshowproduct(nearbyLocations);
+      setshowmap(true);
     }
-    
   }, [location]);
 
   const handleSearch = () => {
@@ -71,11 +79,10 @@ const CarSalesMap = ({showproduct,setshowproduct}) => {
 
   return (
     <>
-    
-    <div>
-      {/* Search Bar & Track Button */}
-      <div className="grid grid-cols-1 w-[20vw] border-2 border-black fixed top-[12%] right-[10%] bg-sky-100 hidden">
-        {/* <input
+      <div>
+        {/* Search Bar & Track Button */}
+        <div className={searchboxcss}>
+          {/* <input
           type="text"
           placeholder="Search location..."
           value={searchLocation}
@@ -83,44 +90,71 @@ const CarSalesMap = ({showproduct,setshowproduct}) => {
           style={{ padding: "10px", width: "70%" }}
         />
         <button onClick={handleSearch} style={{ padding: "10px", marginLeft: "10px" }}>Search</button> */}
-        <button
-          onClick={() => navigator.geolocation.getCurrentPosition((pos) => setlocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude }))}
-        className=" text-blue-500 text-lg border-b-2 border-gray-300 w-[100%]"
-        >Track My Location</button>
-        {/* search button */}
-        <MapSearch location={location} setlocation={setlocation}/>
+          <button
+            onClick={() =>
+              navigator.geolocation.getCurrentPosition((pos) =>
+                setlocation({
+                  latitude: pos.coords.latitude,
+                  longitude: pos.coords.longitude,
+                })
+              )
+            }
+            className=" text-blue-500 text-lg border-b-2 border-gray-300 w-[100%]"
+          >
+            Track My Location
+          </button>
+          {/* search button */}
+          <MapSearch location={location} setlocation={setlocation} />
+        </div>
 
+        {location && (
+          <div className={mapcss}>
+            <MapContainer
+              center={[location.latitude, location.longitude]}
+              zoom={100} // Adjusted zoom level for better visibility
+              className="h-[100vh] w-[40vw] "
+            >
+              <UpdateMapView center={[location.latitude, location.longitude]} />
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+              {/* User's Location Marker */}
+              <Marker position={[location.latitude, location.longitude]}>
+                <Popup>📍 You are here!</Popup>
+              </Marker>
+
+              {/* Display Car Sale Shops within 100km */}
+              {filteredLocations.map((shop) => (
+                <Marker
+                  key={shop._id}
+                  position={[shop.location.latitude, shop.location.longitude]}
+                >
+                  <Popup>
+                    <Link to={`details/${shop._id}`}>
+                      {" "}
+                      <img
+                        src={shop.image[0].url}
+                        alt={shop.name}
+                        style={{
+                          width: "500px",
+                          height: "auto",
+                          marginTop: "5px",
+                        }}
+                      />
+                    </Link>
+                    <h1> {shop.name}</h1>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+            <FaCaretSquareLeft
+              className="text-xl mt-[50vh]"
+              onClick={() => {
+                setshowmap(false);
+              }}
+            />
+          </div>
+        )}
       </div>
-      
-      {location && (
-        <div className={mapcss}>
-        <MapContainer
-          center={[location.latitude, location.longitude]}
-          zoom={100} // Adjusted zoom level for better visibility
-          className="h-[100vh] w-[40vw] "
-        >
-          <UpdateMapView center={[location.latitude, location.longitude]} />
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-          {/* User's Location Marker */}
-          <Marker position={[location.latitude,location.longitude]}>
-            <Popup>📍 You are here!</Popup>
-          </Marker>
-
-          {/* Display Car Sale Shops within 100km */}
-          {filteredLocations.map((shop) => (
-            <Marker key={shop._id} position={[shop.location.latitude, shop.location.longitude]}>
-              <Popup>
-                <Link to={`details/${shop._id}`} > <img src={shop.image[0].url} alt={shop.name} style={{ width: "500px", height: "auto", marginTop: "5px" }} /></Link>
-                 <h1> {shop.name}</h1>
-                </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-        <FaCaretSquareLeft className="text-xl mt-[50vh]"   onClick={()=>{setshowmap(false)}}/>
-      </div>
-      )}
-    </div>
     </>
   );
 };

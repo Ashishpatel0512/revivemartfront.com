@@ -407,55 +407,61 @@
 //   // More products...
 // ]
 
-import { Navbar } from "../../component/dashboard/Navbar"
-import { Cards } from "../../component/Dashboard/Cards"
-import { useEffect, useState } from 'react';
+import { Navbar } from "../../component/dashboard/Navbar";
+import { Cards } from "../../component/Dashboard/Cards";
+import { useEffect, useState } from "react";
 import { fetchproducts } from "../../services/services";
 import { Filters } from "../../component/Dashboard/Filters";
 import { useAuth } from "../../context/usercontext";
 import CarSalesMap from "../../component/Dashboard/Loctionfilter";
 
 export const Home = () => {
-  const {user,login}=useAuth();
-  console.log("homepage",user)
+  const { user, login } = useAuth();
+  const [locationtrue, setlocationtrue] = useState(false);
+  console.log("homepage", user);
   // login("Ashish")
 
-  const [products,setproduct]=useState([])
+  const [products, setproduct] = useState([]);
   const [showproduct, setShowproduct] = useState([]);
-  const [query,setquery]=useState(
-    {
-      name:undefined,
-      catagory:undefined,
-      maxprice:undefined,
-      minprice:undefined,
-      minage:undefined,
-      maxage:undefined
+  const [query, setquery] = useState({
+    name: undefined,
+    catagory: undefined,
+    maxprice: undefined,
+    minprice: undefined,
+    minage: undefined,
+    maxage: undefined,
+  });
 
-    }
-  );
-  
-  console.log("q...",query)
+  console.log("q...", query);
 
-  useEffect(()=>{
-    setShowproduct(products)
-  },[products])
-  
-      useEffect(()=>{
-        fetchproducts(query).then((data)=>{
-          console.log("data...",data.products)
-          setproduct(data.products)
-         });
-      },[query,setquery])
+  useEffect(() => {
+    setShowproduct(products);
+  }, [products]);
+
+  useEffect(() => {
+    fetchproducts(query).then((data) => {
+      console.log("data...", data.products);
+      setproduct(data.products);
+    });
+  }, [query, setquery]);
   return (
     <>
-    <div className="bg-white h-screen w-full">
-        <Navbar products={products} setShowproduct={setShowproduct}/>
-        <Filters query={query} setquery={setquery}/>
-       <Cards showproduct={showproduct}/>
-       {/* map */}
-       <CarSalesMap showproduct={showproduct} setshowproduct={setShowproduct} />
-    </div>
+      <div className="bg-white h-screen w-full">
+        <Navbar
+          products={products}
+          setShowproduct={setShowproduct}
+          locationtrue={locationtrue}
+          setlocationtrue={setlocationtrue}
+        />
+        <Filters query={query} setquery={setquery} />
+        <Cards showproduct={showproduct} />
+        {/* map */}
+        <CarSalesMap
+          showproduct={showproduct}
+          setshowproduct={setShowproduct}
+          locationtrue={locationtrue}
+        />
+      </div>
     </>
-   
-  )
-}
+  );
+};

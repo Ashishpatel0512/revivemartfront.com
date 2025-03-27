@@ -25,7 +25,7 @@
 //   const handleInputChange = (e) => {
 //     const value = e.target.value;
 //     setSearchCity(value);
-    
+
 //     if (value.length > 0) {
 //       const filteredSuggestions = carListings
 //         .map((car) => car.city)
@@ -84,12 +84,8 @@
 
 // export default MapComponent;
 
-
-
-// THIS IS A SECOND FUNCNILITY 
-// THIS IS SEARCH LOCATION 
-
-
+// THIS IS A SECOND FUNCNILITY
+// THIS IS SEARCH LOCATION
 
 // import React, { useState, useEffect } from "react";
 // import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
@@ -162,9 +158,6 @@
 // };
 
 // export default MapSearch;
-
-
-
 
 // /THIS IS THIRD MAP
 // USE MY NEARASET PRODUCTS SEARCH IN 100 KM
@@ -249,7 +242,7 @@
 //           style={{ padding: "10px", marginLeft: "10px" }}
 //         >Track My Location</button>
 //       </div>
-      
+
 //       {userLocation && (
 //         <MapContainer
 //           center={[userLocation.lat, userLocation.lng]}
@@ -280,7 +273,6 @@
 
 // forth
 
-
 // import React, { useState, useEffect } from "react";
 // import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 // import "leaflet/dist/leaflet.css";
@@ -298,7 +290,7 @@
 //   const handleSearchChange = async (e) => {
 //     const query = e.target.value;
 //     setSearchTerm(query);
-    
+
 //     if (query.length > 2) {
 //       try {
 //         const results = await provider.search({ query });
@@ -339,7 +331,7 @@
 //         placeholder="Enter location name"
 //         style={{ padding: "8px", width: "250px", marginRight: "10px" }}
 //       />
-      
+
 //       <div style={{ position: "relative", width: "250px", marginBottom: "100px" }}>
 //         {suggestions.length > 0 && (
 //           <ul style={{
@@ -364,7 +356,7 @@
 //           </ul>
 //         )}
 //       </div>
-      
+
 //       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 //       <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p>
 
@@ -385,7 +377,7 @@ import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 
-const MapSearch = ({location, setlocation}) => {
+const MapSearch = ({ location, setlocation }) => {
   // const [location, setLocation] = useState({ lat: 22.5726, lng: 88.3639 }); // Default: Kolkata
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -400,12 +392,14 @@ const MapSearch = ({location, setlocation}) => {
   const handleSearchChange = async (e) => {
     const query = e.target.value;
     setSearchTerm(query);
-    
+
     if (query.length > 2) {
       try {
         const results = await provider.search({ query });
-        const filteredResults = results.filter(place => place.label.includes(selectedCountry));
-        
+        const filteredResults = results.filter((place) =>
+          place.label.includes(selectedCountry)
+        );
+
         if (filteredResults.length > 0) {
           setSuggestions(filteredResults);
           setErrorMessage("");
@@ -415,7 +409,9 @@ const MapSearch = ({location, setlocation}) => {
         }
       } catch (error) {
         setSuggestions([]);
-        setErrorMessage("Error fetching location. Check your internet connection.");
+        setErrorMessage(
+          "Error fetching location. Check your internet connection."
+        );
       }
     } else {
       setSuggestions([]);
@@ -424,7 +420,7 @@ const MapSearch = ({location, setlocation}) => {
 
   // Select a location from suggestions
   const selectLocation = (latitude, longitude, name) => {
-    setlocation({ latitude, longitude});
+    setlocation({ latitude, longitude });
     setSearchTerm(name);
     setSuggestions([]);
   };
@@ -440,44 +436,51 @@ const MapSearch = ({location, setlocation}) => {
 
   return (
     <div>
-
       {/* <h2 className="mb-1 text-center text-xl font-semibold">set location</h2> */}
       <div className="flex justify-center items-center mb-5 border-2 border-gray-700">
-      <select 
-        value={selectedCountry} 
-        onChange={(e) => setSelectedCountry(e.target.value)}
-        className=" mr-5 h-auto w-[20%] p-1 border-2 border-gray-300"
-      >
-        {countries.map((country, index) => (
-          <option key={index} value={country}>{country}</option>
-        ))}
-      </select>
+        <select
+          value={selectedCountry}
+          onChange={(e) => setSelectedCountry(e.target.value)}
+          className=" mr-5 h-auto w-[20%] p-1 border-2 border-gray-300"
+        >
+          {countries.map((country, index) => (
+            <option key={index} value={country}>
+              {country}
+            </option>
+          ))}
+        </select>
 
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Enter location name"
-        className="border-2 border-gray-300 p-1 w-[80%] "
-      />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Enter location name"
+          className="border-2 border-gray-300 p-1 w-[80%] "
+        />
       </div>
       <div className="w-[100%] mb-auto text-center h-[40vh] overflow-auto">
         {suggestions.length > 0 && (
-          <ul style={{
-            listStyle: "none",
-            padding: "5px",
-            margin: 0,
-            background: "#fff",
-            // position: "absolute",
-            width: "100%",
-            border: "1px solid #ccc",
-            zIndex: 10,
-          }}>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: "5px",
+              margin: 0,
+              background: "#fff",
+              // position: "absolute",
+              width: "100%",
+              border: "1px solid #ccc",
+              zIndex: 10,
+            }}
+          >
             {suggestions.map((place, index) => (
               <li
                 key={index}
                 onClick={() => selectLocation(place.y, place.x, place.label)}
-                style={{ padding: "8px", cursor: "pointer", borderBottom: "1px solid #ddd" }}
+                style={{
+                  padding: "8px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid #ddd",
+                }}
               >
                 {place.label}
               </li>
@@ -485,8 +488,10 @@ const MapSearch = ({location, setlocation}) => {
           </ul>
         )}
       </div>
-      
-      {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+
+      {errorMessage && (
+        <p className="text-red-500 text-center">{errorMessage}</p>
+      )}
       {/* <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p> */}
       {/* <div className="h-[200px] w-[50%] rounded-[30px] ml-[25%]">
       <MapContainer center={[location.latitude, location.longitude]} zoom={10}  style={{ height: "200px", width: "100%" }} >
@@ -526,7 +531,7 @@ export default MapSearch;
 //         try {
 //           const results = await provider.search({ query: searchTerm });
 //           const filteredResults = results.filter(place => place.label.includes(selectedCountry));
-          
+
 //           if (filteredResults.length > 0) {
 //             setSuggestions(filteredResults);
 //             setErrorMessage("");
@@ -566,8 +571,8 @@ export default MapSearch;
 //     <div style={{ textAlign: "center", padding: "20px" }}>
 //       <h2>Search Any Location Online</h2>
 
-//       <select 
-//         value={selectedCountry} 
+//       <select
+//         value={selectedCountry}
 //         onChange={(e) => setSelectedCountry(e.target.value)}
 //         style={{ padding: "8px", marginBottom: "10px" }}
 //       >
@@ -583,7 +588,7 @@ export default MapSearch;
 //         placeholder="Enter location name"
 //         style={{ padding: "8px", width: "250px", marginRight: "10px" }}
 //       />
-      
+
 //       <div style={{ position: "relative", width: "250px", margin: "auto" }}>
 //         {suggestions.length > 0 && (
 //           <ul style={{
@@ -608,7 +613,7 @@ export default MapSearch;
 //           </ul>
 //         )}
 //       </div>
-      
+
 //       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 //       <p><b>Latitude:</b> {location.lat} | <b>Longitude:</b> {location.lng}</p>
 
