@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/usercontext";
+import { CiSquareRemove } from "react-icons/ci";
 function Dpedit({uploadform,setuploadform}) {
   const { login }=useAuth();
 
@@ -49,10 +50,11 @@ console.log(localStorage.getItem("token"))
     <div className={backindex}>
     </div>
     <div className={formdisplay}>
+      <CiSquareRemove  className="text-3xl relative left-1 text-white bottom-20" onClick={()=>{setuploadform(false)}}/>
+      <h1 className="text-center font-semibold">Edit dp</h1>
       <form onSubmit={handleFileUpload}>
-                    
                     <input type="file" name="dp" className={disply} onChange={Changedp} /><br /><br />
-                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"/>
+                    <input type="submit" value="submit"  className="bg-emerald-700 ml-[33%]	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"/>
 
         </form>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import MapSearch from "./Map";
+import { CiSquareRemove } from "react-icons/ci";
 
 function Profileform({form,setform}) {
   const [name, setname] = useState("");
@@ -12,8 +13,8 @@ function Profileform({form,setform}) {
   const [other, setother] = useState("");
   const [postimage, setPostImage] = useState("");
   const backindex=` ${form?"z-4 w-[100%] h-[100%] fixed top-[0px] left-[0px] bg-black opacity-85":""}`
-  const disply="border-2 w-[90%] h-10 m-[10px] pl-3 border-black inline-block rounded-[5px]";
-  const formdisplay=`text-black bg-white inline-block h-[80vh] overflow-y-auto fixed top-[3%] left-[35%] rounded-[5px] pt-7 ${form?"":"hidden z-100"} `
+  const disply="border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black inline-block rounded-[5px]";
+  const formdisplay=`text-black bg-white inline-block h-[95vh] w-[60vw] overflow-y-auto fixed top-[3%] left-[20vw] rounded-[5px]  ${form?"":"hidden z-100"} `
 const setproductname=(e)=>{
   setname(e.target.value)
 }
@@ -86,6 +87,8 @@ console.log(localStorage.getItem("token"))
     <div className={backindex}>
     </div>
     <div className={formdisplay}>
+      <CiSquareRemove  className="text-3xl relative left-1 text-black" onClick={()=>{setform(false)}}/>
+      <h1 className="text-center font-semibold text-xl">Edit</h1>
       <form onSubmit={handleFileUpload}>
                      <input type="text" name="productname" className={disply} placeholder="enter product name" onChange={setproductname} value={name}/><br /><br />
                     <input type="text" name="productdescription" className={disply} placeholder="enter product description" value={description} onChange={setproductdescription}/><br /><br />
@@ -122,10 +125,10 @@ console.log(localStorage.getItem("token"))
 
                  {/* ^loction */}
 
-                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[40%] hover:bg-emerald-400"/>
+                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[43%] hover:bg-emerald-400"/>
 
-        </form>
-        </div>
+      </form>
+    </div>
        
     </>
 

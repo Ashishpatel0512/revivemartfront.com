@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../../context/usercontext";
+import { CiSquareRemove } from "react-icons/ci";
+
 function EditProfile({updateform,setupdateform}) {
-  const {login}=useAuth()
-  const [name, setname] = useState("");
-  const [emailid, setemailid] = useState("");
+  const {user,login}=useAuth()
+  const [name, setname] = useState(user.name);
+  const [emailid, setemailid] = useState(user.emailid);
+  
 
   const backindex=` ${updateform?"z-4 w-[100%] h-[100%] fixed top-[0px] left-[0px] bg-black opacity-85":""}`
   const disply="border-2 w-[90%] m-[10px] border-black inline-block rounded-[5px]";
@@ -54,13 +57,14 @@ console.log(localStorage.getItem("token"))
     <>
     <div className={backindex}>
     </div>
-    <div className={formdisplay}>
+    <div className={formdisplay}> 
+     <CiSquareRemove  className="text-3xl relative left-1 text-white bottom-20" onClick={()=>{setupdateform(false)}}/>
+     <h1 className="text-center font-semibold">Edit Profile</h1>
       <form onSubmit={handleFileUpload}>
                     
-                    <input type="text" name="name" className={disply} onChange={Changename} /><br /><br />
-                    <input type="email" name="emailid" className={disply} onChange={Changemailid} /><br /><br />
-
-                    <input type="submit" value="submit"  className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"/>
+                    <input type="text" name="name" className={disply} value={name} onChange={Changename} /><br /><br />
+                    <input type="email" name="emailid" className={disply} value={emailid} onChange={Changemailid} /><br /><br />
+                    <input type="submit" value="submit"  className="bg-emerald-700	text-white ml-[25%] text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"/>
 
         </form>
         </div>

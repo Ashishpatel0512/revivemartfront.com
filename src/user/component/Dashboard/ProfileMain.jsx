@@ -480,7 +480,7 @@ export const ProfileMain = ({show}) => {
 
                                 <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  text-center" onClick={()=>{setproductid(product._id)}}>
                                 {/* like */}
-                                <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" />
+                                {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
                   
                                 {/* <Link to={`/details/${product._id}`} className="group"> */}
                                 <img

@@ -1,7 +1,8 @@
 import React, { useState,useEffect} from 'react'
 import { Cards } from '../../component/Dashboard/Cards'
 import { fetchwishlist } from '../../services/services';
-
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from 'react-router-dom';
 const showproduct = [{
     name: "Tata Nexon EV",
     price: "₹16,49,000",
@@ -99,7 +100,8 @@ export const Wishlist = () => {
 
   return (
     <div>
-        <h1 className='text-center mt-20 text-3xl font-semibold text-sky-800 font-mono'>WISHLIST</h1>
+   <Link to={"/"} ><IoMdArrowRoundBack className='ml-10 mt-5 text-2xl' /></Link>
+     <h1 className='text-center text-3xl font-semibold text-sky-800 font-mono'>WISHLIST</h1>
      <Cards showproduct={wishlist} />
     </div>
   )

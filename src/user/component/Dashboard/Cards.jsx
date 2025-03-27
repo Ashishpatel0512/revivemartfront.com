@@ -421,9 +421,9 @@ import { useAuth } from "../../context/usercontext";
    
 
     return (
-      <div className="bg-gradient-to-t from-gray-100 via-gray-50 to-white mt-[10vh]">
+      <div className="bg-gradient-to-t from-gray-100 via-gray-50 to-white mt-[5vh]">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <h2 className="mb-10 text-xl font-bold ml-5">Explore Products</h2>
+          <h2 className="text-xl font-bold ml-5 mb-3">Explore Products</h2>
          
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
             {showproduct?.slice(0,count).map((product) => (
