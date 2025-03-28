@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { updatesproduct } from "../../services/services";
+import { CiSquareRemove } from "react-icons/ci";
 const images = [
   "https://wallpaperaccess.com/full/155161.jpg",
   "https://www.wallpapersshare.com/img/big/red-mercedes-benz-cars-ultra-hd-laptop-wallpaper.jpg",
@@ -41,8 +42,14 @@ const Editproductform = ({
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg space-y-4 fixed top-[10vh] left-[35vw]">
+        <CiSquareRemove
+                className="text-3xl font-bold relative right-5 bottom-16  text-black"
+                onClick={() => {
+                  seteditproduct(false);
+                }}
+              />
       <h2 className="text-2xl font-bold mb-4 text-center">Product Form</h2>
-
+  
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

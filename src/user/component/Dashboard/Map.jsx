@@ -436,12 +436,12 @@ const MapSearch = ({ location, setlocation }) => {
 
   return (
     <div>
-      {/* <h2 className="mb-1 text-center text-xl font-semibold">set location</h2> */}
-      <div className="flex justify-center items-center mb-5 border-2 border-gray-700">
+      <h2 className="mb-1 text-center text-md text-gray-600 mt-2">set location</h2>
+      <div className="flex justify-center items-center mb-5  pt-3 pb-3">
         <select
           value={selectedCountry}
           onChange={(e) => setSelectedCountry(e.target.value)}
-          className=" mr-5 h-auto w-[20%] p-1 border-2 border-gray-300"
+          className=" mr-5 h-9 w-[30%] p-1 border-2 border-gray-200"
         >
           {countries.map((country, index) => (
             <option key={index} value={country}>
@@ -455,10 +455,10 @@ const MapSearch = ({ location, setlocation }) => {
           value={searchTerm}
           onChange={handleSearchChange}
           placeholder="Enter location name"
-          className="border-2 border-gray-300 p-1 w-[80%] "
+          className="border-2 border-gray-200 p-1 w-[80%] "
         />
       </div>
-      <div className="w-[100%] mb-auto text-center h-[40vh] overflow-auto">
+      <div className="w-[100%] mb-auto text-center h-[30vh] overflow-auto">
         {suggestions.length > 0 && (
           <ul
             style={{

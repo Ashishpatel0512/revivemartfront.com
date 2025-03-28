@@ -22,7 +22,7 @@ function Profileform({ form, setform }) {
   }`;
   const disply =
     "border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black inline-block rounded-[5px]";
-  const formdisplay = `text-black bg-white inline-block h-[95vh] w-[60vw] overflow-y-auto fixed top-[3%] left-[20vw] rounded-[5px]  ${
+  const formdisplay = `text-black bg-white inline-block h-[75vh] rounded-[5px] w-[60vw] overflow-y-auto fixed top-[10%] left-[20vw] rounded-[5px]  ${
     form ? "" : "hidden z-100"
   } `;
   const setproductname = (e) => {
@@ -98,12 +98,12 @@ function Profileform({ form, setform }) {
       <div className={backindex}></div>
       <div className={formdisplay}>
         <CiSquareRemove
-          className="text-3xl relative left-1 text-black"
+          className="text-3xl relative left-5 top-5 text-black"
           onClick={() => {
             setform(false);
           }}
         />
-        <h1 className="text-center font-semibold text-xl">Edit</h1>
+        <h1 className="text-center font-semibold text-xl">Add product</h1>
         <form onSubmit={handleFileUpload}>
           <input
             type="text"
@@ -187,7 +187,7 @@ function Profileform({ form, setform }) {
 
           {/* location */}
 
-          <p className="text-xl text-semibold text-center border-b-2 border-black">
+          <p className="text-xl text-semibold text-center text-gray-700 border-b-2 border-black">
             Confirm your location
           </p>
           <p
@@ -199,7 +199,7 @@ function Profileform({ form, setform }) {
                 })
               );
             }}
-            className="text-center text-blue-700 flex  items-center	justify-center font-semibold border-2 border-gray-300 mt-5 mb-5"
+            className="text-center text-blue-700 flex  items-center	justify-center font-semibold border-2 border-gray-100 mt-5 mb-5"
           >
             <FaLocationCrosshairs className="mr-3" />
             <p>use current loction</p>

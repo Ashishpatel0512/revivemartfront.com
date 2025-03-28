@@ -6,6 +6,9 @@ import Details from "../../pages/dashboardpage/Details";
 import { Link } from "react-router-dom";
 import MapSearch from "./Map";
 import { FaCaretSquareLeft } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { MdMyLocation } from "react-icons/md";
+
 
 // 📌 Sample car sale locations (latitude, longitude, name)
 const carSaleLocations = [
@@ -41,7 +44,7 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue }) => {
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [showmap, setshowmap] = useState(true);
   const mapcss = `fixed top-20 left-0 flex ${showmap ? "" : "hidden"}`;
-  const searchboxcss = `grid grid-cols-1 w-[20vw]  fixed top-[8%] right-[10%] bg-gray-50 shadow-2xl shadow-black z-20 ${
+  const searchboxcss = `grid grid-cols-1 w-[20vw] rounded-[10px] fixed top-[8%] right-[10%] bg-gray-50 shadow-2xl shadow-black z-20 ${
     locationtrue ? "" : "hidden"
   }`;
   // 📌 Get User's Location
@@ -99,9 +102,10 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue }) => {
                 })
               )
             }
-            className=" text-blue-500 text-lg border-b-2 border-gray-300 w-[100%]"
+            className=" text-blue-500  font-mono text-xl border-b-2  border-gray-300 w-[100%] flex items-center justify-center gap-5 mt-5 pb-5 "
           >
-            Track My Location
+          <MdMyLocation  className="text-black text-2xl"/>
+           Track My Location
           </button>
           {/* search button */}
           <MapSearch location={location} setlocation={setlocation} />

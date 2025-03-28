@@ -69,9 +69,9 @@ export const ProfileMain = ({ show }) => {
             {showproduct.slice(0, count).map((product) => (
               <div
                 className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  text-center"
-                onClick={() => {
-                  setproductid(product._id);
-                }}
+                // onClick={() => {
+                //   setproductid(product._id);
+                // }}
               >
                 {/* like */}
                 {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
@@ -80,7 +80,10 @@ export const ProfileMain = ({ show }) => {
                 <img
                   alt=""
                   src={product.image[0].url}
-                  className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+                  className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" 
+                  onClick={() => {
+                  setproductid(product._id);
+                 }}
                 />
                 <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
                 <p className="mt-1 text-lg font-medium text-gray-900">
@@ -182,7 +185,7 @@ export const ProfileMain = ({ show }) => {
       {editproduct ? (
         <Editproductform
           editproduct={editproduct}
-          seteditproduct={editproduct}
+          seteditproduct={seteditproduct}
           editsproduct={editsproduct}
           seteditsproduct={seteditsproduct}
         />
