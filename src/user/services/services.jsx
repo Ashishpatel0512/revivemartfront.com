@@ -136,10 +136,7 @@ export const followfunction = async (followid) => {
 export const updatesproduct = async (productid, formData) => {
   try {
     console.log("formdata", formData);
-    const response = await apiClient.post(
-      `/editproduct/${productid}`,
-      formData
-    );
+    const response = await apiClient.post(`/editproduct/${productid}`, formData);
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);

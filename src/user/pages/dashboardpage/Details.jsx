@@ -149,14 +149,14 @@ function Details() {
                 alt=""
                 className="h-[50vh] w-[30vw] border-gray-500 border-2 p-2 shadow-lg shadow-black rounded-[10px] mt-10"
               />
-              <button
+              {user ? <button
                 className="text-white font-semibold bg-gray-700 w-[100%] h-10 shadow-sm  shadow-gray-600  rounded-[10px] mt-5"
                 onClick={() => {
                   setbidform(true);
                 }}
               >
                 Add Bids
-              </button>
+              </button> : ""}
             </div>
           </div>
 
@@ -192,13 +192,13 @@ function Details() {
                 <p>Chat</p>
               </button>
             </Link>
-            <button
+            {user ? <button
               className="flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1"
               onClick={follow}
             >
               <SlUserFollow />
               {isfollow ? <p>unfollow</p> : <p>follow</p>}
-            </button>
+            </button> :""}
           </div>
           {/* map */}
           {location ? (

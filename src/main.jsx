@@ -13,12 +13,20 @@ import { Wishlist } from "./user/pages/dashboardpage/Wishlist";
 import { Chat } from "./user/pages/dashboardpage/Chat";
 import Editproductform from "./user/component/Dashboard/Editproduct";
 import Dashboard from "./admin/dashboard";
+import Register from "./user/pages/authpage/register";
+import Forgot from "./user/pages/authpage/forgot";
+import AdminLogin from "./user/pages/authpage/Adminlogin";
+import AdminPrivateRoute from "./user/pages/authpage/AdminPrivetroutes";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/editproduct", element: <Editproductform/> },
   {
     path: "/dashboard",
-    element:<Dashboard/>,
+    element: (
+      <AdminPrivateRoute>
+        <Dashboard />
+      </AdminPrivateRoute>
+    ),
   },
   {
     path: "/profile",
@@ -29,13 +37,25 @@ const router = createBrowserRouter([
     ),
   },
   { path: "/login", element: <Login /> },
+  { path: "/adminlogin", element: <AdminLogin /> },
+
+  
+  {
+    path: "/Register",
+    element:<Register/>,
+  },
+  {
+    path: "/forgot",
+    element: <Forgot />
+
+  },
 
   {
     path: "/details/:productid",
     element: (
-      <PrivateRoute>
+      // <PrivateRoute>
         <Details />
-      </PrivateRoute>
+      // </PrivateRoute>
     ),
   },
   {

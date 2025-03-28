@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/usercontext";
-function Login() {
+function AdminLogin() {
   const { user, login } = useAuth();
   console.log("user in login", user);
   const [emailid, setEmail] = useState("");
@@ -17,7 +17,7 @@ function Login() {
   console.log(password);
   const submit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/adminlogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function Login() {
           alert(data.SuccessMsg);
           localStorage.setItem("token", data.token);
           setSuccess(true);
-          login(data.user);
+        //   login(data.user);
         } else {
           alert(data.ErrorMsg);
           setSuccess(false);
@@ -47,7 +47,7 @@ function Login() {
       <div className="text-center h-screen w-screen bg-black bgimg">
         <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
           <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">
-            ReviveMart
+            ReviveMart-Admin
           </h1>
           <form action="" onSubmit={submit}>
             <div>
@@ -74,7 +74,7 @@ function Login() {
             >
               LOGIN
             </button>
-            <div className="mt-10 text-white">
+            {/* <div className="mt-10 text-white">
               no account?
               <Link
                 to={"/register"}
@@ -82,11 +82,11 @@ function Login() {
               >
                 signup
               </Link>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
     </>
   );
 }
-export default Login;
+export default AdminLogin;
