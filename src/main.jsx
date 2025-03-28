@@ -12,10 +12,14 @@ import Login from "./user/pages/authpage/login";
 import { Wishlist } from "./user/pages/dashboardpage/Wishlist";
 import { Chat } from "./user/pages/dashboardpage/Chat";
 import Editproductform from "./user/component/Dashboard/Editproduct";
+import Dashboard from "./admin/dashboard";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/editproduct", element: <Editproductform/> },
-
+  {
+    path: "/dashboard",
+    element:<Dashboard/>,
+  },
   {
     path: "/profile",
     element: (
