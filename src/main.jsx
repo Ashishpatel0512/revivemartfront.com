@@ -11,54 +11,57 @@ import PrivateRoute from "./user/pages/authpage/Protect";
 import Login from "./user/pages/authpage/login";
 import { Wishlist } from "./user/pages/dashboardpage/Wishlist";
 import { Chat } from "./user/pages/dashboardpage/Chat";
+import Editproductform from "./user/component/Dashboard/Editproduct";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/profile", element:(
-     <PrivateRoute>
+  { path: "/editproduct", element: <Editproductform/> },
+
+  {
+    path: "/profile",
+    element: (
+      <PrivateRoute>
         <Profile />
-    </PrivateRoute>
-)  },
+      </PrivateRoute>
+    ),
+  },
   { path: "/login", element: <Login /> },
 
-  { path: "/details/:productid", element: (
-    <PrivateRoute>
-       <Details />
-   </PrivateRoute>
-)  },
-{ path: "/wishlist", element: (
-  <PrivateRoute>
-     <Wishlist />
- </PrivateRoute>
-)  },
-{ path: "/chat", element: (
-  <PrivateRoute>
-     <Chat />
- </PrivateRoute>
-)  },
-  { path: "*", element: <Notfound/> },
+  {
+    path: "/details/:productid",
+    element: (
+      <PrivateRoute>
+        <Details />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/wishlist",
+    element: (
+      <PrivateRoute>
+        <Wishlist />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/chat",
+    element: (
+      <PrivateRoute>
+        <Chat />
+      </PrivateRoute>
+    ),
+  },
+  { path: "*", element: <Notfound /> },
 ]);
 
 const App = () => (
   // <StrictMode>
-    <AuthProvider>
+  <AuthProvider>
     <RouterProvider router={router} />
-    </AuthProvider>
+  </AuthProvider>
   // </StrictMode>
 );
 
 createRoot(document.getElementById("root")).render(<App />);
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { StrictMode } from 'react'
 // import { createRoot } from 'react-dom/client'

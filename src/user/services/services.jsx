@@ -1,28 +1,29 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:3000';
-const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
-
+import axios from "axios";
+const API_URL = "http://localhost:3000";
+const token =
+  typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 // Create an Axios instance with default config
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': token,
+    "Content-Type": "application/json",
+    Authorization: token,
   },
 });
 
 // ✅ GET: Fetch all product
 export const fetchproducts = async (query) => {
   try {
-    console.log(token)
-    console.log("q is api...",query)
-    const response = await apiClient.get(`/showproducts?name=${query.name}&catagory=${query.catagory}&minprice=${query.minprice}&maxprice=${query.maxprice}&minage=${query.minage}&maxage=${query.maxage}`);
-    console.log("dataaaaa",response.data)
+    console.log(token);
+    console.log("q is api...", query);
+    const response = await apiClient.get(
+      `/showproducts?name=${query.name}&catagory=${query.catagory}&minprice=${query.minprice}&maxprice=${query.maxprice}&minage=${query.minage}&maxage=${query.maxage}`
+    );
+    console.log("dataaaaa", response.data);
     return response.data;
-    
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error("Error fetching users:", error);
     throw error;
   }
 };
@@ -30,9 +31,9 @@ export const fetchproducts = async (query) => {
 // product add in wishlist opration
 export const wishlist = async (productid) => {
   try {
-    console.log("start..wishlist")
+    console.log("start..wishlist");
     const response = await apiClient.get(`/wishlist/${productid}`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID ${productid}:`, error);
@@ -43,9 +44,9 @@ export const wishlist = async (productid) => {
 // fetch user wishlist...
 export const fetchwishlist = async () => {
   try {
-    console.log("start..wishlist")
+    console.log("start..wishlist");
     const response = await apiClient.get(`/wishlist`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID  :`, error);
@@ -55,9 +56,9 @@ export const fetchwishlist = async () => {
 // fetch product info
 export const fetchproductinfo = async (productid) => {
   try {
-    console.log("start..wishlist")
+    console.log("start..wishlist");
     const response = await apiClient.get(`showproducts/${productid}`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID  :`, error);
@@ -67,9 +68,9 @@ export const fetchproductinfo = async (productid) => {
 //fetch user products
 export const fetchuserproduct = async () => {
   try {
-    console.log("start..fetch..product..")
+    console.log("start..fetch..product..");
     const response = await apiClient.get(`/userproduct`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID  :`, error);
@@ -79,9 +80,9 @@ export const fetchuserproduct = async () => {
 //fetch bids
 export const fetchuserbids = async () => {
   try {
-    console.log("start..fetch..product..")
+    console.log("start..fetch..product..");
     const response = await apiClient.get(`/userbids`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID  :`, error);
@@ -90,13 +91,13 @@ export const fetchuserbids = async () => {
 };
 
 // add new bid
-export const newbid = async (biddata,productid) => {
+export const newbid = async (biddata, productid) => {
   try {
-    console.log("biddata",biddata)
+    console.log("biddata", biddata);
     const response = await apiClient.post(`/bids/${productid}`, biddata);
     return response.data;
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error("Error creating user:", error);
     throw error;
   }
 };
@@ -106,7 +107,7 @@ export const fetchproductbids = async (productid) => {
     const response = await apiClient.get(`/showbids/${productid}`);
     return response.data;
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error("Error creating user:", error);
     throw error;
   }
 };
@@ -116,19 +117,32 @@ export const deleteproduct = async (productid) => {
     const response = await apiClient.get(`/delete/${productid}`);
     return response.data;
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error("Error creating user:", error);
     throw error;
   }
 };
 //following opration
 export const followfunction = async (followid) => {
   try {
-    console.log("start..following")
+    console.log("start..following");
     const response = await apiClient.get(`following/${followid}`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+export const updatesproduct = async (productid, formData) => {
+  try {
+    console.log("formdata", formData);
+    const response = await apiClient.post(
+      `/editproduct/${productid}`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating user:", error);
     throw error;
   }
 };

@@ -15,6 +15,7 @@ import { useAuth } from "../../context/usercontext";
 import { fetchuserbids, fetchuserproduct } from "../../services/services";
 import { Link } from "react-router-dom";
 import { deleteproduct } from "../../services/services";
+import Editproductform from "./Editproduct";
 
 export const ProfileMain = ({ show }) => {
   const { user } = useAuth();
@@ -27,6 +28,8 @@ export const ProfileMain = ({ show }) => {
   const [updateform, setupdateform] = useState(false);
   const [delproduct, setdelproduct] = useState(false);
   const [productid, setproductid] = useState(false);
+  const [editproduct, seteditproduct] = useState(false);
+  const [editsproduct, seteditsproduct] = useState("");
   useEffect(() => {
     fetchuserproduct().then((data) => {
       console.log("data...", data.products);
@@ -97,7 +100,12 @@ export const ProfileMain = ({ show }) => {
                       }}
                     />
                   </div>
-                  <MdEdit className="text-xl text-gray-500" />
+                  <MdEdit
+                    className="text-xl text-gray-500"
+                    onClick={() => {
+                      seteditsproduct(product), seteditproduct(true);
+                    }}
+                  />
                 </div>
                 {productid === product._id ? (
                   <Showbids productid={productid} product={product} />
@@ -171,6 +179,16 @@ export const ProfileMain = ({ show }) => {
       <Profileform form={form} setform={setform} />
       <Dpedit uploadform={uploadform} setuploadform={setuploadform} />
       <EditProfile updateform={updateform} setupdateform={setupdateform} />
+      {editproduct ? (
+        <Editproductform
+          editproduct={editproduct}
+          seteditproduct={editproduct}
+          editsproduct={editsproduct}
+          seteditsproduct={seteditsproduct}
+        />
+      ) : (
+        ""
+      )}
       {/* showbids */}
       {/* <Showbids/> */}
     </>
