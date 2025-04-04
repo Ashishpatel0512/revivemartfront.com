@@ -77,6 +77,18 @@ export const fetchuserproduct = async () => {
     throw error;
   }
 };
+
+export const fetchuseralldata = async (userid) => {
+  try {
+    console.log("start..fetch..userdata..");
+    const response = await apiClient.get(`/profile/${userid}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
 //fetch bids
 export const fetchuserbids = async () => {
   try {

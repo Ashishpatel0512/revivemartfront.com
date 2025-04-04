@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export const Sidebar = ({ show, setshow }) => {
+  const location = useLocation();
   return (
     <div className="h-screen w-[15vw] bg-gray-300 text-center rounded-tr-[20px] ">
       <h1 className="text-gray-800 font-semibold text-xl pt-7 font-sans mb-5">
@@ -14,7 +16,8 @@ export const Sidebar = ({ show, setshow }) => {
             Home
           </button>
         </Link>
-
+        {location.pathname == "/profile" ?
+          <div>
         <button
           className="bg-gray-50  focus:bg-sky-500 w-[70%] shadow-gray-400 shadow-lg mb-5 font-mono rounded-[5px] hover:bg-sky-600 text-gray-800"
           onClick={() => {
@@ -35,7 +38,9 @@ export const Sidebar = ({ show, setshow }) => {
 
         <button className="bg-gray-50 w-[70%] focus:bg-sky-500 shadow-gray-400 shadow-lg font-mono rounded-[5px] hover:bg-sky-600 text-gray-800">
           Myads
-        </button>
+            </button>
+            </div>
+        :""}
       </div>
     </div>
   );

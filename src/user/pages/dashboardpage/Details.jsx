@@ -165,11 +165,13 @@ function Details() {
 
           <div className="shadow-gray-400  bg-white shadow-md border-2 border-gray-100  rounded-[5px] h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 ">
             <div className="text-center">
+            <Link to={`/visite/${products?.User[0]?._id}`} >
               <img
                 src={products?.User[0]?.image?.url}
                 alt=""
                 className="h-14 w-14 rounded-full ml-7 mt-2"
-              />
+                />
+                </Link>
               {/* <button className='flex justify-left items-center gap-2 shadow-md shadow-gray-200 hover:bg-sky-600  text-xl font-semibold bg-sky-400 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 ml-2'><BsChatRightText  /><p>Chat</p></button> */}
             </div>
             <div className="text-right mr-2">

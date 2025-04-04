@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { followersdetails, followfunction } from '../../services/services'
 import { useAuth } from '../../context/usercontext'
 import { ImCross } from "react-icons/im";
+import { Link } from 'react-router-dom';
 
 export const Followersfollowing = ({showfollow, setshowfollow}) => {
     const [followers, setfollowers] = useState([])
@@ -62,7 +63,7 @@ export const Followersfollowing = ({showfollow, setshowfollow}) => {
                       <div>
                           <div className='flex justify-between items-center gap-5 m-3'>
                               <div className='flex justify-start items-center gap-5'>
-                                  <img src={following?.image?.url} alt="" className='h-10 w-10 rounded-full' />
+                                 <Link to={`/visite/${following._id}`} ><img src={following?.image?.url} alt="" className='h-10 w-10 rounded-full' /></Link> 
                                   <p className='text-lg font-semibold'>{following.name}</p>
                               </div>
                              
