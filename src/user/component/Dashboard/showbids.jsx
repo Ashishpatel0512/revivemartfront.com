@@ -33,7 +33,7 @@ import { fetchproductbids } from "../../services/services";
 //       phone: "+91 98765 43210",
 //     }
 //   };
-export const Showbids = ({ productid, product }) => {
+export const Showbids = ({ productid,setproductid, product }) => {
   //  const [products, setProducts] = useState(product);
   const [bids, setbids] = useState([]);
 
@@ -49,7 +49,10 @@ export const Showbids = ({ productid, product }) => {
   }, []);
 
   return (
-    <div className="fixed top-[20%] left-[30vw] h-[60%] w-[50vw] bg-white shadow-xl  shadow-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 ">
+    <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-90 z-50">
+      {/* <h1 className="text-center  mt-[10vh] text-gray-300 text-bold text-xl  " onClick={() => { setproductid(null) }}>Showbids</h1> */}
+      <IoChevronBackCircle className="text-white text-3xl fixed top-20 left-[20%]" onClick={() => { setproductid(null) }}/>
+    <div className="fixed top-[20%] left-[25vw] h-[60%] w-[50vw] bg-white shadow-xl  shadow-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 ">
       {/* side1 */}
       <div className="flex justify-center gap-10 sticky top-0">
         <div className="mt-10 ml-10">
@@ -138,6 +141,7 @@ export const Showbids = ({ productid, product }) => {
         ))}
         {/* ahisudhi */}
       </div>
-    </div>
+      </div>
+      </div>
   );
 };

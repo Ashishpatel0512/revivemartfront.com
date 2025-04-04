@@ -424,15 +424,16 @@ export function Cards({ showproduct }) {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-xl font-bold ml-5 mb-3">Explore Products</h2>
 
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
           {showproduct?.slice(0, count).map((product) => (
             <Link to={`/details/${product._id}`}>
-              <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
+              <div className="shadow-sm shadow-gray-400 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
                 {/* like */}
                 {user?.wishlist?.includes(product._id) ? (
                   <FaHeart
                     className="relative top-7 left-[90%]  text-red-500 "
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       wishlist(product._id).then((data) => {
                         login(data.User);
                       });
@@ -441,7 +442,8 @@ export function Cards({ showproduct }) {
                 ) : (
                   <IoIosHeartEmpty
                     className="relative top-7 left-[90%] text-gray-600"
-                    onClick={() => {
+                      onClick={(e) => {
+                      e.preventDefault();
                       wishlist(product._id).then((data) => {
                         login(data.User);
                       });
@@ -452,7 +454,7 @@ export function Cards({ showproduct }) {
                 <a key={product.id} href={product.href} className="group">
                   <img
                     src={product?.image[0]?.url}
-                    className="aspect-square w-full rounded-lg bg-gray-200 object-cover"
+                    className="aspect-square rounded-lg bg-gray-50 object-fill rounded-md"
                   />
                   <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
                   <p className="mt-1 text-lg font-medium text-gray-900">

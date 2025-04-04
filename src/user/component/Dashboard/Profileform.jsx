@@ -112,6 +112,7 @@ function Profileform({ form, setform }) {
             placeholder="enter product name"
             onChange={setproductname}
             value={name}
+            required
           />
           <br />
           <br />
@@ -122,6 +123,7 @@ function Profileform({ form, setform }) {
             placeholder="enter product description"
             value={description}
             onChange={setproductdescription}
+            required
           />
           <br />
           <br />
@@ -132,6 +134,7 @@ function Profileform({ form, setform }) {
             value={price}
             onChange={setproductprice}
             placeholder="enter price"
+            required
           />
           <br />
           <br />
@@ -142,6 +145,7 @@ function Profileform({ form, setform }) {
             value={age}
             onChange={setproductage}
             placeholder="enter how many year old"
+            required
           />
           <br />
           <br />
@@ -152,6 +156,7 @@ function Profileform({ form, setform }) {
             className={disply}
             value={catagory}
             onChange={setproductcatagory}
+            required
           >
             <option value="Furniture">Furniture</option>
             <option value="Electronics">Electronics</option>
@@ -169,6 +174,7 @@ function Profileform({ form, setform }) {
             className={disply}
             value={other}
             onChange={setproductother}
+            required
           >
             <option value="Warranty">Warranty</option>
             <option value="Guarantee">Guarantee</option>
@@ -181,6 +187,7 @@ function Profileform({ form, setform }) {
             className={disply}
             multiple
             onChange={Changepostimage}
+            required
           />
           <br />
           <br />

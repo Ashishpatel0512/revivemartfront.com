@@ -133,6 +133,19 @@ export const followfunction = async (followid) => {
     throw error;
   }
 };
+
+//fetch user following
+export const followersdetails = async () => {
+  try {
+    console.log("start..following");
+    const response = await apiClient.get(`/user/followers`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
 export const updatesproduct = async (productid, formData) => {
   try {
     console.log("formdata", formData);

@@ -21,9 +21,9 @@ export const Navbar = ({
   const { user } = useAuth();
   console.log(user, "user in navbar");
   const location = useLocation();
-  const navstyle = `bg-gradient-to-b fixed top-0 left-0 z-10 from-gray-200 to-gray-100 h-16 w-full flex
+  const navstyle = `lg:bg-gradient-to-b from-gray-200 to-gray-100 bg-gray-800 fixed top-0 left-0 z-10 h-22 lg:h-16 w-full lg:flex
    ${location.pathname == "/" ? "justify-around" : "justify-between"} 
-   items-center pt-[5vh] pb-[6vh] pl-2 pr-2 shadow-md`;
+   lg:items-center lg:pt-[5vh] lg:pb-[6vh] lg:pl-2 lg:pr-2 shadow-md`;
   console.log("loction path:::::", location.pathname);
 
   // speech to text
@@ -47,7 +47,7 @@ export const Navbar = ({
     <>
       <div className={navstyle}>
         <Link to={"/"}>
-          <h1 className="ml-20 text-2xl font-semibold text-sky-900	font-sans">
+          <h1 className="lg:ml-20 lg:text-2xl text-xl lg:mt-0 mt-1 ml-5 font-semibold lg:text-sky-900	text-white font-sans">
             ReviveMart
           </h1>
         </Link>
@@ -65,20 +65,20 @@ export const Navbar = ({
                     )
                   );
               }}
-              className="p-1/2 pl-10 pr-2 w-[50vw] h-12 rounded-md border bg-gray-100"
+              className="p-1/2 pl-10 pr-2 lg:w-[50vw]  lg:mt-0 lg:ml-0  lg:border-2 lg:border-gray-100 lg:h-12 w-[80vw] h-10 mt-2 ml-5 rounded-md border bg-gray-100 border-2 border-gray-300"
             />
             <MdKeyboardVoice
               onClick={() => {
                 recognition.start();
               }}
-              className="text-2xl"
+              className="text-2xl lg:text-black  text-white"
             />
           </form>
         ) : (
           ""
         )}
 
-        <div className="flex justify-around items-center gap-10">
+        <div className="lg:flex lg:justify-around lg:items-center  lg:gap-10  lg:static left-0 bottom-0 lg:w-auto  lg:h-auto lg:bg-transparent  lg:shadow-none flex items-center gap-5 justify-around fixed left-0 bottom-0 w-full h-16 bg-gray-600 lg:text-black text-white "> 
           <Link to={"/wishlist"}>
             <FaRegHeart className="text-2xl" />
           </Link>

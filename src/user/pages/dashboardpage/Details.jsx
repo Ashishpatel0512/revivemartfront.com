@@ -5,7 +5,8 @@ import "leaflet/dist/leaflet.css";
 //
 
 import React from "react";
-import { Navbar } from "../../component/dashboard/Navbar";
+// import { Navbar } from "../../component/dashboard/Navbar";
+import { Navbar } from "../../component/Dashboard/Navbar";
 import { BsChatRightText } from "react-icons/bs";
 import { SlUserFollow } from "react-icons/sl";
 import { IoIosHeartEmpty, IoMdArrowRoundBack } from "react-icons/io";
@@ -100,18 +101,20 @@ function Details() {
   };
   return (
     <>
-      <Link to={"/"}>
+            <Navbar />
+      
+      {/* <Link to={"/"}>
         <IoMdArrowRoundBack className="ml-10 mt-5 text-2xl" />
-      </Link>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+      </Link> */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-10">
         {/* //side1 */}
         <div className=" text-white m-5 text-center">
-          <div className="flex justify-center items-center gap-10 sticky top-0">
-            <div>
+          <div className="lg:flex justify-center items-center gap-10 ">
+            <div className="flex lg:flex-col lg:mt-0 mt-10">
               <img
                 src={products?.image[0]?.url}
                 alt=""
-                className="h-20 w-20 mb-5 mt-5 border-gray-300 border-2 p-2 rounded-[5px] hover:border-black "
+                className="h-20 w-20 mb-5 lg:mt-5 border-gray-300 border-2 p-2 rounded-[5px] hover:border-black "
                 onClick={() => {
                   setImg(products.image[0]?.url);
                 }}
@@ -202,14 +205,14 @@ function Details() {
           </div>
           {/* map */}
           {location ? (
-            <div className="w-[40vw] h-[50vh] border-2 border-black ml-10">
+            <div className="w-[30vw] h-[40vh] border-2 border-gray-300 ml-[12vw] rounded-[3px]">
               <MapContainer
                 center={location}
                 zoom={10}
                 style={{ height: "100%", width: "100%" }}
               >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={location} />
+<TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+<Marker position={location} />
               </MapContainer>
             </div>
           ) : (
@@ -218,7 +221,7 @@ function Details() {
           {/* map& */}
         </div>
         {/* side2 */}
-        <div className="bg-white text-black m-5 mr-10 font-sans">
+        <div className="bg-white text-black m-5 mr-10 mt-18 font-sans">
           <div className="border-gray-100 border-2 p-2 rounded-[5px] h-auto w-auto mt-5 bg-white font-mono">
             <div className=" shadow-gray-300 shadow-sm p-2 rounded-[5px] ">
               <h1 className="text-3xl font-semibold">{products?.name}</h1>

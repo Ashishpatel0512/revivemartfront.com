@@ -58,6 +58,7 @@ const Editproductform = ({
           value={formData.name}
           onChange={handleChange}
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         <textarea
@@ -66,6 +67,7 @@ const Editproductform = ({
           value={formData.description}
           onChange={handleChange}
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         <input
@@ -75,6 +77,7 @@ const Editproductform = ({
           value={formData.price}
           onChange={handleChange}
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         <input
@@ -84,6 +87,7 @@ const Editproductform = ({
           value={formData.age}
           onChange={handleChange}
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         {/* Category Select */}

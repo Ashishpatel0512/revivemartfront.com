@@ -8,6 +8,7 @@ import MapSearch from "./Map";
 import { FaCaretSquareLeft } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { MdMyLocation } from "react-icons/md";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 
 // 📌 Sample car sale locations (latitude, longitude, name)
@@ -38,13 +39,13 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
   return R * c; // Distance in km
 };
 
-const CarSalesMap = ({ showproduct, setshowproduct, locationtrue }) => {
+const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtrue}) => {
   const [location, setlocation] = useState();
   const [searchLocation, setSearchLocation] = useState("");
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [showmap, setshowmap] = useState(true);
   const mapcss = `fixed top-20 left-0 flex ${showmap ? "" : "hidden"}`;
-  const searchboxcss = `grid grid-cols-1 w-[20vw] rounded-[10px] fixed top-[8%] right-[10%] bg-gray-50 shadow-2xl shadow-black z-20 ${
+  const searchboxcss = `grid grid-cols-1 lg:w-[20vw] lg:h-auto w-screen h-screen lg:rounded-[10px] rounded-0 fixed lg:top-[8%] top-0 lg:right-[10%] right-0 bg-gray-50 shadow-2xl shadow-black z-20 ${
     locationtrue ? "" : "hidden"
   }`;
   // 📌 Get User's Location
@@ -84,7 +85,10 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue }) => {
     <>
       <div>
         {/* Search Bar & Track Button */}
+        
         <div className={searchboxcss}>
+        <div><IoMdArrowRoundBack className={"fixed top-5 left-5 text-black text-2xl lg:hidden" } onClick={()=>{setlocationtrue(!locationtrue)}} />
+        </div>
           {/* <input
           type="text"
           placeholder="Search location..."

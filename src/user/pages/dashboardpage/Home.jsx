@@ -407,7 +407,8 @@
 //   // More products...
 // ]
 
-import { Navbar } from "../../component/dashboard/Navbar";
+// import { Navbar } from "../../component/dashboard/Navbar";
+import { Navbar } from "../../component/Dashboard/Navbar";
 import { Cards } from "../../component/Dashboard/Cards";
 import { useEffect, useState } from "react";
 import { fetchproducts } from "../../services/services";
@@ -460,6 +461,7 @@ export const Home = () => {
           showproduct={showproduct}
           setshowproduct={setShowproduct}
           locationtrue={locationtrue}
+          setlocationtrue={setlocationtrue}
         />
       </div>
     </>

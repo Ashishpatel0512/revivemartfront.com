@@ -1,7 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/usercontext";
-import { Navbar } from "../../component/dashboard/Navbar";
+import { Navbar } from "../../component/Dashboard/Navbar";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 export const Chat = () => {
   const { user, socket, receiver, setReceiver } = useAuth();
   // const [username, setUsername] = useState("");
@@ -69,8 +71,11 @@ export const Chat = () => {
   };
   return (
     <>
-      <Navbar />
-      <div className="h-[90vh] mt-[10vh] w-[100vw] bg-white shadow-lg flex justify-between border-t-2 border-gray-300">
+      {/* <Navbar /> */}
+      <Link to={"/"}>
+        <IoMdArrowRoundBack className="fixed top-5 left-5 text-white text-xl " />
+      </Link>
+      <div className="h-[100vh] w-[100vw] bg-white shadow-lg flex justify-between border-t-2 border-gray-300">
         {/* <h2 className="text-xl font-bold text-center mb-4">Chat Application</h2> */}
 
         {/* Username Input */}
@@ -93,11 +98,11 @@ export const Chat = () => {
 
         {/* <button onClick={registerUser} className="w-full p-2 bg-blue-500 text-white rounded">Register</button> */}
         {/* 1 */}
-        <div className="w-[20%] border-r-2 border-gray-300">
+        <div className="w-[20%] border-r-2 border-gray-300 bg-gray-500 pt-10">
           {groupMessage?.map((msg, index) => (
             <p
               key={index}
-              className="cursor-pointer text-blue-500 w-[100%] h-[10%]  mt-5"
+              className="cursor-pointer text-blue-500 w-[100%] h-[10%]  mt-1"
               onClick={() => {
                 msg.participants.map((p) => {
                   {
@@ -108,13 +113,13 @@ export const Chat = () => {
             >
               {msg?.participants?.map((p) =>
                 p._id !== user._id ? (
-                  <div className="flex justify-start items-center m-1 border-b-2 border-gray-300  pl-10 p-1">
+                  <div className="flex justify-start items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px] ">
                     <img
                       src={p.image.url}
                       alt=""
                       className="h-10 w-10 rounded-full"
                     />
-                    <p className="ml-5 text-xl text-gray-500">{p.name}</p>
+                    <p className="ml-5 text-xl text-white">{p.name}</p>
                   </div>
                 ) : (
                   ""
@@ -124,9 +129,9 @@ export const Chat = () => {
           ))}
         </div>
         {/* 2 */}
-        <div className="w-[80%] border-r-2 ">
-          <div className="chat-box border p-2 mt-0 ml-[15%] rounded bg-white h-[90%] w-[70%] ">
-            <h1 className="bg-gray-300 h-[10%]">
+        <div className="w-[80%] border-r-2 bg-gray-300 ">
+          <div className="chat-box border p-2 mt-0  rounded bg-gray-200 h-[90%] w-[100%] ">
+            <h1 className="bg-gray-500 border-b-2 border-gray-300 text-white h-[10%] rounded-t-[5px]">
               {messages[0]?.sender?._id === user._id ? (
                 <div className="flex justify-between items-center p-3">
                   <p className="text-2xl font-semibold">
@@ -185,7 +190,7 @@ export const Chat = () => {
               ))}
             </div>
           </div>
-          <div className="flex w-[70%] ml-[15%]">
+          <div className="flex w-[100%] ">
             <input
               type="text"
               placeholder="Enter message"

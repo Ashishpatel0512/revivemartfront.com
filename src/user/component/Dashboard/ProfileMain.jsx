@@ -16,6 +16,7 @@ import { fetchuserbids, fetchuserproduct } from "../../services/services";
 import { Link } from "react-router-dom";
 import { deleteproduct } from "../../services/services";
 import Editproductform from "./Editproduct";
+import { Followersfollowing } from "./Followersfollowing";
 
 export const ProfileMain = ({ show }) => {
   const { user } = useAuth();
@@ -30,6 +31,8 @@ export const ProfileMain = ({ show }) => {
   const [productid, setproductid] = useState(false);
   const [editproduct, seteditproduct] = useState(false);
   const [editsproduct, seteditsproduct] = useState("");
+  const [showfollow, setshowfollow] = useState(undefined);
+  
   useEffect(() => {
     fetchuserproduct().then((data) => {
       console.log("data...", data.products);
@@ -57,6 +60,10 @@ export const ProfileMain = ({ show }) => {
           <div className="text-left text-gray-400 font-mono border-2 border-gray-200 p-2 rounded-[10px]">
             <p className="mb-2">{user.name}</p>
             <p>{user.emailid}</p>
+            <div>
+            <button onClick={()=>{setshowfollow('followers')}}>followers : {user.follwers?.length} </button><br />
+            <button onClick={()=>{setshowfollow('following')}}>following : {user.follwing?.length}</button>  
+            </div>
           </div>
         </div>
       </div>
@@ -111,7 +118,7 @@ export const ProfileMain = ({ show }) => {
                   />
                 </div>
                 {productid === product._id ? (
-                  <Showbids productid={productid} product={product} />
+                  <Showbids productid={productid} setproductid={setproductid} product={product} />
                 ) : (
                   ""
                 )}
@@ -194,6 +201,8 @@ export const ProfileMain = ({ show }) => {
       )}
       {/* showbids */}
       {/* <Showbids/> */}
+      {/* followers followings */}
+      <Followersfollowing showfollow={ showfollow} setshowfollow={setshowfollow} />
     </>
   );
 };
