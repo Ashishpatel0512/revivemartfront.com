@@ -113,7 +113,7 @@ export const Chat = () => {
             >
               {msg?.participants?.map((p) =>
                 p._id !== user._id ? (
-                  <div className="flex justify-start items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px] ">
+                  <div className="flex justify-start items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px]">
                     <img
                       src={p.image.url}
                       alt=""

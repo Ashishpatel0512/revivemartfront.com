@@ -12,17 +12,18 @@ import Dpedit from "./editdp";
 import EditProfile from "./editprofile";
 import { Showbids } from "./showbids";
 import { useAuth } from "../../context/usercontext";
-import { fetchuserbids, fetchuserproduct } from "../../services/services";
+import { fetchuserbids, fetchuserproduct ,promote} from "../../services/services";
 import { Link } from "react-router-dom";
 import { deleteproduct } from "../../services/services";
 import Editproductform from "./Editproduct";
 import { Followersfollowing } from "./Followersfollowing";
-
+import { findpromote } from "../../services/services";
 export const ProfileMain = ({ show }) => {
   const { user } = useAuth();
   const [showproduct, setShowproduct] = useState([]);
   const [showbids, setShowbids] = useState([]);
-
+  const [ads, setads] = useState([]);
+  const [reads,setreads] = useState(false);
   const [count, setCount] = useState(8);
   const [form, setform] = useState(false);
   const [uploadform, setuploadform] = useState(false);
@@ -46,6 +47,15 @@ export const ProfileMain = ({ show }) => {
       setShowbids(data.bids);
     });
   }, []);
+
+  useEffect(() => {
+    findpromote().then((data) => {
+      console.log("data...", data.ads);
+      setads(data.ads);
+    });
+  }, [reads,setreads]);
+
+  console.log("ads", ads);
 
   return (
     <>
@@ -74,6 +84,7 @@ export const ProfileMain = ({ show }) => {
         {show == "myproduct" ? (
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
             {showproduct.slice(0, count).map((product) => (
+              
               <div
                 className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  text-center"
                 // onClick={() => {
@@ -84,6 +95,9 @@ export const ProfileMain = ({ show }) => {
                 {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
 
                 {/* <Link to={`/details/${product._id}`} className="group"> */}
+                {ads.some(ads => ads.Productid._id === product._id) ?
+                ""
+                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads)}} className="text-white bg-gray-300 rounded-full mb-5 hover:bg-green-400"> promote</h1>}
                 <img
                   alt=""
                   src={product.image[0].url}

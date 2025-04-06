@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaMobileScreen } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { GiSofa } from "react-icons/gi";
@@ -13,9 +13,26 @@ import { TbFiltersFilled } from "react-icons/tb";
 import { MdFormatColorText } from "react-icons/md";
 
 import { useState } from "react";
+import { Filtersbar } from "./Filtersbar";
 
 export const Filters = ({ query, setquery }) => {
   const [showFilters, setShowFilters] = useState(false);
+  const [showfilterbar, setShowFiltersbar] = useState(false);
+  const [value, setValue] = React.useState([0, 1000000]);
+  const [age, setage] = React.useState([0, 100]);
+   console.log("age", age);
+  console.log(value)
+  useEffect(() => {
+    setquery((data) => {
+      return { ...data, minprice: value[0], maxprice: value[1] };
+    });
+  }, [value, setValue])
+
+  useEffect(() => {
+    setquery((data) => {
+      return { ...data, minage: age[0], maxage: age[1] };
+    });
+  },[age,setage])
 
   const filterbtncss =
     "bg-sky-50 p-2  rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center";
@@ -148,26 +165,26 @@ export const Filters = ({ query, setquery }) => {
         </div>
 
         <div>
-          <button className="flex items-center gap-3 p-3 rounded-[5px] bg-sky-900 text-white shadow-gray-300 shadow-md hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center lg:ml-0 ml-5 lg:mr-0 mr-5 ">
+          <button className="flex items-center gap-3 p-3 rounded-[5px] bg-sky-900 text-white shadow-gray-300 shadow-md hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center lg:ml-0 ml-5 lg:mr-0 mr-5 " onClick={()=>{setShowFiltersbar(!showfilterbar)}}>
             <IoFilter className="text-xl text-sky-900 text-white" />
             <p>Filters</p>
           </button>
         </div>
       </div>
 
+      
+      <Filtersbar value={value} setValue={setValue}  age={age} setage={setage} showfilterbar={showfilterbar} setShowFiltersbar={setShowFiltersbar} />
       {/* others filters */}
-      <div className="fixed top-[20vh] lg:top-[10vh] z-10 lg:left-[20vw] left-[5vw] bg-white  shadow-xl shadow-black rounded-lg p-5 w-[90vw] lg:w-[60vw] h-[50vh] overflow-scroll hidden">
+      {/* <div className="fixed top-[20vh] lg:top-[10vh] z-10 lg:left-[20vw] left-[5vw] bg-white  shadow-xl shadow-black rounded-lg p-5 w-[90vw] lg:w-[60vw] h-[50vh] overflow-scroll ">
         <div>
           <p className="text-2xl font-semibold text-center text-sky-900">
             Filters
           </p>
-          <p className="text-center text-gray-500">
-            Select the filters you want to apply
-          </p>
+
           <input type="range"  className="relative top-20 z-100" min={100} max={1000} onChange={(e)=>{console.log(e.target.value)}}/>
           <input type="range" className="relative top-20 right-[1vh] z-10" min={100} max={1000} onChange={(e)=>{console.log(e.target.value)}} />
           </div>
-      </div>
+      </div> */}
     </>
   );
 };

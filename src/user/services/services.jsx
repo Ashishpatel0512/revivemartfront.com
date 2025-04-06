@@ -168,6 +168,30 @@ export const updatesproduct = async (productid, formData) => {
     throw error;
   }
 };
+// ADS
+export const promote= async (productid) => {
+  try {
+    console.log("start..fetch..product..",productid);
+    const response = await apiClient.post(`/ads/${productid}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+
+export const findpromote= async () => {
+  try {
+    // console.log("start..fetch..product..",productid);
+    const response = await apiClient.get(`/ads`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
 
 // ✅ PUT: Update an existing user
 // export const updateUser = async (id, updatedData) => {

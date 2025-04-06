@@ -21,8 +21,8 @@ export const Profile = () => {
           <ProfileMain show={show} />
         </div>
       </div>
-      {/* followers followings */}
-      <Followersfollowing/>
+      {/* followers followings
+      <Followersfollowing/> */}
     </>
   );
 };
