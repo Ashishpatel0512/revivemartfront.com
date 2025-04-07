@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../../context/usercontext";
 import { CiSquareRemove } from "react-icons/ci";
+import Loader from "./Loader";
 function Dpedit({ uploadform, setuploadform }) {
   const { login } = useAuth();
-
+  const [loader, setloader] = useState(false);
   const [dp, setdp] = useState("");
   const backindex = ` ${
     uploadform
@@ -25,6 +26,7 @@ function Dpedit({ uploadform, setuploadform }) {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
+    setloader(true);
     const formData = new FormData();
 
     formData.append("dp", dp);
@@ -41,10 +43,12 @@ function Dpedit({ uploadform, setuploadform }) {
     if (response.ok) {
       console.log("File uploaded successfully:", result);
       login(result.User);
+      setloader(false);
       alert("File uploaded successfully");
       setuploadform(false);
     } else {
       console.log("Upload failed:", result);
+      setloader(false);
       alert("Upload failed:");
       setuploadform(false);
     }
@@ -52,26 +56,30 @@ function Dpedit({ uploadform, setuploadform }) {
 
   return (
     <>
-      <div className={backindex}></div>
-      <div className={formdisplay}>
-        <CiSquareRemove
-          className="text-3xl relative left-1 text-white bottom-20"
-          onClick={() => {
-            setuploadform(false);
-          }}
-        />
-        <h1 className="text-center font-semibold">Edit dp</h1>
-        <form onSubmit={handleFileUpload}>
-          <input type="file" name="dp" className={disply} onChange={Changedp} />
-          <br />
-          <br />
-          <input
-            type="submit"
-            value="submit"
-            className="bg-emerald-700 ml-[33%]	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"
-          />
-        </form>
-      </div>
+      {loader ? <Loader /> :
+        <div>
+          <div className={backindex}></div>
+          <div className={formdisplay}>
+            <CiSquareRemove
+              className="text-3xl relative left-1 text-white bottom-20"
+              onClick={() => {
+                setuploadform(false);
+              }}
+            />
+            <h1 className="text-center font-semibold">Edit dp</h1>
+            <form onSubmit={handleFileUpload}>
+              <input type="file" name="dp" className={disply} onChange={Changedp} />
+              <br />
+              <br />
+              <input
+                type="submit"
+                value="submit"
+                className="bg-emerald-700 ml-[33%]	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"
+              />
+            </form>
+          </div>
+        </div>
+      }
     </>
   );
 }

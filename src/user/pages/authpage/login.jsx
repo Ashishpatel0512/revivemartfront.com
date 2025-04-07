@@ -43,7 +43,7 @@ function Login() {
   };
   return (
     <>
-      {success && <Navigate to="/profile" />}
+      {success && <Navigate to="/" />}
       <div className="text-center h-screen w-screen bg-black bgimg">
         <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
           <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">

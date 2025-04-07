@@ -415,9 +415,11 @@ import { fetchproducts } from "../../services/services";
 import { Filters } from "../../component/Dashboard/Filters";
 import { useAuth } from "../../context/usercontext";
 import CarSalesMap from "../../component/Dashboard/Loctionfilter";
+import CardPreloader from "../../component/Dashboard/Preloadercard";
 
 export const Home = () => {
   const { user, login } = useAuth();
+  const [loader, setloader] = useState(false);
   const [locationtrue, setlocationtrue] = useState(false);
   console.log("homepage", user);
   // login("Ashish")
@@ -440,9 +442,11 @@ export const Home = () => {
   }, [products]);
 
   useEffect(() => {
+    setloader(true);
     fetchproducts(query).then((data) => {
       console.log("data...", data.products);
       setproduct(data.products);
+      setloader(false);
     });
   }, [query, setquery]);
   return (
@@ -455,7 +459,9 @@ export const Home = () => {
           setlocationtrue={setlocationtrue}
         />
         <Filters query={query} setquery={setquery} />
-        <Cards showproduct={showproduct} />
+        {loader ? <CardPreloader /> :
+          <Cards showproduct={showproduct} />
+        }
         {/* map */}
         <CarSalesMap
           showproduct={showproduct}

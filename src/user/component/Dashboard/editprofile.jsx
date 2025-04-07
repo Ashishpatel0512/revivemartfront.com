@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../../context/usercontext";
 import { CiSquareRemove } from "react-icons/ci";
+import Loader from "./Loader";
 
 function EditProfile({ updateform, setupdateform }) {
   const { user, login } = useAuth();
   const [name, setname] = useState(user.name);
   const [emailid, setemailid] = useState(user.emailid);
+  const [loader, setloader] = useState(false);
 
   const backindex = ` ${
     updateform
@@ -30,7 +32,7 @@ function EditProfile({ updateform, setupdateform }) {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
-
+    setloader(true);
     const response = await fetch("http://localhost:3000/editprofile", {
       method: "POST",
       headers: {
@@ -48,16 +50,21 @@ function EditProfile({ updateform, setupdateform }) {
       console.log("update successfully:", result);
       login(result.User);
       alert(result.SuccessMsg);
+      setloader(false);
       setupdateform(false);
+
     } else {
       console.log("Updated failed:", result);
       alert(result.ErrorMsg);
+      setloader(false);
       setupdateform(false);
     }
   };
 
   return (
     <>
+      {loader ? <Loader /> : 
+        <div>
       <div className={backindex}></div>
       <div className={formdisplay}>
         <CiSquareRemove
@@ -92,7 +99,9 @@ function EditProfile({ updateform, setupdateform }) {
             className="bg-emerald-700	text-white ml-[25%] text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 hover:bg-emerald-400"
           />
         </form>
+          </div>
       </div>
+      }
     </>
   );
 }

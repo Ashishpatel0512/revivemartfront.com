@@ -2,12 +2,14 @@ import { useState } from "react";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import MapSearch from "./Map";
 import { CiSquareRemove } from "react-icons/ci";
+import Loader from "./Loader";
 
 function Profileform({ form, setform }) {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
   const [age, setage] = useState("");
+  const [loader, setloader] = useState(false);
   const [location, setlocation] = useState({
     latitude: 23.8191985,
     longitude: 72.544133,
@@ -57,6 +59,7 @@ function Profileform({ form, setform }) {
   console.log("location", location);
 
   const handleFileUpload = async (event) => {
+    setloader(true);
     event.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
@@ -85,6 +88,7 @@ function Profileform({ form, setform }) {
     if (response.ok) {
       console.log("File uploaded successfully:", result);
       alert("File uploaded successfully");
+      setloader(false);
       setform(false);
     } else {
       console.log("Upload failed:", result);
@@ -95,134 +99,138 @@ function Profileform({ form, setform }) {
 
   return (
     <>
-      <div className={backindex}></div>
-      <div className={formdisplay}>
-        <CiSquareRemove
-          className="text-3xl relative left-5 top-5 text-black"
-          onClick={() => {
-            setform(false);
-          }}
-        />
-        <h1 className="text-center font-semibold text-xl">Add product</h1>
-        <form onSubmit={handleFileUpload}>
-          <input
-            type="text"
-            name="productname"
-            className={disply}
-            placeholder="enter product name"
-            onChange={setproductname}
-            value={name}
-            required
-          />
-          <br />
-          <br />
-          <input
-            type="text"
-            name="productdescription"
-            className={disply}
-            placeholder="enter product description"
-            value={description}
-            onChange={setproductdescription}
-            required
-          />
-          <br />
-          <br />
-          <input
-            type="number"
-            name="price"
-            className={disply}
-            value={price}
-            onChange={setproductprice}
-            placeholder="enter price"
-            required
-          />
-          <br />
-          <br />
-          <input
-            type="number"
-            name="age"
-            className={disply}
-            value={age}
-            onChange={setproductage}
-            placeholder="enter how many year old"
-            required
-          />
-          <br />
-          <br />
-          {/* <input type="text" name="location" className={disply} placeholder="enter location" value={location} onChange={setproductlocation}/><br /><br /> */}
-          <select
-            name="catagory"
-            id="catagory"
-            className={disply}
-            value={catagory}
-            onChange={setproductcatagory}
-            required
-          >
-            <option value="Furniture">Furniture</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Vehicles">Vehicles</option>
-            <option value="Books">Books</option>
-            <option value="Properties">Properties</option>
-            <option value="Sports">Sports</option>
-            <option value="Fashion">Fashion</option>
-            <option value="Other">Other</option>
-          </select>
-          <br />
-          <select
-            name="other"
-            id="catagory"
-            className={disply}
-            value={other}
-            onChange={setproductother}
-            required
-          >
-            <option value="Warranty">Warranty</option>
-            <option value="Guarantee">Guarantee</option>
-            <option value="Warranty-Guarantee">Warranty-Guarantee</option>
-            <option value="Not Availble">None</option>
-          </select>
-          <input
-            type="file"
-            name="image"
-            className={disply}
-            multiple
-            onChange={Changepostimage}
-            required
-          />
-          <br />
-          <br />
+      {loader ? <Loader/> :
+        <div>
+          <div className={backindex}></div>
+          <div className={formdisplay}>
+            <CiSquareRemove
+              className="text-3xl relative left-5 top-5 text-black"
+              onClick={() => {
+                setform(false);
+              }}
+            />
+            <h1 className="text-center font-semibold text-xl">Add product</h1>
+            <form onSubmit={handleFileUpload}>
+              <input
+                type="text"
+                name="productname"
+                className={disply}
+                placeholder="enter product name"
+                onChange={setproductname}
+                value={name}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="text"
+                name="productdescription"
+                className={disply}
+                placeholder="enter product description"
+                value={description}
+                onChange={setproductdescription}
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="number"
+                name="price"
+                className={disply}
+                value={price}
+                onChange={setproductprice}
+                placeholder="enter price"
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="number"
+                name="age"
+                className={disply}
+                value={age}
+                onChange={setproductage}
+                placeholder="enter how many year old"
+                required
+              />
+              <br />
+              <br />
+              {/* <input type="text" name="location" className={disply} placeholder="enter location" value={location} onChange={setproductlocation}/><br /><br /> */}
+              <select
+                name="catagory"
+                id="catagory"
+                className={disply}
+                value={catagory}
+                onChange={setproductcatagory}
+                required
+              >
+                <option value="Furniture">Furniture</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Vehicles">Vehicles</option>
+                <option value="Books">Books</option>
+                <option value="Properties">Properties</option>
+                <option value="Sports">Sports</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Other">Other</option>
+              </select>
+              <br />
+              <select
+                name="other"
+                id="catagory"
+                className={disply}
+                value={other}
+                onChange={setproductother}
+                required
+              >
+                <option value="Warranty">Warranty</option>
+                <option value="Guarantee">Guarantee</option>
+                <option value="Warranty-Guarantee">Warranty-Guarantee</option>
+                <option value="Not Availble">None</option>
+              </select>
+              <input
+                type="file"
+                name="image"
+                className={disply}
+                multiple
+                onChange={Changepostimage}
+                required
+              />
+              <br />
+              <br />
 
-          {/* location */}
+              {/* location */}
 
-          <p className="text-xl text-semibold text-center text-gray-700 border-b-2 border-black">
-            Confirm your location
-          </p>
-          <p
-            onClick={(e) => {
-              navigator.geolocation.getCurrentPosition((pos) =>
-                setlocation({
-                  latitude: pos.coords.latitude,
-                  longitude: pos.coords.longitude,
-                })
-              );
-            }}
-            className="text-center text-blue-700 flex  items-center	justify-center font-semibold border-2 border-gray-100 mt-5 mb-5"
-          >
-            <FaLocationCrosshairs className="mr-3" />
-            <p>use current loction</p>
-          </p>
+              <p className="text-xl text-semibold text-center text-gray-700 border-b-2 border-black">
+                Confirm your location
+              </p>
+              <p
+                onClick={(e) => {
+                  navigator.geolocation.getCurrentPosition((pos) =>
+                    setlocation({
+                      latitude: pos.coords.latitude,
+                      longitude: pos.coords.longitude,
+                    })
+                  );
+                }}
+                className="text-center text-blue-700 flex  items-center	justify-center font-semibold border-2 border-gray-100 mt-5 mb-5"
+              >
+                <FaLocationCrosshairs className="mr-3" />
+                <p>use current loction</p>
+              </p>
 
-          <MapSearch location={location} setlocation={setlocation} />
+              <MapSearch location={location} setlocation={setlocation} />
 
-          {/* ^loction */}
+              {/* ^loction */}
 
-          <input
-            type="submit"
-            value="submit"
-            className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[43%] hover:bg-emerald-400"
-          />
-        </form>
-      </div>
+              <input
+                type="submit"
+                value="submit"
+                className="bg-emerald-700	text-white text-[20px] rounded-[5px] pt-1 pb-1 pl-5 pr-5 mb-7 ml-[43%] hover:bg-emerald-400"
+              />
+            </form>
+          </div>
+        </div>
+      }
     </>
   );
 }
