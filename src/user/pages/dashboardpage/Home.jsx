@@ -416,6 +416,7 @@ import { Filters } from "../../component/Dashboard/Filters";
 import { useAuth } from "../../context/usercontext";
 import CarSalesMap from "../../component/Dashboard/Loctionfilter";
 import CardPreloader from "../../component/Dashboard/Preloadercard";
+import Notification from "../../../components/Notification";
 
 export const Home = () => {
   const { user, login } = useAuth();
@@ -451,6 +452,7 @@ export const Home = () => {
   }, [query, setquery]);
   return (
     <>
+        <Notification/>
       <div className="bg-white h-screen w-full">
         <Navbar
           products={products}

@@ -51,7 +51,8 @@ export const ProfileMain = ({ show }) => {
   useEffect(() => {
     findpromote().then((data) => {
       console.log("data...", data.ads);
-      setads(data.ads);
+      const Data= data.ads.filter((ads) => ads.Productid.User[0] == user._id);
+      setads(Data);
     });
   }, [reads,setreads]);
 
@@ -148,47 +149,110 @@ export const ProfileMain = ({ show }) => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
-            {showbids.slice(0, count).map((bid) => (
-              <Link to={`/details/${bid.Productid._id}`}>
-                <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
-                  {/* bids */}
-                  <div className="flex justify-between">
-                    <MdLocalOffer className="text-xl" />
-                    <h1 className="font-mono bg-sky-700 text-white mb-2 text-lg font-bold rounded-[5px] p-2">
-                      <p className="text-sm text-gray-300">OFFER-PRICE</p>
-                      {bid.bidamount}&#8377;
-                    </h1>
-                  </div>
+            <div>
+              {show == "mybids" ?
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+                  {showbids.slice(0, count).map((bid) => (
+                    <Link to={`/details/${bid.Productid._id}`}>
+                      <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
+                        {/* bids */}
+                        <div className="flex justify-between">
+                          <MdLocalOffer className="text-xl" />
+                          <h1 className="font-mono bg-sky-700 text-white mb-2 text-lg font-bold rounded-[5px] p-2">
+                            <p className="text-sm text-gray-300">OFFER-PRICE</p>
+                            {bid.bidamount}&#8377;
+                          </h1>
+                        </div>
 
-                  {/* like */}
-                  {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
+                        {/* like */}
+                        {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
 
-                  <a key={bid._id} href={""} className="group">
-                    <img
-                      alt=""
-                      src={bid.Productid.image[0].url}
-                      className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
-                    />
-                    <h3 className="mt-4 text-sm text-gray-700">
-                      {bid.Productid.name}
-                    </h3>
-                    <p className="mt-1 text-lg font-medium text-gray-900">
-                      {bid.Productid.price}
-                    </p>
-                  </a>
+                        <a key={bid._id} href={""} className="group">
+                          <img
+                            alt=""
+                            src={bid.Productid.image[0].url}
+                            className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+                          />
+                          <h3 className="mt-4 text-sm text-gray-700">
+                            {bid.Productid.name}
+                          </h3>
+                          <p className="mt-1 text-lg font-medium text-gray-900">
+                            {bid.Productid.price}
+                          </p>
+                        </a>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              </Link>
-            ))}
-            <button
-              className=" bg-black text-white text-center p-0"
-              onClick={() => {
-                setCount(count + 4);
-              }}
-            >
-              More..
-            </button>
-          </div>
+                :
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+
+                  {ads.slice(0, count).map((ads) => (
+              
+                    <div
+                      className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  text-center"
+                    // onClick={() => {
+                    //   setproductid(product._id);
+                    // }}
+                    >
+                      {/* like */}
+                      {/* <IoIosHeartEmpty  className="relative top-7 left-[90%] text-gray-600" /> */}
+
+                      {/* <Link to={`/details/${product._id}`} className="group"> */}
+                      {/* {ads.some(ads => ads.Productid._id === product._id) ?
+                ""
+                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads)}} className="text-white bg-gray-300 rounded-full mb-5 hover:bg-green-400"> promote</h1>} */}
+                      <img
+                        alt=""
+                        src={ads?.Productid?.image[0]?.url}
+                        className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+                        onClick={() => {
+                          setproductid(ads.Productid._id);
+                        }}
+                      />
+                      <h3 className="mt-4 text-sm text-gray-700">{ads.Productid.name}</h3>
+                      <p className="mt-1 text-lg font-medium text-gray-900">
+                        {ads.Productid.price}
+                      </p>
+                      {/* delete-edit btn */}
+                      {/* </Link> */}
+
+                      <div className="flex justify-between">
+                        <div>
+                          <MdDelete
+                            className="text-xl text-gray-500"
+                            onClick={() => {
+                              deleteproduct(ads.Productid._id).then((data) => {
+                                setdelproduct(!delproduct);
+                              });
+                            }}
+                          />
+                        </div>
+                        <MdEdit
+                          className="text-xl text-gray-500"
+                          onClick={() => {
+                            seteditsproduct(ads.Productid), seteditproduct(true);
+                          }}
+                        />
+                      </div>
+                      {productid === ads.Productid._id ? (
+                        <Showbids productid={productid} setproductid={setproductid} product={ads.Productid} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    className=" bg-black text-white text-center p-0"
+                    onClick={() => {
+                      setCount(count + 4);
+                    }}
+                  >
+                    More..
+                  </button>
+                </div>
+              }
+              </div>
         )}
       </div>
       {/* all about like dropdown form edit dp change*/}

@@ -66,7 +66,7 @@ function EditProfile({ updateform, setupdateform }) {
       {loader ? <Loader /> : 
         <div>
       <div className={backindex}></div>
-      <div className={formdisplay}>
+       <div className={formdisplay}>
         <CiSquareRemove
           className="text-3xl relative left-1 text-white bottom-20"
           onClick={() => {

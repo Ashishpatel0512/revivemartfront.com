@@ -193,6 +193,19 @@ export const findpromote= async () => {
   }
 };
 
+//set notification token
+export const notificationtoken = async (notificationtoken) => {
+  try {
+    console.log("start..set token", notificationtoken);
+    const response = await apiClient.get(`/notificationtoken/${notificationtoken}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+
 // ✅ PUT: Update an existing user
 // export const updateUser = async (id, updatedData) => {
 //   try {

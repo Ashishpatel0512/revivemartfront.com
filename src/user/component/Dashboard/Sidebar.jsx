@@ -36,7 +36,9 @@ export const Sidebar = ({ show, setshow }) => {
           Mybids
         </button>
 
-        <button className="bg-gray-50 w-[70%] focus:bg-sky-500 shadow-gray-400 shadow-lg font-mono rounded-[5px] hover:bg-sky-600 text-gray-800">
+        <button className="bg-gray-50 w-[70%] focus:bg-sky-500 shadow-gray-400 shadow-lg font-mono rounded-[5px] hover:bg-sky-600 text-gray-800"  onClick={() => {
+            setshow("myads");
+          }}>
           Myads
             </button>
             </div>
