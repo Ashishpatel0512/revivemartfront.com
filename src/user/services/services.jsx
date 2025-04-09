@@ -206,6 +206,18 @@ export const notificationtoken = async (notificationtoken) => {
   }
 };
 
+export const fetchnotification = async () => {
+  try {
+    console.log("start..set token");
+    const response = await apiClient.get(`/notification`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+
 // ✅ PUT: Update an existing user
 // export const updateUser = async (id, updatedData) => {
 //   try {

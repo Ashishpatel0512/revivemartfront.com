@@ -6,10 +6,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsChat } from "react-icons/bs";
 import { MdOutlineChatBubbleOutline } from "react-icons/md";
-
+import  SimpleBadge  from "./NotifyIcon";
 import { useAuth } from "../../context/usercontext";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Notify } from "./Notify";
 export const Navbar = ({
   products,
   setShowproduct,
@@ -19,6 +20,8 @@ export const Navbar = ({
   console.log("products", products);
   const [text, setText] = useState("");
   const { user } = useAuth();
+  const [shownotification, setshownotification] = useState(false);
+  const [Notificationcount, setNotificationcount] = useState(0);
   console.log(user, "user in navbar");
   const location = useLocation();
   const navstyle = `lg:bg-gradient-to-b from-gray-200 to-gray-100 bg-gray-800 fixed top-0 left-0 z-10 h-22 lg:h-16 w-full lg:flex
@@ -45,6 +48,12 @@ export const Navbar = ({
 
   return (
     <>
+      {/* notification */}
+      {user ?
+        <Notify shownotification={shownotification} setNotificationcount={setNotificationcount} />
+        :
+        ""}
+      {/*  */}
       <div className={navstyle}>
         <Link to={"/"}>
           <h1 className="lg:ml-20 lg:text-2xl text-xl lg:mt-0 mt-1 ml-5 font-semibold lg:text-sky-900	text-white font-sans">
@@ -85,6 +94,10 @@ export const Navbar = ({
           <Link to={"/chat"}>
             <BsChat className="text-2xl font-bold" />
           </Link>
+          {/* notification */}
+          <div onClick={() => setshownotification(!shownotification)}>
+            <SimpleBadge  Notificationcount={Notificationcount}/>
+          </div>
           {location.pathname == "/" ? (
             <div className="flex items-center">
               <IoLocation className="text-2xl text-skay-300" />

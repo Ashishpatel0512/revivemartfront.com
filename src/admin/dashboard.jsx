@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { FcApproval } from "react-icons/fc";
 import { RxCross2 } from "react-icons/rx";
 import { ImCross } from "react-icons/im";
+import { useAuth } from '../user/context/usercontext';
 
 function Dashboard() {
+  const {  socket } = useAuth();
 
     const [users,setusers]=useState([]);
     const [posts,setposts]=useState([]);
@@ -39,7 +41,10 @@ function Dashboard() {
    const result =await data.json()
    console.log(result);
    if(result.success){
-    setapprovepost(!approvepost)
+     setapprovepost(!approvepost)
+     //notification
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: 'Approve your product' });
+
    }
    else{
     setapprovepost(!approvepost)
@@ -58,7 +63,10 @@ function Dashboard() {
    const result =await data.json()
    console.log(result);
    if(result.success){
-    setrejectpost(!rejectpost)
+     setrejectpost(!rejectpost)
+     //notification
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: 'Reject your product' });
+
    }
    else{
     setrejectpost(!rejectpost)

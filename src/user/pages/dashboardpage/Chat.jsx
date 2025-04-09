@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/usercontext";
 import { Navbar } from "../../component/Dashboard/Navbar";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { fetchnotification } from "../../services/services";
+
 export const Chat = () => {
   const { user, socket, receiver, setReceiver } = useAuth();
   // const [username, setUsername] = useState("");
@@ -11,6 +15,7 @@ export const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [groupMessage, setGroupMessage] = useState([]);
+  const [notification, setNotification] = useState();
 
   useEffect(() => {
     if (!user) return;
@@ -69,9 +74,29 @@ export const Chat = () => {
       setMessage("");
     }
   };
+
+  // notification
+  // useEffect(() => {
+  //   socket.on("receivenotification", ({ receiver, message }) => {
+  //     console.log("Notification received:", receiver, message);
+  //     setNotification((data)=>{return [ {message, receiver},...data]});
+  //   });
+  //   return () => socket.off("receivenotification");
+  // }, []);
+
+  // useEffect(()=>{
+  //   fetchnotification().then((data) => {
+  //     console.log("Notification fetched successfully!", data.Notification);
+  //     setNotification(data.Notification);
+  //   })
+  // }, [])
+  // console.log("Notification:", notification);
+  // 
   return (
     <>
       {/* <Navbar /> */}
+      {/* {notification? <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert severity="success">{notification}</Alert></Stack>:""} */}
       <Link to={"/"}>
         <IoMdArrowRoundBack className="fixed top-5 left-5 text-white text-xl " />
       </Link>
