@@ -62,13 +62,13 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
 
   useEffect(() => {
     if (location) {
-      const nearbyLocations = showproduct.filter(
+      const nearbyLocations = showproduct?.filter(
         (shop) =>
           getDistance(
-            location.latitude,
-            location.longitude,
-            shop?.location.latitude,
-            shop.location.longitude
+            location?.latitude,
+            location?.longitude,
+            shop?.location?.latitude,
+            shop?.location?.longitude
           ) <= 100
       );
       setFilteredLocations(nearbyLocations);

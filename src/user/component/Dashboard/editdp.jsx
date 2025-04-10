@@ -68,7 +68,7 @@ function Dpedit({ uploadform, setuploadform }) {
             />
             <h1 className="text-center font-semibold">Edit dp</h1>
             <form onSubmit={handleFileUpload}>
-              <input type="file" name="dp" className={disply} onChange={Changedp} />
+              <input type="file" name="dp" className={disply} onChange={Changedp} required />
               <br />
               <br />
               <input

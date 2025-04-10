@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/usercontext";
 import { Navbar } from "../../component/Dashboard/Navbar";
@@ -16,6 +16,11 @@ export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [groupMessage, setGroupMessage] = useState([]);
   const [notification, setNotification] = useState();
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   useEffect(() => {
     if (!user) return;
@@ -213,6 +218,8 @@ export const Chat = () => {
                   </p>
                 </p>
               ))}
+                <div ref={messagesEndRef} />
+
             </div>
           </div>
           <div className="flex w-[100%] ">

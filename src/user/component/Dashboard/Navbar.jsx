@@ -11,19 +11,24 @@ import { useAuth } from "../../context/usercontext";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Notify } from "./Notify";
+import { Suggestionbox } from "./Suggestionbox";
+import VoiceSearch from "./Voiceanimation";
 export const Navbar = ({
   products,
+  showproduct,
   setShowproduct,
   locationtrue,
   setlocationtrue,
 }) => {
   console.log("products", products);
+  console.log("searchproducts .........",showproduct);
   const [text, setText] = useState("");
   const { user } = useAuth();
   const [shownotification, setshownotification] = useState(false);
   const [Notificationcount, setNotificationcount] = useState(0);
   console.log(user, "user in navbar");
   const location = useLocation();
+  const [Voicestart,setVoicestart]=useState(false)
   const navstyle = `lg:bg-gradient-to-b from-gray-200 to-gray-100 bg-gray-800 fixed top-0 left-0 z-10 h-22 lg:h-16 w-full lg:flex
    ${location.pathname == "/" ? "justify-around" : "justify-between"} 
    lg:items-center lg:pt-[5vh] lg:pb-[6vh] lg:pl-2 lg:pr-2 shadow-md`;
@@ -34,6 +39,9 @@ export const Navbar = ({
     window.webkitSpeechRecognition)();
   recognition.lang = "en-US";
   recognition.continuous = false;
+  recognition.onend = () => {
+    setVoicestart(false);
+  }
 
   recognition.onresult = function (event) {
     const searchQuery = event.results[0][0].transcript;
@@ -44,10 +52,17 @@ export const Navbar = ({
         new RegExp(searchQuery, "gi").test(product.name)
       )
     );
+   
   };
 
   return (
     <>
+      {/* suggestionbox */}
+      {Voicestart ?
+        <VoiceSearch />
+        : ""}
+      <Suggestionbox showproduct={showproduct} setShowproduct={setShowproduct} />
+      {/*  */}
       {/* notification */}
       {user ?
         <Notify shownotification={shownotification} setNotificationcount={setNotificationcount} />
@@ -78,7 +93,8 @@ export const Navbar = ({
             />
             <MdKeyboardVoice
               onClick={() => {
-                recognition.start();
+                recognition.start(),
+                setVoicestart(true)
               }}
               className="text-2xl lg:text-black  text-white"
             />

@@ -458,6 +458,7 @@ export const Home = () => {
       <div className="bg-white h-screen w-full">
         <Navbar
           products={products}
+          showproduct={showproduct}
           setShowproduct={setShowproduct}
           locationtrue={locationtrue}
           setlocationtrue={setlocationtrue}

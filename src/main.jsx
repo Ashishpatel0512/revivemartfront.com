@@ -18,6 +18,7 @@ import Forgot from "./user/pages/authpage/forgot";
 import AdminLogin from "./user/pages/authpage/Adminlogin";
 import AdminPrivateRoute from "./user/pages/authpage/AdminPrivetroutes";
 import { Visiteprofile } from "./user/pages/dashboardpage/Visiteprofile";
+import Logout from "./user/pages/dashboardpage/Logout";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/editproduct", element: <Editproductform/> },
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
   {
     path: "/forgot",
     element: <Forgot />
+
+  },
+  {
+    path: "/logout",
+    element: <Logout />
 
   },
 
