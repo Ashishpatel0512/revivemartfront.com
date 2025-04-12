@@ -376,11 +376,19 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+import { MdLocationOn } from "react-icons/md";
 
 const MapSearch = ({ location, setlocation }) => {
   // const [location, setLocation] = useState({ lat: 22.5726, lng: 88.3639 }); // Default: Kolkata
   const [searchTerm, setSearchTerm] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState([{
+    x: 71.67985812598445, y: 23.773753, label: 'Patan, Gujarat, India',
+  },
+    { x: 72.95510230927962, y: 21.192364650000002, label: 'सूरत, Gujarat, India' },
+    { x: 72.45687524391707, y: 23.57054665, label: 'Mahesana, Gujarat, India'},
+    {x: 72.29749074434054, y: 22.745539049999998, label: 'Ahmedabad, Gujarat, India'},
+    { x: 71.02886864120667, y: 22.069288, label: 'राजकोट, Gujarat, India'}
+  ]);
   const [errorMessage, setErrorMessage] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("India");
 
@@ -433,7 +441,7 @@ const MapSearch = ({ location, setlocation }) => {
     }, [center]);
     return null;
   }
-
+  console.log("suggestionnnnnnn}}}}}}}}}}}}}}}",suggestions)
   return (
     <div>
       <h2 className="mb-1 text-center text-md text-gray-600 mt-2">set location</h2>
@@ -472,19 +480,24 @@ const MapSearch = ({ location, setlocation }) => {
               zIndex: 10,
             }}
           >
-            {suggestions.map((place, index) => (
-              <li
-                key={index}
-                onClick={() => selectLocation(place.y, place.x, place.label)}
-                style={{
-                  padding: "8px",
-                  cursor: "pointer",
-                  borderBottom: "1px solid #ddd",
-                }}
-              >
-                {place.label}
-              </li>
-            ))}
+            {suggestions.map((place, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={() => selectLocation(place.y, place.x, place.label)}
+                  style={{
+                    padding: "8px",
+                    cursor: "pointer",
+                    borderBottom: "1px solid #ddd",
+                  }}
+                >
+                  <div className="flex items-center gap-10">
+                    <MdLocationOn />
+                    <p>{place.label.slice(0, 25)}...</p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

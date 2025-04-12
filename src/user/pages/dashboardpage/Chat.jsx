@@ -7,6 +7,7 @@ import { data, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { fetchnotification } from "../../services/services";
+import { MdOutlineChatBubble } from "react-icons/md";
 
 export const Chat = () => {
   const { user, socket, receiver, setReceiver } = useAuth();
@@ -17,7 +18,8 @@ export const Chat = () => {
   const [groupMessage, setGroupMessage] = useState([]);
   const [notification, setNotification] = useState();
   const messagesEndRef = useRef(null);
-
+  const inputRef = useRef([]);
+  
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -41,6 +43,62 @@ export const Chat = () => {
     fetchPreviousGroupMessages();
   }, [user]);
 
+  //groupmessage use to unread message notification show
+
+  const [status, setstatus] = useState([])
+  useEffect(() => {
+    groupMessage.forEach((msg, index) => {
+      console.log("msg>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", msg.participants)
+      msg.messages.map((data) => {
+        console.log("data>>>>>>>>>>>>>>>", data.msg)
+        if (data.msg.receiver._id == user._id) {
+          if (data.msg.status == 'unread') {
+            index++;
+          }
+        }
+        
+      })
+      console.log("index", index)
+      if (msg.participants[0]._id == user._id) {
+        const id = msg.participants[1]._id;
+       setstatus((data) => { return [...data, {id:index  }]})
+
+      }
+      else {
+        const id = msg.participants[0]._id;
+
+        setstatus((data) => { return [...data, {id:index }]})
+
+      }
+    })
+  },[groupMessage])
+
+  console.log("status>>>>>>>>",status)
+  // read unread
+  const read = (msgid) => {
+    socket.emit("read", {msgid:msgid });
+   }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log('Element screen પર દેખાઈ ગયું!');
+          console.log(`✔️ Visible again: ${entry.target.dataset.id}`);
+          const msg = messages[entry.target.dataset.id]
+          {
+            msg.sender._id !== user._id &&
+            read(msg._id)
+          }
+        }
+      });
+    });
+    
+    inputRef.current.forEach(el => {
+      if (el) observer.observe(el);
+    });
+  },[messages])
+  
   // Fetch private messages when username & receiver are set
   useEffect(() => {
     if (!user || !receiver) return;
@@ -143,13 +201,18 @@ export const Chat = () => {
             >
               {msg?.participants?.map((p) =>
                 p._id !== user._id ? (
-                  <div className="flex justify-start items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px]">
+                  <div className="flex justify-start gap-2 items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px]">
                     <img
                       src={p.image.url}
                       alt=""
                       className="h-10 w-10 rounded-full"
                     />
-                    <p className="ml-5 text-xl text-white">{p.name}</p>
+                    <p className="ml-5 mb-3 text-xl text-white">{p.name}</p>
+                    {status[index]?.id !== 0 ?
+                      <p className="ml-24 bg-gray-300 rounded-full text-black text-center text-xl p-1 pl-2 pr-2 border-2 border-gray-300">{status[index]?.id}</p>
+                      :''
+                    }
+                    <p className="relative top-4 right-10 text-gray-300">{msg?.messages[(msg.messages.length-1)]?.msg?.message}</p>
                   </div>
                 ) : (
                   ""
@@ -159,85 +222,94 @@ export const Chat = () => {
           ))}
         </div>
         {/* 2 */}
-        <div className="w-[80%] border-r-2 bg-gray-300 ">
-          <div className="chat-box border p-2 mt-0  rounded bg-gray-200 h-[90%] w-[100%] ">
-            <h1 className="bg-gray-500 border-b-2 border-gray-300 text-white h-[10%] rounded-t-[5px]">
-              {messages[0]?.sender?._id === user._id ? (
-                <div className="flex justify-between items-center p-3">
-                  <p className="text-2xl font-semibold">
-                    {messages[0]?.receiver?.name}
+        {receiver ?
+          <div className="w-[80%] border-r-2 bg-gray-300 ">
+            <div className="chat-box border p-2 mt-0  rounded bg-gray-200 h-[90%] w-[100%] ">
+              <h1 className="bg-gray-500 border-b-2 border-gray-300 text-white h-[10%] rounded-t-[5px]">
+                {messages[0]?.sender?._id === user._id ? (
+                  <div className="flex justify-between items-center p-3">
+                    <p className="text-2xl font-semibold">
+                      {receiver?.name}
+                    </p>
+                    <img
+                      src={receiver?.image?.url}
+                      alt=""
+                      className="h-10 w-10 rounded-full"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-between  items-center p-3">
+                    <p className="text-2xl font-semibold">
+                      {receiver?.name}
+                    </p>
+                    <img
+                      src={receiver?.image?.url}
+                      alt=""
+                      className="h-10 w-10 rounded-full"
+                    />
+                  </div>
+                )}
+              </h1>
+              <div className="h-[90%] overflow-y-auto">
+                {messages.map((msg, index) => (
+                  <p
+                    key={index}
+                    data-id={index}
+
+                    className={
+                      msg?.sender?._id === user._id
+                        ? "text-white  flex justify-end"
+                        : "text-white flex justify-start "
+                    }
+                    ref={el => inputRef.current[index] = el}>
+                    {" "}
+                    <p>
+                      {msg?.sender?._id == user?._id ||
+                        (msg?.receiver?._id == user?._id &&
+                          msg?.sender?._id == receiver?._id) ? (
+                        <p
+                          className={
+                            msg?.sender?._id === user?._id
+                              ? `bg-green-400 p-3 mt-4 rounded-[5px] ${msg.status == 'read' ? '' : "opacity-70"}`
+                              : "bg-gray-600  p-3 mt-4 rounded-[5px]"
+                          }
+                        >
+                          {" "}
+                          <p className="text-xs">{msg?.sender?.name}</p>
+                          <hr /> <p className="text-lg mt-1">{msg?.message}</p>
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </p>
                   </p>
-                  <img
-                    src={messages[0]?.receiver?.image.url}
-                    alt=""
-                    className="h-10 w-10 rounded-full"
-                  />
-                </div>
-              ) : (
-                <div className="flex justify-between  items-center p-3">
-                  <p className="text-2xl font-semibold">
-                    {messages[0]?.sender?.name}
-                  </p>
-                  <img
-                    src={messages[0]?.sender?.image.url}
-                    alt=""
-                    className="h-10 w-10 rounded-full"
-                  />
-                </div>
-              )}
-            </h1>
-            <div className="h-[90%] overflow-y-auto">
-              {messages.map((msg, index) => (
-                <p
-                  key={index}
-                  className={
-                    msg?.sender?._id === user._id
-                      ? "text-white  flex justify-end"
-                      : "text-white flex justify-start "
-                  }
-                >
-                  {" "}
-                  <p>
-                    {msg?.sender._id == user._id ||
-                    (msg?.receiver._id == user._id &&
-                      msg?.sender._id == receiver._id) ? (
-                      <p
-                        className={
-                          msg?.sender._id === user._id
-                            ? "bg-green-400 p-3 mt-4 rounded-[5px]"
-                            : "bg-gray-600  p-3 mt-4 rounded-[5px]"
-                        }
-                      >
-                        {" "}
-                        <p className="text-xs">{msg.sender.name}</p>
-                        <hr /> <p className="text-lg mt-1">{msg.message}</p>
-                      </p>
-                    ) : (
-                      ""
-                    )}
-                  </p>
-                </p>
-              ))}
+                ))}
                 <div ref={messagesEndRef} />
 
+              </div>
+            </div>
+            <div className="flex w-[100%] ">
+              <input
+                type="text"
+                placeholder="Enter message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-[80%] p-2 mt-2 border-2 border-gray-100 rounded-[5px]"
+              />
+              <button
+                onClick={sendMessage}
+                className="w-[20%] ml-5  p-2 mt-2 bg-green-500 text-white rounded"
+              >
+                Send
+              </button>
             </div>
           </div>
-          <div className="flex w-[100%] ">
-            <input
-              type="text"
-              placeholder="Enter message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-[80%] p-2 mt-2 border-2 border-gray-100 rounded-[5px]"
-            />
-            <button
-              onClick={sendMessage}
-              className="w-[20%] ml-5  p-2 mt-2 bg-green-500 text-white rounded"
-            >
-              Send
-            </button>
-          </div>
-        </div>
+          :
+          <div className="mr-[39%] mt-[40vh]">
+          <MdOutlineChatBubble className="text-7xl text-gray-300"/>
+          <h1 className="ml-1 text-lg text-gray-400">chatbox</h1>
+            </div>
+          }
 
         {/* <div className="chat-box border p-2 mt-4 rounded bg-white h-40 overflow-y-auto">
       {messages.map((msg, index) => (

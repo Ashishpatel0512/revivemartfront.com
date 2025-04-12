@@ -5,6 +5,7 @@ import { FcApproval } from "react-icons/fc";
 import { RxCross2 } from "react-icons/rx";
 import { ImCross } from "react-icons/im";
 import { useAuth } from '../user/context/usercontext';
+import { findadminpromote } from '../user/services/services';
 
 function Dashboard() {
   const {  socket } = useAuth();
@@ -17,7 +18,9 @@ function Dashboard() {
     const [userId, setuserid] = useState(null)
     const [approvepost, setapprovepost] = useState(false);
     const [rejectpost, setrejectpost] = useState(false);
-    const [blockuser,setblockuser]=useState(false)
+  const [blockuser, setblockuser] = useState(false)
+  const [ads, setads] = useState([])
+  const [adsdata,setadsdata]=useState(false)
       useEffect(()=>{
         fetch(`http://localhost:3000/admin/userdata`)
         .then(res => res.json())
@@ -27,7 +30,15 @@ function Dashboard() {
           setposts(data.listdata)
         });
 
-      }, [approvepost,rejectpost,blockuser])
+      }, [approvepost, rejectpost, blockuser])
+  
+  // find ads...
+  useEffect(() => {
+    findadminpromote().then((data) => {
+      console.log("admin side ads....", data.ads)
+      setads(data.ads)
+    })
+  },[])
   
   //approve
   const approveproduct=async(postId)=>{
@@ -43,7 +54,7 @@ function Dashboard() {
    if(result.success){
      setapprovepost(!approvepost)
      //notification
-     socket.emit("sendnotification", { receiver:result?.user?._id, message: 'Approve your product' });
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: `Approve your product ${result?.approvepost?.name}`});
 
    }
    else{
@@ -65,7 +76,7 @@ function Dashboard() {
    if(result.success){
      setrejectpost(!rejectpost)
      //notification
-     socket.emit("sendnotification", { receiver:result?.user?._id, message: 'Reject your product' });
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: `Reject your product ${result?.rejectpost?.name}` });
 
    }
    else{
@@ -126,7 +137,8 @@ function Dashboard() {
              <Link to={"/"}> <button  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] mt-20  pl-5 font-mono'>Home</button><br /></Link>
               <button onClick={()=>{setpage("details") ,setuserid(null)}} className='font-bold text-xl bg-gray-500 p-2 w-[70%] pl-5 rounded-[5px] font-mono mt-3 '>Dashboard</button><br />
               <button onClick={()=>{setpage("userdetails"),setshowdatas("userdata")}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>UserManagement</button>
-              <button onClick={()=>{setpage("userdetails"),setshowdatas("productdatadata")}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>ProductManagement</button>
+              <button onClick={()=>{setpage("userdetails"),setshowdatas("productdatadata"),setadsdata(false)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>ProductManagement</button>
+              <button onClick={()=>{setpage("userdetails"),setshowdatas("adsdata"),setadsdata(true)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>AdsManagement</button>
 
           </div>
             {userId==null?
@@ -207,42 +219,71 @@ function Dashboard() {
                           <div>{user.emailid}</div>
                           <div className='flex w-[100%] gap-10 justify-center mt-10 text-white	'>
                             <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { setuserid(user._id) }}>posts</button>
-                            {user.status=="Active"?
-                              < button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={()=>{Blockuser(user._id)}}>block</button>
-                             :
-                            <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={()=>{UnBlockuser(user._id)}}>Unblock</button>
-                             }
+                            {user.status == "Active" ?
+                              < button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Blockuser(user._id) }}>block</button>
+                              :
+                              <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { UnBlockuser(user._id) }}>Unblock</button>
+                            }
                           </div>
                         </div>
                       ))}
                 
                     </div>
                     :
-                    <div className='bg-blue w-[90%] h-[100%] mt-10 ml-10 flex flex-wrap gap-10'>
-                      {posts.map((post) => (
+                    <div>
+                    {
+                      adsdata?
+                      <div className='bg-blue w-[90%] h-[100%] mt-10 ml-10 flex flex-wrap gap-10'>
+                      {ads.map((post) => (
                         <div className='w-[20vw] h-[50vh] bg-gray-200 shadow-lg relative shadow-black-300 text-center  border-1 border-white font-mono'>
-                          {post.status == 'Approve' ? <FcApproval className='text-2xl absolute top-2 left-2' /> : ''}
-                          {post.status == 'Reject' ? <ImCross className='text-xl absolute top-2 left-2 text-red-600' /> : ''}
-                          <img src={post?.image[0]?.url} alt="" className='h-[30vh] w-[100%]' />
-                          <div>{post._id}</div>
-                          <div>{post.name}</div>
+                          <img src={post?.Productid?.image[0]?.url} alt="" className='h-[30vh] w-[100%]' />
+                          <div>{post?.Productid?._id}</div>
+                          <div>{post?.Productid?.name}</div>
                           <div className='flex w-[100%] gap-10 justify-center mt-3 text-white mb-1	'>
-                            <Link to={`/details/${post?._id}`} className='bg-blue-500 w-[35%] text-lg rounded-[5px] font-mono'>SEE</Link>
-                  
+                            <Link to={`/details/${post?.Productid?._id}`} className='bg-blue-500 w-[35%] text-lg rounded-[5px] font-mono'>SEE</Link>
+              
                             {/* <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { setpostid(post?._id) }}>see</button> */}
                             {/* {postid == post?._id && <Postdetails postid={post?._id} setpostid={setpostid} />} */}
-                  
-                            <button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Delpost(post?._id) }}>delete</button>
+              
+                            {/* <button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Delpost(post?._id) }}>delete</button> */}
                           </div>
                           {/* approve-reject btn */}
-                          <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
-                          <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
-                          <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
-                          </div>
+                          {/* <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
+                            <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
+                            <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
+                          </div> */}
                         </div>
                       ))}
-                                  
                     </div>
+                          
+                        :
+                        <div className='bg-blue w-[90%] h-[100%] mt-10 ml-10 flex flex-wrap gap-10'>
+                          {posts.map((post) => (
+                            <div className='w-[20vw] h-[50vh] bg-gray-200 shadow-lg relative shadow-black-300 text-center  border-1 border-white font-mono'>
+                              {post.status == 'Approve' ? <FcApproval className='text-2xl absolute top-2 left-2' /> : ''}
+                              {post.status == 'Reject' ? <ImCross className='text-xl absolute top-2 left-2 text-red-600' /> : ''}
+                              <img src={post?.image[0]?.url} alt="" className='h-[30vh] w-[100%]' />
+                              <div>{post._id}</div>
+                              <div>{post.name}</div>
+                              <div className='flex w-[100%] gap-10 justify-center mt-3 text-white mb-1	'>
+                                <Link to={`/details/${post?._id}`} className='bg-blue-500 w-[35%] text-lg rounded-[5px] font-mono'>SEE</Link>
+                  
+                                {/* <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { setpostid(post?._id) }}>see</button> */}
+                                {/* {postid == post?._id && <Postdetails postid={post?._id} setpostid={setpostid} />} */}
+                  
+                                <button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Delpost(post?._id) }}>delete</button>
+                              </div>
+                              {/* approve-reject btn */}
+                              <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
+                                <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
+                                <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
+                              </div>
+                            </div>
+                          ))}
+                                  {/* hello */}
+                        </div>
+                      }
+                      </div>
                   }
                   {/* // */}
                  </div>

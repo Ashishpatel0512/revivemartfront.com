@@ -9,6 +9,7 @@ import { FaCaretSquareLeft } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { MdMyLocation } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { MdZoomOutMap } from "react-icons/md";
 
 
 // 📌 Sample car sale locations (latitude, longitude, name)
@@ -44,7 +45,8 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
   const [searchLocation, setSearchLocation] = useState("");
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [showmap, setshowmap] = useState(true);
-  const mapcss = `fixed top-20 left-0 flex ${showmap ? "" : "hidden"}`;
+  const [zoom,setzoom]=useState(false)
+  const mapcss = `fixed top-20 left-0 flex ${zoom ? "w-[100%] h-[100%] pb-10" : "w-[43%] h-[50%] m-10"}  bg-gray-600 pt-10 pl-14 rounded-[10px] shadow-xl shadow-gray-500 ${showmap ? "" : "hidden"}`;
   const searchboxcss = `grid grid-cols-1 lg:w-[20vw] lg:h-auto w-screen h-screen lg:rounded-[10px] rounded-0 fixed lg:top-[8%] top-0 lg:right-[10%] right-0 bg-gray-50 shadow-2xl shadow-black z-20 ${
     locationtrue ? "" : "hidden"
   }`;
@@ -97,6 +99,8 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
           style={{ padding: "10px", width: "70%" }}
         />
         <button onClick={handleSearch} style={{ padding: "10px", marginLeft: "10px" }}>Search</button> */}
+          <MapSearch location={location} setlocation={setlocation} />
+          <hr />
           <button
             onClick={() =>
               navigator.geolocation.getCurrentPosition((pos) =>
@@ -112,7 +116,6 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
            Track My Location
           </button>
           {/* search button */}
-          <MapSearch location={location} setlocation={setlocation} />
         </div>
 
         {location && (
@@ -120,7 +123,7 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
             <MapContainer
               center={[location.latitude, location.longitude]}
               zoom={100} // Adjusted zoom level for better visibility
-              className="h-[100vh] w-[40vw] "
+              className="h-[90%] w-[90%]"
             >
               <UpdateMapView center={[location.latitude, location.longitude]} />
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -155,11 +158,16 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
               ))}
             </MapContainer>
             <FaCaretSquareLeft
-              className="text-xl mt-[50vh]"
+              className="relative left-4 top-5  text-2xl text-white"
               onClick={() => {
                 setshowmap(false);
+                setlocation('')
               }}
             />
+            <MdZoomOutMap  className="relative right-2 bottom-4  text-2xl text-white" onClick={() => {
+                setzoom(!zoom)
+              }}/>
+
           </div>
         )}
       </div>

@@ -192,12 +192,46 @@ export const findpromote= async () => {
     throw error;
   }
 };
+export const findads= async () => {
+  try {
+    // console.log("start..fetch..product..",productid);
+    const response = await apiClient.get(`/showads`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+//admin find ads
+export const findadminpromote= async () => {
+  try {
+    // console.log("start..fetch..product..",productid);
+    const response = await apiClient.get(`/admin/ads`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
 
 //set notification token
 export const notificationtoken = async (notificationtoken) => {
   try {
     console.log("start..set token", notificationtoken);
     const response = await apiClient.get(`/notificationtoken/${notificationtoken}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user with ID  :`, error);
+    throw error;
+  }
+};
+//delete notifications 
+export const deletenotification = async (id) => {
+  try {
+    const response = await apiClient.delete(`/notification/${id}`);
     console.log(response.data);
     return response.data;
   } catch (error) {

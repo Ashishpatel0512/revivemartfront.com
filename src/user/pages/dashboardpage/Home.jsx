@@ -411,7 +411,7 @@
 import { Navbar } from "../../component/Dashboard/Navbar";
 import { Cards } from "../../component/Dashboard/Cards";
 import { useEffect, useState } from "react";
-import { fetchproducts } from "../../services/services";
+import { fetchproducts, findads } from "../../services/services";
 import { Filters } from "../../component/Dashboard/Filters";
 import { useAuth } from "../../context/usercontext";
 import CarSalesMap from "../../component/Dashboard/Loctionfilter";
@@ -428,6 +428,7 @@ export const Home = () => {
 
   const [products, setproduct] = useState([]);
   const [showproduct, setShowproduct] = useState([]);
+  const [ads,setads]=useState([])
   const [query, setquery] = useState({
     name: undefined,
     catagory: undefined,
@@ -451,6 +452,17 @@ export const Home = () => {
       setloader(false);
     });
   }, [query, setquery]);
+
+  // fetach ads
+  useEffect(() => {
+    setloader(true);
+    findads(query).then((data) => {
+      console.log("data...", data.adsdata);
+      setads(data.adsdata);
+    });
+  }, []);
+
+ console.log('ads>>>in homepage',ads)
   return (
     <>
       <Notification />
@@ -465,7 +477,7 @@ export const Home = () => {
         />
         <Filters query={query} setquery={setquery} />
         {loader ? <CardPreloader /> :
-          <Cards showproduct={showproduct} />
+          <Cards showproduct={showproduct} ads={ads} />
         }
         {/* map */}
         <CarSalesMap
