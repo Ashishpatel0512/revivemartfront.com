@@ -6,9 +6,11 @@ export const Sidebar = ({ show, setshow }) => {
   const location = useLocation();
   return (
     <div className="h-screen w-[15vw] bg-gray-300 text-center rounded-tr-[20px] ">
+       <Link to={'/'}>
       <h1 className="text-gray-800 font-semibold text-xl pt-7 font-sans mb-5">
         Revivemart
-      </h1>
+        </h1>
+        </Link>
       <hr className="border-gray-400" />
       <div className="mt-20">
         <Link to={"/"}>

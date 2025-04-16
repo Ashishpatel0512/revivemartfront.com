@@ -23,7 +23,7 @@ function Profileform({ form, setform }) {
       : ""
   }`;
   const disply =
-    "border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black inline-block rounded-[5px]";
+    "border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black inline-block outline-offset-2 outline-gray-300 focus:outline-2 rounded-[5px]  ";
   const formdisplay = `text-black bg-white inline-block h-[75vh] rounded-[5px] w-[60vw] overflow-y-auto fixed top-[10%] left-[20vw] rounded-[5px]  ${
     form ? "" : "hidden z-100"
   } `;

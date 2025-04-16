@@ -22,6 +22,10 @@ const Editproductform = ({
     location: editsproduct.location,
     catagory: editsproduct.catagory,
     other: editsproduct.other,
+    image: editsproduct?.image[0]?.url,
+    imagetwo: editsproduct?.image[1]?.url,
+    imagethree: editsproduct?.image[2]?.url,
+    imagefour:editsproduct?.image[3]?.url
   });
 
   const handleChange = (e) => {
@@ -29,10 +33,47 @@ const Editproductform = ({
     setFormData({ ...formData, [name]: value });
   };
 
+  const Changepostimage = (e) => {
+    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+
+  }
+  const Changepostimagetwo = (e) => {
+    console.log("imagetwo",e.target.files)
+    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+
+  }
+  const Changepostimagethree = (e) => {
+    console.log("imagetwo",e.target.files)
+    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+
+  }
+  const Changepostimagefour = (e) => {
+    console.log("imagetwo",e.target.files)
+    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+
+  }
+  console.log(formData.image)
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    updatesproduct(editsproduct._id, formData).then((data) => {
+    const formdata = new FormData();
+    formdata.append("name", formData.name);
+    formdata.append("description", formData.description);
+    formdata.append("price", formData.price);
+    formdata.append("age", formData.age);
+    formdata.append("latitude", formData?.location?.latitude);
+    formdata.append("longitude", formData?.location?.longitude);
+    formdata.append("catagory", formData.catagory);
+    formdata.append("other", formData.other);
+
+    // for (let i = 0; i < postimage.length; i++) {
+    formdata.append("image", formData.image);
+    formdata.append("imagetwo", formData.imagetwo);
+    formdata.append("imagethree", formData.imagethree);
+    formdata.append("imagefour", formData.imagefour);
+
+    console.log('formdata is a', formdata.get('image'));
+    // }
+    updatesproduct(editsproduct._id, formdata).then((data) => {
       alert(data.SuccessMsg);
       seteditproduct(false);
       seteditsproduct("");
@@ -41,9 +82,10 @@ const Editproductform = ({
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg space-y-4 fixed top-[10vh] left-[35vw]">
+    <div className="h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-80">
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg space-y-4 fixed top-[10vh] left-[35vw] h-[80%]  overflow-y-auto">
         <CiSquareRemove
-                className="text-3xl font-bold relative right-5 bottom-16  text-black"
+                className="text-3xl font-bold fixed top-16 text-white"
                 onClick={() => {
                   seteditproduct(false);
                 }}
@@ -93,7 +135,7 @@ const Editproductform = ({
         {/* Category Select */}
         <select
           name="catagory"
-          value={formData.category}
+          value={formData.catagory}
           onChange={handleChange}
           className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
@@ -123,6 +165,30 @@ const Editproductform = ({
           <option value="Not Available">None</option>
         </select>
 
+          <div className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[0].url} alt=""  className="h-20 w-20"/>
+          <input type="file" name="image"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimage}  />
+          </div>
+
+          <div  className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[1].url} alt=""  className="h-20 w-20"/>
+         <input type="file" name="imagetwo"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimagetwo}  />
+          </div>
+
+        <div  className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[2].url} alt="" className="h-20 w-20" />
+          <input type="file" name="imagethree"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onChange={Changepostimagethree}  />
+        </div>
+
+        <div  className="flex justify-between items-center gap-5 mb-3">
+        <img src={editsproduct.image[3].url} alt=""  className="h-20 w-20"/>
+            <input type="file" name="imagefour"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onChange={Changepostimagefour}  />
+        </div>
+        
         <p
           onClick={(e) => {
             navigator.geolocation.getCurrentPosition((pos) =>
@@ -139,7 +205,7 @@ const Editproductform = ({
         >
           <p>use current loction</p>
         </p>
-
+        
         <button
           type="submit"
           className="w-full bg-blue-500 text-white rounded-xl p-2 hover:bg-blue-600 transition"
@@ -147,7 +213,8 @@ const Editproductform = ({
           Submit
         </button>
       </form>
-    </div>
+      </div>
+      </div>
   );
 };
 

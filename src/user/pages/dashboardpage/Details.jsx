@@ -11,13 +11,14 @@ import { BsChatRightText } from "react-icons/bs";
 import { SlUserFollow } from "react-icons/sl";
 import { IoIosHeartEmpty, IoMdArrowRoundBack } from "react-icons/io";
 import { useParams } from "react-router-dom";
-import { fetchproductinfo, newbid } from "../../services/services";
+import { fetchproductinfo, newbid,wishlist } from "../../services/services";
 import { followfunction } from "../../services/services";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/usercontext";
 import { Link } from "react-router-dom";
 import { CiSquareRemove } from "react-icons/ci";
 import Loader from "../../component/Dashboard/Loader";
+import { FaHeart } from "react-icons/fa";
 // const product = {
 //   name: "Tata Nexon EV",
 //   price: "₹16,49,000",
@@ -49,7 +50,7 @@ import Loader from "../../component/Dashboard/Loader";
 // };
 
 function Details() {
-  const { user, setReceiver } = useAuth();
+  const { user,login, setReceiver } = useAuth();
   const { productid } = useParams();
   console.log("product id in details page", productid);
   const [products, setProducts] = useState();
@@ -152,7 +153,32 @@ function Details() {
               </div>
               <div>
                 {/* like button */}
-                <IoIosHeartEmpty className="relative top-22 left-[90%]  text-3xl text-gray-800 bg-white rounded-full p-1" />
+                {/* <IoIosHeartEmpty className="relative top-22 left-[90%]  text-3xl text-gray-800 bg-white rounded-full p-1" /> */}
+                   {user?.wishlist?.includes(products?._id) ? (
+                                    <FaHeart
+                                      className="relative relative top-22 left-[90%]  text-red-500 text-2xl"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        wishlist(products?._id).then((data) => {
+                                          login(data?.User);
+                                        });
+                                      }}
+                                    />
+                                  ) : (
+                                    <IoIosHeartEmpty
+                                      className="relative relative top-22 left-[90%] text-gray-600 text-2xl"
+                                        onClick={(e) => {
+                                        e.preventDefault();
+                                        wishlist(products?._id).then((data) => {
+                                          login(data?.User);
+                                        });
+                                      }}
+                                    />
+                                  )}
+
+
+
+                {/*  */}
                 <img
                   src={img}
                   alt=""
@@ -181,10 +207,10 @@ function Details() {
                 {/* <button className='flex justify-left items-center gap-2 shadow-md shadow-gray-200 hover:bg-sky-600  text-xl font-semibold bg-sky-400 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 ml-2'><BsChatRightText  /><p>Chat</p></button> */}
               </div>
               <div className="text-right mr-2">
-                <h1 className="text-3xl font-semibold text-gray-500">
+                <h1 className="text-3xl font-semibold text-gray-700  font-heading antialiased">
                   {products?.User[0]?.name}
                 </h1>
-                <p className="text-xl text-gray-500">
+                <p className="text-xl text-gray-500  font-heading antialiased">
                   {products?.User[0]?.emailid}
                 </p>
                 {/* <p className='text-xl text-gray-500'>{products?.owner.phone}</p> */}
@@ -217,7 +243,7 @@ function Details() {
                 <MapContainer
                   center={location}
                   zoom={10}
-                  style={{ height: "100%", width: "100%" }}
+                  className="h-[100%] w-[100%] z-0"
                 >
                   <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
                   <Marker position={location} />
@@ -230,33 +256,33 @@ function Details() {
           </div>
           {/* side2 */}
           <div className="bg-white text-black m-5 mr-10 mt-18 font-sans">
-            <div className="border-gray-100 border-2 p-2 rounded-[5px] h-auto w-auto mt-5 bg-white font-mono">
+            <div className="border-gray-100 border-2 p-2 rounded-[5px] h-auto w-auto mt-5 bg-white font-mono text-gray-900">
               <div className=" shadow-gray-300 shadow-sm p-2 rounded-[5px] ">
                 <h1 className="text-3xl font-semibold">{products?.name}</h1>
-                <p className="text-2xl text-gray-500">
+                <p className="text-gray-600 text-xl font-bold">
                   {products?.price}&#x20b9;
                 </p>
               </div>
               <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
                 <p className="text-xl font-semibold">{products?.catagory}</p>
-                <p className="text-xl text-gray-500">{products?.other}</p>
+                <p className="text-md  text-gray-700  font-mono antialiased">{products?.other}</p>
               </div>
               <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
                 <p className="text-xl font-semibold">Year</p>
-                <p className="text-xl text-gray-500">{products?.age}/yearold</p>
+                <p className="text-md text-gray-700  font-mono antialiased">{products?.age}/yearold</p>
               </div>
               <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
-                <p className="text-xl font-semibold">Location</p>
-                <p className="text-xl text-gray-500">
+                <p className="text-xl font-semibold ">Location</p>
+                <p className="text-md text-gray-700 font-mono antialiased">
                   {products?.location.latitude}
                 </p>
-                <p className="text-xl text-gray-500">
+                <p className="text-md text-gray-700  font-mono antialiased">
                   {products?.location.longitude}
                 </p>
               </div>
-              <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
+              <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5 font-mono antialiased ">
                 <p className="text-xl font-semibold">Description</p>
-                <p className="text-xl text-gray-500">{products?.description}</p>
+                <p className="text-md text-gray-700">{products?.description}</p>
               </div>
 
               <div></div>

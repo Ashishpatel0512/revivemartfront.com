@@ -61,7 +61,7 @@ export const Navbar = ({
       {Voicestart ?
         <VoiceSearch />
         : ""}
-      <Suggestionbox showproduct={showproduct} setShowproduct={setShowproduct} />
+      <Suggestionbox products={products} showproduct={showproduct} setShowproduct={setShowproduct} setText={setText} text={text} />
       {/*  */}
       {/* notification */}
       {user ?

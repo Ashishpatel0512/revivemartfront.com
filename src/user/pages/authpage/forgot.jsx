@@ -115,11 +115,13 @@ function Forgot() {
               return (
                 <div className="text-center h-screen w-screen bg-black bgimg">
                   <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
-                    <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">
-                      Codexplace
+                  <div className="fixed top-[21%] left-[39%] p-10 rounded-[20px] shadow-2xl shadow-gray-600">
+
+                    <h1 className="text-white text-3xl font-bold mb-3 font-mono first-letter:text-4xl  first-letter:text-blue-500">
+                      ReviveMart
                     </h1>
                     <form onSubmit={chagepassword} className="login">
-                      <h3 className="text-white text-xl font-bold mb-10 font-mono">
+                      <h3 className="text-white text-lg mb-4 font-mono">
                         CHANGE-PASSWORD
                       </h3>
                       <input
@@ -140,7 +142,8 @@ function Forgot() {
                         CHANGE
                       </button>
                       <br />
-                    </form>
+                      </form>
+                      </div>
                   </div>
                 </div>
               );
@@ -150,11 +153,13 @@ function Forgot() {
               return (
                 <div className="text-center h-screen w-screen bg-black bgimg">
                   <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
-                    <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">
-                      Codexplace
+                  <div className="fixed top-[21%] left-[39%] p-10 rounded-[20px] shadow-2xl shadow-gray-600">
+
+                    <h1 className="text-white text-3xl font-bold mb-3 font-mono first-letter:text-4xl  first-letter:text-blue-500">
+                      ReviveMart
                     </h1>
                     <form onSubmit={handleverify} className="login">
-                      <h3 className="text-white text-xl font-bold mb-10 font-mono ">
+                      <h3 className="text-white text-lg  mb-4 font-mono ">
                         VERIFY-OTP
                       </h3>
                       <input
@@ -184,7 +189,8 @@ function Forgot() {
                         VERIFY-OTP
                       </button>
                       <br />
-                    </form>
+                      </form>
+                      </div>
                   </div>
                 </div>
               );
@@ -192,11 +198,12 @@ function Forgot() {
               return (
                 <div className="text-center h-screen w-screen bg-black bgimg">
                   <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
-                    <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">
+                  <div className="fixed top-[21%] left-[39%] p-10 rounded-[20px] shadow-2xl shadow-gray-600">
+                    <h1 className="text-white text-3xl font-bold mb-3 font-mono first-letter:text-4xl  first-letter:text-blue-500">
                       ReviveMart
                     </h1>
                     <form onSubmit={handleSubmit} className="login">
-                      <h3 className="text-white text-xl font-bold mb-10 font-mono ">
+                      <h3 className="text-white text-lg  mb-4 font-mono ">
                         SEND-OTP
                       </h3>
                       <input
@@ -217,7 +224,8 @@ function Forgot() {
                         SEND-OTP
                       </button>
                       <br />
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               );

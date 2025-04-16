@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { useState } from 'react';
 
-export const Suggestionbox = ({ showproduct ,setShowproduct}) => {
+export const Suggestionbox = ({ products,showproduct ,setShowproduct, setText,text}) => {
     const [items, setItems] = useState(new Set());
 
     useEffect(() => {
@@ -19,9 +19,13 @@ export const Suggestionbox = ({ showproduct ,setShowproduct}) => {
     console.log("itemssss......",[...items])
 
     return (
-      <div className='h-[40vh] w-[40vw] fixed top-24 left-[20vw] bg-gray-800 overflow-y-scroll pt-3 hidden'>
+      <div className={`h-[40vh] w-[50vw] fixed top-16 left-[19vw] bg-gray-300 overflow-y-scroll pt-3 ${text?'':'hidden'}`}>
           {[...items].map((product) => (
-              <div className='flex justify-left gap-10 items-center text-white p-5 border-b-2 border-white'>
+              <div className='flex justify-left gap-10 items-center text-black p-5 border-b-2 border-white z-10' onClick={()=>{setText(product), setShowproduct(
+                products.filter((products) =>
+                  new RegExp(product, "gi").test(products.name)
+                )
+              );}}>
                   <IoIosSearch />
                   <h1>{product}</h1>
               </div>

@@ -68,8 +68,8 @@ export const ProfileMain = ({ show }) => {
             alt=""
             className="h-[15vh] w-[10vw] rounded-[10px] shadow-lg shadow-gray-300"
           />
-          <div className="text-left text-gray-400 font-mono border-2 border-gray-200 p-2 rounded-[10px]">
-            <p className="mb-2">{user.name}</p>
+          <div className="text-left  text-gray-700 font-mono border-2 border-gray-200 p-2 rounded-[10px]">
+            <p >{user.name}</p>
             <p>{user.emailid}</p>
             <div>
             <button onClick={()=>{setshowfollow('followers')}}>followers : {user.follwers?.length} </button><br />
@@ -98,7 +98,7 @@ export const ProfileMain = ({ show }) => {
                 {/* <Link to={`/details/${product._id}`} className="group"> */}
                 {ads.some(ads => ads.Productid._id === product._id) ?
                 ""
-                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads)}} className="text-white bg-gray-300 rounded-full mb-5 hover:bg-green-400"> promote</h1>}
+                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads)}} className="text-white bg-gray-600 w-[40%] relative bottom-3 right-3 rounded-br-full mb-2 hover:bg-green-400 pointer"> promote</h1>}
                 <img
                   alt=""
                   src={product.image[0].url}
@@ -217,7 +217,7 @@ export const ProfileMain = ({ show }) => {
                       {/* delete-edit btn */}
                       {/* </Link> */}
 
-                      <div className="flex justify-between">
+                      {/* <div className="flex justify-between">
                         <div>
                           <MdDelete
                             className="text-xl text-gray-500"
@@ -234,7 +234,7 @@ export const ProfileMain = ({ show }) => {
                             seteditsproduct(ads.Productid), seteditproduct(true);
                           }}
                         />
-                      </div>
+                      </div> */}
                       {productid === ads.Productid._id ? (
                         <Showbids productid={productid} setproductid={setproductid} product={ads.Productid} />
                       ) : (

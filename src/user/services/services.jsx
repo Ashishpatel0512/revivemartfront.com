@@ -158,10 +158,15 @@ export const followersdetails = async () => {
     throw error;
   }
 };
-export const updatesproduct = async (productid, formData) => {
+export const updatesproduct = async (productid, formdata) => {
   try {
-    console.log("formdata", formData);
-    const response = await apiClient.post(`/editproduct/${productid}`, formData);
+    console.log("formdata", formdata);
+    const response = await axios.post(`http://localhost:3000/editproduct/${productid}`, formdata, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    // const response = await apiClient.post(`/editproduct/${productid}`, formdata);
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);

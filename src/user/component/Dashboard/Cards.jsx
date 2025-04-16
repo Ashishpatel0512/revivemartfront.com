@@ -508,6 +508,9 @@ export function Cards({ showproduct,ads }) {
                   <p className="mt-1 text-lg font-medium text-gray-900">
                     {product.price}&#x20b9;
                   </p>
+                  <p className="mt-1 text-[10px] font-medium relative left-22 font-bold text-gray-400">
+                    {product.age}-year/old
+                  </p>
                 </a>
               </div>
             </Link>

@@ -37,6 +37,7 @@ export default {
         lg: "0.5rem", // Large Rounded Corners
         xl: "0.75rem", // Extra Large
       },
+    
       boxShadow: {
         card: "0 4px 10px rgba(0, 0, 0, 0.1)", // Custom Shadow for Cards
         button: "0 2px 8px rgba(16, 185, 129, 0.3)", // Soft Glow for Buttons
