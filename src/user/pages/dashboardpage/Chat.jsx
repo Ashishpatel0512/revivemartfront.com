@@ -201,18 +201,18 @@ export const Chat = () => {
             >
               {msg?.participants?.map((p) =>
                 p._id !== user._id ? (
-                  <div className="flex justify-start gap-2 items-center m-1  bg-gray-400  pl-10 p-1 mt-2 rounded-[5px]">
+                  <div className="relative flex justify-start lg:gap-2 gap-2 items-center lg:m-1  m-0 bg-gray-400  lg:pl-10 pl-0 p-1 mt-2 rounded-[5px]">
                     <img
                       src={p.image.url}
                       alt=""
                       className="h-10 w-10 rounded-full"
                     />
-                    <p className="ml-5 mb-3 text-xl text-white">{p.name}</p>
+                    <p className="lg:ml-5 ml-0  mb-3 text-xl text-white">{p.name}</p>
                     {status[index]?.id !== 0 ?
-                      <p className="ml-24 bg-gray-300 rounded-full text-black text-center text-xl p-1 pl-2 pr-2 border-2 border-gray-300">{status[index]?.id}</p>
+                      <p className="absolute top-3 right-3 bg-green-500 rounded-full text-white text-center text-sm  p-1 shadow-sm shadow-gray-300 ">{status[index]?.id}</p>
                       :''
                     }
-                    <p className="relative top-4 right-10 text-gray-300">{msg?.messages[(msg.messages.length-1)]?.msg?.message}</p>
+                    {/* <p className="relative top-4 right-20 text-gray-300">{msg?.messages[(msg.messages.length-1)]?.msg?.message}</p> */}
                   </div>
                 ) : (
                   ""

@@ -102,7 +102,7 @@ export const ProfileMain = ({ show }) => {
                 <img
                   alt=""
                   src={product.image[0].url}
-                  className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" 
+                    className="aspect-square rounded-lg bg-gray-50 object-fill rounded-md"
                   onClick={() => {
                   setproductid(product._id);
                  }}
@@ -171,8 +171,8 @@ export const ProfileMain = ({ show }) => {
                           <img
                             alt=""
                             src={bid.Productid.image[0].url}
-                            className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
-                          />
+                            className="aspect-square rounded-lg bg-gray-50 object-fill rounded-md"
+                            />
                           <h3 className="mt-4 text-sm text-gray-700">
                             {bid.Productid.name}
                           </h3>
@@ -205,7 +205,7 @@ export const ProfileMain = ({ show }) => {
                       <img
                         alt=""
                         src={ads?.Productid?.image[0]?.url}
-                        className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+                        className="aspect-square rounded-lg bg-gray-50 object-fill rounded-md"
                         onClick={() => {
                           setproductid(ads.Productid._id);
                         }}

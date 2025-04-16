@@ -164,6 +164,7 @@ export const updatesproduct = async (productid, formdata) => {
     const response = await axios.post(`http://localhost:3000/editproduct/${productid}`, formdata, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        'Authorization':localStorage.getItem('token')
       },
     });
     // const response = await apiClient.post(`/editproduct/${productid}`, formdata);

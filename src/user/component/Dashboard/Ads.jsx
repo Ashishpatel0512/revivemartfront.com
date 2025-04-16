@@ -20,11 +20,11 @@ const AdsCarousel = ({ adsList }) => {
             to={`/details/${ads.Productid._id}`}
             className="flex-shrink-0 w-full"
           >
-            <div className="relative bg-sky-100 ml-5 mr-5 rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center justify-between p-6 hover:shadow-xl transition duration-300 ease-in-out">
-              {/* Left Side */}
+            <div className="relative bg-gray-200  ml-5 mr-5 rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center justify-between p-6 hover:shadow-xl transition duration-300 ease-in-out">
+              {/* Left Side */} 
               <div className="md:w-1/2 w-full space-y-4 text-center md:text-left">
                 <h3 className="text-2xl font-bold text-gray-900 truncate">{ads.Productid.name}</h3>
-                <p className="text-lg text-gray-700 font-medium">Price: {ads.Productid.price}&#x20b9;</p>
+                <p className="text-lg text-gray-700 font-semibold">Price: {ads.Productid.price}&#x20b9;</p>
               </div>
 
               {/* Right Side */}

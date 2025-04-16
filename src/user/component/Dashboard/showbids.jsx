@@ -53,7 +53,8 @@ export const Showbids = ({ productid,setproductid, product }) => {
       {/* <h1 className="text-center  mt-[10vh] text-gray-300 text-bold text-xl  " onClick={() => { setproductid(null) }}>Showbids</h1> */}
       <IoChevronBackCircle className="text-white text-3xl fixed top-20 left-[20%]" onClick={() => { setproductid(null) }}/>
     <div className="fixed top-[20%] left-[25vw] h-[60%] w-[50vw] bg-white shadow-xl  shadow-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 ">
-      {/* side1 */}
+        {/* side1 */}
+        <div>
       <div className="flex justify-center gap-10 sticky top-0">
         <div className="mt-10 ml-10">
           <img
@@ -96,7 +97,11 @@ export const Showbids = ({ productid,setproductid, product }) => {
             className="h-[20vh] w-[15vw] border-gray-500 border-2 p-2 shadow-lg shadow-black rounded-[10px] "
           />
         </div>
-      </div>
+          </div>
+          <div>
+            <h1 className="text-xl font-semibold text-gray-300 mt-20">{product.name}</h1>
+          </div>
+          </div>
       {/* side2 */}
       <div className="h-[100%] w-full bg-gray-300 text-center overflow-y-auto">
         {/* bids */}

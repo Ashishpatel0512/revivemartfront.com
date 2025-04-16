@@ -53,8 +53,8 @@ function Dashboard() {
    console.log(result);
    if(result.success){
      setapprovepost(!approvepost)
-     //notification
-     socket.emit("sendnotification", { receiver:result?.user?._id, message: `Approve your product ${result?.approvepost?.name}`});
+     //notification ✅ Your ${approvepost.name} listing has been approved and is now live.
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: `✅ Your ${result?.approvepost?.name} listing has been approved and is now live.`});
 
    }
    else{
@@ -75,8 +75,8 @@ function Dashboard() {
    console.log(result);
    if(result.success){
      setrejectpost(!rejectpost)
-     //notification
-     socket.emit("sendnotification", { receiver:result?.user?._id, message: `Reject your product ${result?.rejectpost?.name}` });
+     //notification ❌ Your ${rejectpost.name} listing has been rejected. Please review our guidelines and try again.
+     socket.emit("sendnotification", { receiver:result?.user?._id, message: `❌ Your ${result?.rejectpost?.name} listing has been rejected. Please review our guidelines and try again.` });
 
    }
    else{

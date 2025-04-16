@@ -36,12 +36,12 @@ export const Filters = ({ query, setquery }) => {
 
   const filterbtncss =
     "bg-sky-50 p-2  rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center";
-  const filtercss = `bg-white lg:h-16  h-[11rem]  w-full fixed lg:top-[10vh]  top-[6vh] flex lg:justify-center justify-between  lg:gap-20 lg:pl-0 lg:mr-0 pl-5  items-center lg:pt-[10vh] lg:pb-[10vh]  pt-[3vh] mb-2 shadow-md lg:overflow-hidden	overflow-scroll ${
+  const filtercss = `bg-white z-10 lg:h-16  h-[11rem]  w-full fixed lg:top-[10vh]  top-[6vh] flex lg:justify-center justify-between  lg:gap-20 lg:pl-0 lg:mr-0 pl-5  items-center lg:pt-[10vh] lg:pb-[10vh]  pt-[3vh] mb-2 shadow-md lg:overflow-hidden	overflow-scroll ${
     showFilters ? "" : "hidden"
   }`;
   return (
     <>
-      <div className="w-full flex justify-center items-center gap-5 fixed top-[10vh] z-10">
+      <div className="w-full flex justify-center items-center gap-5 fixed top-[10vh] z-20">
         <div
           onClick={() => {
             setShowFilters(!showFilters);

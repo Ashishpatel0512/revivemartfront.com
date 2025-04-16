@@ -6,7 +6,7 @@ function Logout() {
     useEffect(() => {
         console.log("logout start....")
         {
-            confirm("you are logout") &&
+            confirm("⚠️ Are you sure you want to log out?") &&
             (localStorage.removeItem("token"),
             login(null))
         }
