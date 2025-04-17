@@ -6,6 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import { ImCross } from "react-icons/im";
 import { useAuth } from '../user/context/usercontext';
 import { findadminpromote } from '../user/services/services';
+import { TbLockFilled } from "react-icons/tb";
 
 function Dashboard() {
   const {  socket } = useAuth();
@@ -20,7 +21,9 @@ function Dashboard() {
     const [rejectpost, setrejectpost] = useState(false);
   const [blockuser, setblockuser] = useState(false)
   const [ads, setads] = useState([])
-  const [adsdata,setadsdata]=useState(false)
+  const [adsdata, setadsdata] = useState(false)
+  const [deletepost,setdelpost]=useState(false)
+  
       useEffect(()=>{
         fetch(`http://localhost:3000/admin/userdata`)
         .then(res => res.json())
@@ -30,7 +33,7 @@ function Dashboard() {
           setposts(data.listdata)
         });
 
-      }, [approvepost, rejectpost, blockuser])
+      }, [approvepost, rejectpost, blockuser,deletepost])
   
   // find ads...
   useEffect(() => {
@@ -124,21 +127,43 @@ function Dashboard() {
   
    }
   }
+
+          // delete post
+          const Delpost=async(postId)=>{
+            console.log("commmmmmmmmmmmm,,,,,,,",postId)
+            const data=await fetch(`http://localhost:3000/admin/deletepost/${postId}`,{
+              method:"delete",
+               headers:{
+                "Authorization":localStorage.getItem("token"),
+             }
+            })
+           const result =await data.json()
+           console.log(result);
+           if(result.success){
+            setdelpost(!deletepost)
+           }
+           else{
+            setdelpost(!deletepost)
+          
+           }
+           }
+
+
   return (
     <>
     
     <div className="bg-gray-300	 h-screen w-screen">
         <div className='h-20 w-screen bg-black flex justify-between pl-5 pr-5 items-center	'>
            <h1 className='text-3xl font-bold text-white font-sans'>Admin Dashboard</h1>
-           <h1 className='text-2xl font-bold text-white'>=</h1>
+           {/* <h1 className='text-2xl font-bold text-white'>=</h1> */}
         </div>
         <div className='flex mt-6'>
             <div className="w-[20vw] h-[79vh] bg-black text-white text-center">
-             <Link to={"/"}> <button  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] mt-20  pl-5 font-mono'>Home</button><br /></Link>
-              <button onClick={()=>{setpage("details") ,setuserid(null)}} className='font-bold text-xl bg-gray-500 p-2 w-[70%] pl-5 rounded-[5px] font-mono mt-3 '>Dashboard</button><br />
-              <button onClick={()=>{setpage("userdetails"),setshowdatas("userdata")}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>UserManagement</button>
-              <button onClick={()=>{setpage("userdetails"),setshowdatas("productdatadata"),setadsdata(false)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>ProductManagement</button>
-              <button onClick={()=>{setpage("userdetails"),setshowdatas("adsdata"),setadsdata(true)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono '>AdsManagement</button>
+             <Link to={"/"}> <button  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] mt-20  pl-5 font-mono focus:bg-sky-500'>Home</button><br /></Link>
+              <button onClick={()=>{setpage("details") ,setuserid(null)}} className='font-bold text-xl bg-gray-500 p-2 w-[70%] pl-5 rounded-[5px] font-mono mt-3 focus:bg-sky-500'>Dashboard</button><br />
+              <button onClick={()=>{setpage("userdetails"),setshowdatas("userdata"),setuserid(null)}} className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono focus:bg-sky-500 '>UserManagement</button>
+              <button onClick={()=>{setpage("userdetails"),setshowdatas("productdatadata"),setadsdata(false),setuserid(null)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono focus:bg-sky-500'>ProductManagement</button>
+              <button onClick={()=>{setpage("userdetails"),setshowdatas("adsdata"),setadsdata(true),setuserid(null)}}  className='font-bold text-xl bg-gray-500 p-2 w-[70%] rounded-[5px] pl-5 mt-3 font-mono focus:bg-sky-500'>AdsManagement</button>
 
           </div>
             {userId==null?
@@ -262,6 +287,8 @@ function Dashboard() {
                             <div className='w-[20vw] h-[50vh] bg-gray-200 shadow-lg relative shadow-black-300 text-center  border-1 border-white font-mono'>
                               {post.status == 'Approve' ? <FcApproval className='text-2xl absolute top-2 left-2' /> : ''}
                               {post.status == 'Reject' ? <ImCross className='text-xl absolute top-2 left-2 text-red-600' /> : ''}
+                              {post.status == 'Block' ? <TbLockFilled className='text-xl absolute top-2 left-2 text-red-600' /> : ''}
+
                               <img src={post?.image[0]?.url} alt="" className='h-[30vh] w-[100%]' />
                               <div>{post._id}</div>
                               <div>{post.name}</div>
@@ -274,10 +301,12 @@ function Dashboard() {
                                 <button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Delpost(post?._id) }}>delete</button>
                               </div>
                               {/* approve-reject btn */}
-                              <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
-                                <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
-                                <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
-                              </div>
+                              {post.status !== 'Block' ?
+                                <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
+                                  <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
+                                  <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
+                                </div>
+                                : ""}
                             </div>
                           ))}
                                   {/* hello */}

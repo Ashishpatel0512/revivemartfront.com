@@ -217,18 +217,20 @@ function Details() {
               </div>
             </div>
             <div className=" h-auto w-[30vw] mt-5 pb-5 flex justify-between items-center gap-5 ml-auto mr-18 ">
-              <Link
-                onClick={() => {
-                  setReceiver(products?.User[0]);
-                }}
-                to={"/chat"}
-              >
-                {" "}
-                <button className="flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 ">
-                  <BsChatRightText />
-                  <p>Chat</p>
-                </button>
-              </Link>
+              {user ?
+                <Link
+                  onClick={() => {
+                    setReceiver(products?.User[0]);
+                  }}
+                  to={"/chat"}
+                >
+                  {" "}
+                  <button className="flex justify-lef items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-3 ">
+                    <BsChatRightText />
+                    <p>Chat</p>
+                  </button>
+                </Link>
+                : ""}
               {user ? <button
                 className="flex justify-left items-center gap-2 shadow-lg shadow-gray-300 hover:bg-sky-600  text-xl font-semibold bg-gray-700 text-white rounded-[5px] p-1/2 pl-4 pr-4 mt-2 ml-1"
                 onClick={follow}
@@ -271,7 +273,7 @@ function Details() {
                 <p className="text-xl font-semibold">Year</p>
                 <p className="text-md text-gray-700  font-mono antialiased">{products?.age}/yearold</p>
               </div>
-              <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
+              {/* <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5">
                 <p className="text-xl font-semibold ">Location</p>
                 <p className="text-md text-gray-700 font-mono antialiased">
                   {products?.location.latitude}
@@ -279,7 +281,7 @@ function Details() {
                 <p className="text-md text-gray-700  font-mono antialiased">
                   {products?.location.longitude}
                 </p>
-              </div>
+              </div> */}
               <div className="shadow-gray-300 shadow-sm p-2 rounded-[5px] h-auto w-auto mt-5 font-mono antialiased ">
                 <p className="text-xl font-semibold">Description</p>
                 <p className="text-md text-gray-700">{products?.description}</p>

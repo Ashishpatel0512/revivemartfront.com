@@ -90,7 +90,7 @@ const Editproductform = ({
                   seteditproduct(false);
                 }}
               />
-      <h2 className="text-2xl font-bold mb-4 text-center">Product Form</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Edit Form</h2>
   
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

@@ -44,7 +44,7 @@ function Dpedit({ uploadform, setuploadform }) {
       console.log("File uploaded successfully:", result);
       login(result.User);
       setloader(false);
-      alert("File uploaded successfully");
+      alert("Image uploaded successfully");
       setuploadform(false);
     } else {
       console.log("Upload failed:", result);

@@ -39,7 +39,7 @@ export const ProfileMain = ({ show }) => {
       console.log("data...", data.products);
       setShowproduct(data.products);
     });
-  }, [form, delproduct, setdelproduct]);
+  }, [form, delproduct, setdelproduct,editproduct]);
 
   useEffect(() => {
     fetchuserbids().then((data) => {

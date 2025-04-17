@@ -23,8 +23,8 @@ function Profileform({ form, setform }) {
       : ""
   }`;
   const disply =
-    "border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black inline-block outline-offset-2 outline-gray-300 focus:outline-2 rounded-[5px]  ";
-  const formdisplay = `text-black bg-white inline-block h-[75vh] rounded-[5px] w-[60vw] overflow-y-auto fixed top-[10%] left-[20vw] rounded-[5px]  ${
+    "border-2 w-[90%] h-10 ml-[5%] mt-3 pl-3 border-black  inline-block outline-offset-2 outline-gray-300 focus:outline-2 rounded-[5px]  ";
+  const formdisplay = `text-black bg-white inline-block h-[75vh] rounded-[5px] w-[60vw] overflow-y-auto fixed top-[10%] left-[20vw] rounded-[5px] shadow-3xl shadow-black  ${
     form ? "" : "hidden z-100"
   } `;
   const setproductname = (e) => {
@@ -87,7 +87,7 @@ function Profileform({ form, setform }) {
     const result = await response.json();
     if (response.ok) {
       console.log("File uploaded successfully:", result);
-      alert("File uploaded successfully");
+      alert("Product uploaded successfully");
       setloader(false);
       setform(false);
     } else {
@@ -150,7 +150,7 @@ function Profileform({ form, setform }) {
                 className={disply}
                 value={age}
                 onChange={setproductage}
-                placeholder="enter how many year old"
+                placeholder="enter How many years old is the product?"
                 required
               />
               <br />
@@ -187,10 +187,11 @@ function Profileform({ form, setform }) {
                 <option value="Warranty-Guarantee">Warranty-Guarantee</option>
                 <option value="Not Availble">None</option>
               </select>
+              <br />
               <input
                 type="file"
                 name="image"
-                className={disply}
+                className="border-2 w-[90%] h-10 ml-[5%] mt-3 p-1 border-black inline-block outline-offset-2 outline-gray-300 focus:outline-2 rounded-[5px]  "
                 multiple
                 onChange={Changepostimage}
                 required

@@ -19,7 +19,7 @@ export const Suggestionbox = ({ products,showproduct ,setShowproduct, setText,te
     console.log("itemssss......",[...items])
 
     return (
-      <div className={`h-[40vh] w-[50vw] fixed top-16 left-[19vw] bg-gray-300 overflow-y-scroll pt-3 z-20 ${text?'':'hidden'}`}>
+      <div className={`h-[40vh] w-[50vw] fixed top-16 left-[19vw] bg-gray-300 overflow-y-scroll pt-3 z-40 ${text?'':'hidden'}`}>
           {[...items].map((product) => (
               <div className='flex justify-left gap-10 items-center text-black p-5 border-b-2 border-white z-10' onClick={()=>{setText(product), setShowproduct(
                 products.filter((products) =>

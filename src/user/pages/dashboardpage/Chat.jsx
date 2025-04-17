@@ -208,10 +208,10 @@ export const Chat = () => {
                       className="h-10 w-10 rounded-full"
                     />
                     <p className="lg:ml-5 ml-0  mb-3 text-xl text-white">{p.name}</p>
-                    {status[index]?.id !== 0 ?
+                    {/* {status[index]?.id !== 0 ?
                       <p className="absolute top-3 right-3 bg-green-500 rounded-full text-white text-center text-sm  p-1 shadow-sm shadow-gray-300 ">{status[index]?.id}</p>
                       :''
-                    }
+                    } */}
                     {/* <p className="relative top-4 right-20 text-gray-300">{msg?.messages[(msg.messages.length-1)]?.msg?.message}</p> */}
                   </div>
                 ) : (
