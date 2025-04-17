@@ -152,7 +152,9 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
                         }}
                       />
                     </Link>
-                    <h1> {shop.name}</h1>
+                    <h1 className="font-semibold font-sanc mt-2 text-center"> {shop.name}</h1>
+                    <h1 className="font-semibold text-lg text-center"> {shop.price}&#x20b9;</h1>
+
                   </Popup>
                 </Marker>
               ))}

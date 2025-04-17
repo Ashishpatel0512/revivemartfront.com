@@ -474,8 +474,8 @@ export function Cards({ showproduct,ads }) {
         {/*  */}
         <h2 className="text-xl font-bold ml-5 mb-3">Explore Products</h2>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
-          {showproduct?.slice(0, count).map((product) => (
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
+          {showproduct?.sort(() => 0.5 - Math.random()).slice(0, count).map((product) => (
             <Link to={`/details/${product._id}`}>
               <div className="shadow-sm shadow-gray-400 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
                 {/* like */}
@@ -520,7 +520,7 @@ export function Cards({ showproduct,ads }) {
           <button
             className=" bg-black text-white text-center p-0"
             onClick={() => {
-              setCount(count + 4);
+              setCount(count + 8);
             }}
           >
             More..

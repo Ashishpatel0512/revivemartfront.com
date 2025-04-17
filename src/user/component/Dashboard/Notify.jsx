@@ -32,7 +32,7 @@ export const Notify = ({shownotification,setNotificationcount}) => {
   console.log("Notification:", notification);
   
   return (
-    <div className={`fixed z-30 top-24 right-10 bg-white shadow-lg rounded-lg h-[30vh] w-[20vw] overflow-y-scroll shadow-3xl shadow-black ${shownotification ? "" : "hidden"}`}>
+    <div className={`fixed z-30 top-24 right-10 p-3 bg-white shadow-lg rounded-lg h-[30vh] w-[20vw] overflow-y-scroll shadow-3xl shadow-black ${shownotification ? "" : "hidden"}`}>
       {/* <h1 className='text-center mb-2'>Notification</h1> */}
       <IoCaretUpSharp  className='fixed top-20 right-[15%] text-2xl text-gray-500'/>
         {notification && notification.map((data, index) => {

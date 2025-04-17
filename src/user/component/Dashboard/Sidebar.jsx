@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { CiHome } from "react-icons/ci";
+import { CiBoxList } from "react-icons/ci";
+import { MdOutlineLocalOffer } from "react-icons/md";
+import { RiAdvertisementLine } from "react-icons/ri";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 export const Sidebar = ({ show, setshow }) => {
   const location = useLocation();
@@ -14,35 +19,50 @@ export const Sidebar = ({ show, setshow }) => {
       <hr className="border-gray-400" />
       <div className="mt-20">
         <Link to={"/"}>
-          <button className="bg-gray-50 w-[70%] mb-5 font-mono shadow-gray-400 shadow-md rounded-[5px] hover:bg-sky-600 text-gray-800">
-            Home
-          </button>
+        <div className="flex items-center justify-around text-lg mt-5 p-1 hover:bg-gray-500">
+          <div className=" flex items-center justify-left  gap-2  w-[70%] font-mono text-lg rounded-[5px] text-gray-800">
+          <CiHome />
+          <p>Home</p>
+            </div>
+            <MdKeyboardArrowRight />
+            </div>
         </Link>
         {location.pathname == "/profile" ?
           <div>
-        <button
-          className="bg-gray-50  focus:bg-sky-500 w-[70%] shadow-gray-400 shadow-lg mb-5 font-mono rounded-[5px] hover:bg-sky-600 text-gray-800"
+        <div className="flex items-center justify-around text-lg mt-5 p-1 hover:bg-gray-500">
+        <div
+          className="flex items-center justify-left  gap-2  w-[70%]  font-mono text-lg rounded-[5px] text-gray-800"
           onClick={() => {
             setshow("myproduct");
           }}
-        >
-          Myproduct
-        </button>
-
-        <button
-          className="bg-gray-50 w-[70%] focus:bg-sky-500 shadow-gray-400 shadow-lg mb-5 font-mono rounded-[5px] hover:bg-sky-600 text-gray-800"
+            >
+              <CiBoxList />
+              <p>Myproduct</p>
+              </div>
+              <MdKeyboardArrowRight />
+            </div>
+        <div className="flex items-center justify-around text-lg mt-5 p-1 hover:bg-gray-500">
+        <div
+          className="flex items-center justify-left  gap-2 w-[70%]  font-mono text-lg rounded-[5px]  text-gray-800"
           onClick={() => {
             setshow("mybids");
           }}
-        >
-          Mybids
-        </button>
-
-        <button className="bg-gray-50 w-[70%] focus:bg-sky-500 shadow-gray-400 shadow-lg font-mono rounded-[5px] hover:bg-sky-600 text-gray-800"  onClick={() => {
+            >
+              <MdOutlineLocalOffer />
+               <p>Mybids</p>
+              </div>
+              <MdKeyboardArrowRight />
+            </div>
+              
+        <div className="flex items-center justify-around text-lg mt-5 p-1 hover:bg-gray-500">
+        <div className="flex items-center justify-left  gap-2  w-[70%]  font-mono text-lg rounded-[5px]  text-gray-800"  onClick={() => {
             setshow("myads");
-          }}>
-          Myads
-            </button>
+            }}>
+          <RiAdvertisementLine />
+           <p>Promoted Item</p>
+            </div>
+            <MdKeyboardArrowRight />
+            </div>
             </div>
         :""}
       </div>

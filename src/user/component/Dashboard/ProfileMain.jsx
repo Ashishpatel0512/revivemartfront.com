@@ -83,7 +83,7 @@ export const ProfileMain = ({ show }) => {
         {/*cards product  */}
         {/* myproduct */}
         {show == "myproduct" ? (
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
             {showproduct.slice(0, count).map((product) => (
               
               <div
@@ -98,7 +98,7 @@ export const ProfileMain = ({ show }) => {
                 {/* <Link to={`/details/${product._id}`} className="group"> */}
                 {ads.some(ads => ads.Productid._id === product._id) ?
                 ""
-                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads)}} className="text-white bg-gray-600 w-[40%] relative bottom-3 right-3 rounded-br-full mb-2 hover:bg-green-400 pointer"> promote</h1>}
+                  : <h1 onClick={()=>{ promote(product._id),setreads(!reads),alert('Product Promote Successfully')}} className="text-white bg-gray-600 w-[40%] relative bottom-3 right-3 rounded-br-full mb-2 hover:bg-green-400 pointer"> promote</h1>}
                 <img
                   alt=""
                   src={product.image[0].url}
@@ -121,6 +121,7 @@ export const ProfileMain = ({ show }) => {
                       onClick={() => {
                         deleteproduct(product._id).then((data) => {
                           setdelproduct(!delproduct);
+                          alert("Deleted product")
                         });
                       }}
                     />
@@ -151,7 +152,7 @@ export const ProfileMain = ({ show }) => {
         ) : (
             <div>
               {show == "mybids" ?
-                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
                   {showbids.slice(0, count).map((bid) => (
                     <Link to={`/details/${bid.Productid._id}`}>
                       <div className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  hover:bg-sky-100 hover:text-sky-900 hover:shadow-md text-center">
@@ -185,7 +186,7 @@ export const ProfileMain = ({ show }) => {
                   ))}
                 </div>
                 :
-                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
 
                   {ads.slice(0, count).map((ads) => (
               

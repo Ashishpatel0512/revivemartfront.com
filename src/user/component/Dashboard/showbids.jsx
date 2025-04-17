@@ -117,9 +117,9 @@ export const Showbids = ({ productid,setproductid, product }) => {
               <p className="m-2">{bids.contact}</p>
             </div>
             <div className="h-[100%] w-[30%] bg-gray-200">
-              <p className="text-auto font-bold mt-2">{bids.bidamount}</p>
+              <p className="text-auto font-bold mt-2">{bids.bidamount}&#x20b9;</p>
               <button
-                className="text-sm   mt-5 text-gray-400 p-1 rounded-[5px]"
+                className="text-sm   mt-5 text-gray-400 p-1 rounded-[5px] text-blue-500"
                 onClick={() => {
                   setreadmsg(bids._id);
                 }}

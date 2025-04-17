@@ -46,7 +46,8 @@ function AdminLogin() {
       {success && <Navigate to="/dashboard" />}
       <div className="text-center h-screen w-screen bg-black bgimg">
         <div className="pt-[25vh] h-screen w-screen bg-gray-300 bg-opacity-20">
-          <h1 className="text-white text-4xl font-bold mb-10 font-mono first-letter:text-5xl  first-letter:text-blue-500">
+        <div className="fixed top-[24%] left-[39%] p-10 rounded-[20px] shadow-2xl shadow-gray-600">
+          <h1 className="text-white text-3xl font-bold mb-10 font-mono first-letter:text-4xl  first-letter:text-blue-500">
             ReviveMart-Admin
           </h1>
           <form action="" onSubmit={submit}>
@@ -83,7 +84,8 @@ function AdminLogin() {
                 signup
               </Link>
             </div> */}
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </>
