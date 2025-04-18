@@ -283,7 +283,7 @@ function Dashboard() {
                           
                         :
                         <div className='bg-blue w-[90%] h-[100%] mt-10 ml-10 flex flex-wrap gap-10'>
-                          {posts.map((post) => (
+                          {posts.reverse().map((post) => (
                             <div className='w-[20vw] h-[50vh] bg-gray-200 shadow-lg relative shadow-black-300 text-center  border-1 border-white font-mono'>
                               {post.status == 'Approve' ? <FcApproval className='text-2xl absolute top-2 left-2' /> : ''}
                               {post.status == 'Reject' ? <ImCross className='text-xl absolute top-2 left-2 text-red-600' /> : ''}

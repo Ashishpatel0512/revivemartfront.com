@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { updatesproduct } from "../../services/services";
 import { CiSquareRemove } from "react-icons/ci";
+import Loader from "./Loader";
 const images = [
   "https://wallpaperaccess.com/full/155161.jpg",
   "https://www.wallpapersshare.com/img/big/red-mercedes-benz-cars-ultra-hd-laptop-wallpaper.jpg",
@@ -14,6 +15,7 @@ const Editproductform = ({
   editsproduct,
   seteditsproduct,
 }) => {
+  const [loader, setloader] = useState(false);
   const [formData, setFormData] = useState({
     name: editsproduct.name,
     description: editsproduct.description,
@@ -25,7 +27,7 @@ const Editproductform = ({
     image: editsproduct?.image[0]?.url,
     imagetwo: editsproduct?.image[1]?.url,
     imagethree: editsproduct?.image[2]?.url,
-    imagefour:editsproduct?.image[3]?.url
+    imagefour: editsproduct?.image[3]?.url
   });
 
   const handleChange = (e) => {
@@ -34,27 +36,28 @@ const Editproductform = ({
   };
 
   const Changepostimage = (e) => {
-    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 
   }
   const Changepostimagetwo = (e) => {
-    console.log("imagetwo",e.target.files)
-    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+    console.log("imagetwo", e.target.files)
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 
   }
   const Changepostimagethree = (e) => {
-    console.log("imagetwo",e.target.files)
-    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+    console.log("imagetwo", e.target.files)
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 
   }
   const Changepostimagefour = (e) => {
-    console.log("imagetwo",e.target.files)
-    setFormData({ ...formData,[e.target.name]:e.target.files[0] });
+    console.log("imagetwo", e.target.files)
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 
   }
   console.log(formData.image)
   const handleSubmit = (e) => {
     e.preventDefault();
+    setloader(true)
     const formdata = new FormData();
     formdata.append("name", formData.name);
     formdata.append("description", formData.description);
@@ -75,6 +78,7 @@ const Editproductform = ({
     // }
     updatesproduct(editsproduct._id, formdata).then((data) => {
       alert(data.SuccessMsg);
+      setloader(false)
       seteditproduct(false);
       seteditsproduct("");
     });
@@ -82,14 +86,16 @@ const Editproductform = ({
   };
 
   return (
-    <div className="h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-80">
+  <>
+    { loader?<Loader /> :
+  <div className="h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-80">
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg space-y-4 fixed top-[10vh] left-[35vw] h-[80%]  overflow-y-auto">
-        <CiSquareRemove
-                className="text-3xl font-bold fixed top-16 text-white"
-                onClick={() => {
-                  seteditproduct(false);
-                }}
-              />
+      <CiSquareRemove
+        className="text-3xl font-bold fixed top-16 text-white"
+        onClick={() => {
+          seteditproduct(false);
+        }}
+      />
       <h2 className="text-2xl font-bold mb-4 text-center">Edit Form</h2>
   
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -165,28 +171,28 @@ const Editproductform = ({
           <option value="Not Available">None</option>
         </select>
 
-          <div className="flex justify-between items-center gap-5 mb-3">
-          <img src={editsproduct.image[0].url} alt=""  className="h-20 w-20"/>
-          <input type="file" name="image"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            onChange={Changepostimage}  />
-          </div>
-
-          <div  className="flex justify-between items-center gap-5 mb-3">
-          <img src={editsproduct.image[1].url} alt=""  className="h-20 w-20"/>
-         <input type="file" name="imagetwo"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            onChange={Changepostimagetwo}  />
-          </div>
-
-        <div  className="flex justify-between items-center gap-5 mb-3">
-          <img src={editsproduct.image[2].url} alt="" className="h-20 w-20" />
-          <input type="file" name="imagethree"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={Changepostimagethree}  />
+        <div className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[0].url} alt="" className="h-20 w-20" />
+          <input type="file" name="image" className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimage} />
         </div>
 
-        <div  className="flex justify-between items-center gap-5 mb-3">
-        <img src={editsproduct.image[3].url} alt=""  className="h-20 w-20"/>
-            <input type="file" name="imagefour"  className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={Changepostimagefour}  />
+        <div className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[1].url} alt="" className="h-20 w-20" />
+          <input type="file" name="imagetwo" className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimagetwo} />
+        </div>
+
+        <div className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[2].url} alt="" className="h-20 w-20" />
+          <input type="file" name="imagethree" className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimagethree} />
+        </div>
+
+        <div className="flex justify-between items-center gap-5 mb-3">
+          <img src={editsproduct.image[3].url} alt="" className="h-20 w-20" />
+          <input type="file" name="imagefour" className="w-full border rounded-xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={Changepostimagefour} />
         </div>
         
         <p
@@ -213,8 +219,10 @@ const Editproductform = ({
           Submit
         </button>
       </form>
-      </div>
-      </div>
+    </div>
+  </div>
+      }
+      </>
   );
 };
 

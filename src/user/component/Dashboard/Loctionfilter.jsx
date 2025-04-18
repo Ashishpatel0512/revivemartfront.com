@@ -46,7 +46,7 @@ const CarSalesMap = ({ showproduct, setshowproduct, locationtrue ,setlocationtru
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [showmap, setshowmap] = useState(true);
   const [zoom,setzoom]=useState(false)
-  const mapcss = `fixed top-20 left-0 flex ${zoom ? "w-[100%] h-[100%] pb-10" : "w-[43%] h-[50%] m-10"}  bg-gray-600 pt-10 pl-14 rounded-[10px] shadow-xl shadow-gray-500 ${showmap ? "" : "hidden"}`;
+  const mapcss = `fixed top-20 left-0 flex ${zoom ? "w-[100%] h-[100%] pb-10" : "w-[43%] h-[50%] m-10"}  bg-black pt-10 pl-14 rounded-[10px] shadow-xl shadow-gray-500 ${showmap ? "" : "hidden"}`;
   const searchboxcss = `grid grid-cols-1 lg:w-[20vw] lg:h-auto w-screen h-screen lg:rounded-[10px] rounded-0 fixed lg:top-[8%] top-0 lg:right-[10%] right-0 bg-gray-50 shadow-2xl shadow-black z-20 ${
     locationtrue ? "" : "hidden"
   }`;

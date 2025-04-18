@@ -31,7 +31,7 @@ function Login() {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          alert(data.SuccessMsg);
+          alert("Welcome To ReviveMart");
           localStorage.setItem("token", data.token);
           setSuccess(true);
           login(data.user);

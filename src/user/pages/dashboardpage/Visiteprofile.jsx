@@ -57,7 +57,7 @@ const [User,setUser] = useState();
         {/*cards product  */}
         {/* myproduct */}
       
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-20">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
                           {showproduct.slice(0, count).map((product) => (
                 <Link
                 to={`/details/${product._id}`}>

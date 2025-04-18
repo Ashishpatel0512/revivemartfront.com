@@ -8,6 +8,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { fetchnotification } from "../../services/services";
 import { MdOutlineChatBubble } from "react-icons/md";
+  import { IoSend } from "react-icons/io5";
 
 export const Chat = () => {
   const { user, socket, receiver, setReceiver } = useAuth();
@@ -17,8 +18,10 @@ export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [groupMessage, setGroupMessage] = useState([]);
   const [notification, setNotification] = useState();
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef([]);
+
   
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -161,7 +164,7 @@ export const Chat = () => {
       {/* {notification? <Stack sx={{ width: '100%' }} spacing={2}>
         <Alert severity="success">{notification}</Alert></Stack>:""} */}
       <Link to={"/"}>
-        <IoMdArrowRoundBack className="fixed top-5 left-5 text-white text-xl " />
+        <IoMdArrowRoundBack className="fixed top-5 left-5 text-slate-500  text-xl " />
       </Link>
       <div className="h-[100vh] w-[100vw] bg-white shadow-lg flex justify-between border-t-2 border-gray-300">
         {/* <h2 className="text-xl font-bold text-center mb-4">Chat Application</h2> */}
@@ -186,7 +189,7 @@ export const Chat = () => {
 
         {/* <button onClick={registerUser} className="w-full p-2 bg-blue-500 text-white rounded">Register</button> */}
         {/* 1 */}
-        <div className="w-[20%] border-r-2 border-gray-300 bg-gray-500 pt-10">
+        <div className="w-[20%] border-r-2 border-gray-300 bg-white pt-10">
           {groupMessage?.map((msg, index) => (
             <p
               key={index}
@@ -201,13 +204,13 @@ export const Chat = () => {
             >
               {msg?.participants?.map((p) =>
                 p._id !== user._id ? (
-                  <div className="relative flex justify-start lg:gap-2 gap-2 items-center lg:m-1  m-0 bg-gray-400  lg:pl-10 pl-0 p-1 mt-2 rounded-[5px]">
+                  <div className="relative flex justify-start lg:gap-2 gap-2 items-center lg:m-1  m-0 bg-white border-b-[1px] border-gray-500 lg:pl-10 pl-0 p-1 mt-2 ">
                     <img
                       src={p.image.url}
                       alt=""
                       className="h-10 w-10 rounded-full"
                     />
-                    <p className="lg:ml-5 ml-0  mb-3 text-xl text-white">{p.name}</p>
+                    <p className="lg:ml-5 ml-0  mb-3 text-xl text-gray-700">{p.name}</p>
                     {/* {status[index]?.id !== 0 ?
                       <p className="absolute top-3 right-3 bg-green-500 rounded-full text-white text-center text-sm  p-1 shadow-sm shadow-gray-300 ">{status[index]?.id}</p>
                       :''
@@ -223,9 +226,9 @@ export const Chat = () => {
         </div>
         {/* 2 */}
         {receiver ?
-          <div className="w-[80%] border-r-2 bg-gray-300 ">
-            <div className="chat-box border p-2 mt-0  rounded bg-gray-200 h-[90%] w-[100%] ">
-              <h1 className="bg-gray-500 border-b-2 border-gray-300 text-white h-[10%] rounded-t-[5px]">
+          <div className="w-[80%] border-r-2 bg-slate-100">
+            <div className="chat-box border p-2 mt-0  rounded bg-stone-200 h-[90%] w-[100%] ">
+              <h1 className="bg-slate-100 border-b-2 border-gray-300 text-gray-700 h-[10%] rounded-t-[5px]">
                 {messages[0]?.sender?._id === user._id ? (
                   <div className="flex justify-between items-center p-3">
                     <p className="text-2xl font-semibold">
@@ -258,8 +261,8 @@ export const Chat = () => {
 
                     className={
                       msg?.sender?._id === user._id
-                        ? "text-white  flex justify-end"
-                        : "text-white flex justify-start "
+                        ? "text-slate-500  flex justify-end"
+                        : "text-slate-500 flex justify-start "
                     }
                     ref={el => inputRef.current[index] = el}>
                     {" "}
@@ -270,13 +273,13 @@ export const Chat = () => {
                         <p
                           className={
                             msg?.sender?._id === user?._id
-                              ? `bg-green-400 p-3 mt-4 rounded-[5px] ${msg.status == 'read' ? '' : "opacity-70"}`
-                              : "bg-gray-600  p-3 mt-4 rounded-[5px]"
+                              ? `bg-green-100 p-3 mt-4 rounded-[5px] ${msg.status == 'read' ? '' : "opacity-70"}`
+                              : "bg-white  p-3 mt-4 rounded-[5px]"
                           }
                         >
                           {" "}
                           <p className="text-xs">{msg?.sender?.name}</p>
-                          <hr /> <p className="text-lg mt-1">{msg?.message}</p>
+                          <hr className="bg-slate-500 " /> <p className="text-lg mt-1">{msg?.message}</p>
                         </p>
                       ) : (
                         ""
@@ -288,20 +291,16 @@ export const Chat = () => {
 
               </div>
             </div>
-            <div className="flex w-[100%] ">
+            <div className="flex items-center gap-5 w-[100%] ml-2 mr-2 ">
               <input
                 type="text"
                 placeholder="Enter message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-[80%] p-2 mt-2 border-2 border-gray-100 rounded-[5px]"
+                className="w-[92%] p-2 mt-2  border-2 border-gray-100 rounded-[5px]"
               />
-              <button
-                onClick={sendMessage}
-                className="w-[20%] ml-5  p-2 mt-2 bg-green-500 text-white rounded"
-              >
-                Send
-              </button>
+            <IoSend className="text-4xl text-slate-500	"  onClick={sendMessage}/>
+
             </div>
           </div>
           :
