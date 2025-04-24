@@ -56,8 +56,18 @@ export const Showbids = ({ productid,setproductid, product }) => {
         {/* side1 */}
         <div>
       <div className="flex justify-center gap-10 sticky top-0">
-        <div className="mt-10 ml-10">
-          <img
+            <div className="mt-10 ml-10">
+            {product?.image?.map((img) => (
+                    <img
+                    src={img.url}
+                    alt=""
+                    className="h-10 w-10 mb-5  border-gray-300 border-2 rounded-[5px] hover:border-black "
+                    onClick={() => {
+                      setImg(img.url);
+                    }}
+                  />
+                ))}
+          {/* <img
             src={product?.image[0].url}
             alt=""
             className="h-10 w-10 mb-5  border-gray-300 border-2 rounded-[5px] hover:border-black "
@@ -88,7 +98,7 @@ export const Showbids = ({ productid,setproductid, product }) => {
             onClick={() => {
               setImg(product.image[3].url);
             }}
-          />
+          /> */}
         </div>
         <div className="mt-20">
           <img

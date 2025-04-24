@@ -84,7 +84,7 @@ export const ProfileMain = ({ show }) => {
         {/* myproduct */}
         {show == "myproduct" ? (
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-10 ml-10 mr-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
-            {showproduct.slice(0, count).reverse().map((product) => (
+            {showproduct.reverse().map((product) => (
               
               <div
                 className="shadow-md shadow-gray-500 bg-white p-3 rounded-[10px]  text-center"

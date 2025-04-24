@@ -118,7 +118,20 @@ function Details() {
           <div className=" text-white m-5 text-center">
             <div className="lg:flex justify-center items-center gap-10 ">
               <div className="flex lg:flex-col lg:mt-0 mt-10">
-                <img
+                
+              {products?.image?.map((img) => (
+                     <img
+                     src={img.url}
+                     alt=""
+                     className="h-20 w-20 mb-5 lg:mt-5 border-gray-300 border-2 p-2 rounded-[5px] hover:border-black "
+                     onClick={() => {
+                       setImg(img?.url);
+                     }}
+                   />
+                ))}
+
+
+                {/* <img
                   src={products?.image[0]?.url}
                   alt=""
                   className="h-20 w-20 mb-5 lg:mt-5 border-gray-300 border-2 p-2 rounded-[5px] hover:border-black "
@@ -149,7 +162,7 @@ function Details() {
                   onClick={() => {
                     setImg(products.image[3].url);
                   }}
-                />
+                /> */}
               </div>
               <div>
                 {/* like button */}

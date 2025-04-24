@@ -417,7 +417,7 @@ import { useLocation } from "react-router-dom";
 import AdsCarousel from "./Ads";
 
 export function Cards({ showproduct,ads }) {
-  const [count, setCount] = useState(4);
+  const [count, setCount] = useState(8);
   const { user, login } = useAuth();
   const location=useLocation()
   console.log("user///", user);
