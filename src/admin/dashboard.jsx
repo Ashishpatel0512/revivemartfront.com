@@ -23,7 +23,9 @@ function Dashboard() {
   const [ads, setads] = useState([])
   const [adsdata, setadsdata] = useState(false)
   const [deletepost,setdelpost]=useState(false)
-  
+  const [rejectAds, setrejectads] = useState(false);
+  const [approveAds, setapproveads] = useState(false);
+
       useEffect(()=>{
         fetch(`http://localhost:3000/admin/userdata`)
         .then(res => res.json())
@@ -41,7 +43,7 @@ function Dashboard() {
       console.log("admin side ads....", data.ads)
       setads(data.ads)
     })
-  },[])
+  },[rejectAds,approveAds])
   
   //approve
   const approveproduct=async(postId)=>{
@@ -84,6 +86,50 @@ function Dashboard() {
    }
    else{
     setrejectpost(!rejectpost)
+  
+   }
+  }
+  //reject ads
+  const rejectads=async(adsId)=>{
+    console.log("commmmmmmmmmmmm,,,,,,,",adsId)
+    const data=await fetch(`http://localhost:3000/admin/rejectads/${adsId}`,{
+      method:"put",
+       headers:{
+        "Authorization":localStorage.getItem("token"),
+     }
+    })
+   const result =await data.json()
+   console.log(result);
+   if(result.success){
+     setrejectads(!rejectAds)
+     //notification ❌ Your ${rejectpost.name} listing has been rejected. Please review our guidelines and try again.
+    //  socket.emit("sendnotification", { receiver:result?.user?._id, message: `❌ Your ${result?.rejectpost?.name} listing has been rejected. Please review our guidelines and try again.` });
+
+   }
+   else{
+    setrejectads(!rejectads)
+  
+   }
+  }
+  // approve ads
+  const approveads=async(adsId)=>{
+    console.log("commmmmmmmmmmmm,,,,,,,",adsId)
+    const data=await fetch(`http://localhost:3000/admin/approveads/${adsId}`,{
+      method:"put",
+       headers:{
+        "Authorization":localStorage.getItem("token"),
+     }
+    })
+   const result =await data.json()
+   console.log(result);
+   if(result.success){
+    setapproveads(!approveAds)
+     //notification ❌ Your ${rejectpost.name} listing has been rejected. Please review our guidelines and try again.
+    //  socket.emit("sendnotification", { receiver:result?.user?._id, message: `❌ Your ${result?.rejectpost?.name} listing has been rejected. Please review our guidelines and try again.` });
+
+   }
+   else{
+    setapproveads(!approveads)
   
    }
   }
@@ -261,11 +307,13 @@ function Dashboard() {
                       <div className='bg-blue w-[90%] h-[100%] mt-10 ml-10 flex flex-wrap gap-10'>
                       {ads.map((post) => (
                         <div className='w-[20vw] h-[50vh] bg-gray-200 shadow-lg relative shadow-black-300 text-center  border-1 border-white font-mono'>
+                         {post.status == 'Approve' ? <FcApproval className='text-2xl absolute top-2 left-2' /> : ''}
+                         {post.status == 'Reject' ? <ImCross className='text-xl absolute top-2 left-2 text-red-600' /> : ''}
                           <img src={post?.Productid?.image[0]?.url} alt="" className='h-[30vh] w-[100%]' />
                           <div>{post?.Productid?._id}</div>
                           <div>{post?.Productid?.name}</div>
-                          <div className='flex w-[100%] gap-10 justify-center mt-3 text-white mb-1	'>
-                            <Link to={`/details/${post?.Productid?._id}`} className='bg-blue-500 w-[35%] text-lg rounded-[5px] font-mono'>SEE</Link>
+                          <div className=' w-[100%] gap-10 justify-center mt-3 text-white mb-1	'>
+                            <Link to={`/details/${post?.Productid?._id}`} className='border-b-2 border-black text-gray-600 hover:text-blue-600 w-[35%] text-lg font-mono'>SEE</Link>
               
                             {/* <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { setpostid(post?._id) }}>see</button> */}
                             {/* {postid == post?._id && <Postdetails postid={post?._id} setpostid={setpostid} />} */}
@@ -273,10 +321,11 @@ function Dashboard() {
                             {/* <button className='bg-red-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { Delpost(post?._id) }}>delete</button> */}
                           </div>
                           {/* approve-reject btn */}
-                          {/* <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
-                            <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveproduct(post?._id) }}>Approve</button>
-                            <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectproduct(post?._id) }}>Reject</button>
-                          </div> */}
+                          <div className='flex w-[100%] gap-10 justify-center mt-2 text-white mb-2	'>
+                            <button className='bg-green-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { approveads(post?._id) }}>Approve</button>
+                            <button className='bg-gray-500 w-[35%] text-lg rounded-[5px] font-mono' onClick={() => { rejectads(post?._id) }}>Reject</button>
+                          </div>
+                          
                         </div>
                       ))}
                     </div>
